@@ -1,8 +1,9 @@
 #pragma once
-#include<iostream>
-#include<time.h>
-#include<Windows.h>
-#include<vector>
+#include <iostream>
+#include <time.h>
+#include <Windows.h>
+#include <vector>
+#include "userStats.h"
 
 using namespace std;
 
@@ -33,6 +34,7 @@ private:
 	char _charName[32];
 	vector<tagCharactorStats> _role;
 	vector<tagCharactorStats>::iterator _vriter;
+	userStats us;
 public:
 	void setUp(int charactorSelect, char _charName[32]);
 	void output(int charNumber);

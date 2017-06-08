@@ -18,7 +18,9 @@ private:
 	int _intel;
 public:
 	void charactorStatus(int roleNum, char name[32], int hp, int mp, int pwr, int dex, int intel);
-	void testViewChar(void);
+	void userInfo(void);
+	void userInterface(void);
+	void attackInfo(int hitPoint);
 	userStats();
 	~userStats();
 };

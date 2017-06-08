@@ -3,15 +3,16 @@
 #include<time.h>
 #include<Windows.h>
 #include<vector>
+#include "userStats.h"
 
 using namespace std;
 
 enum DUNGEONLIST
 {
-	TEMP1 = 1,
-	TEMP2,
-	TEMP3,
-	TEMP4,
+	DUNGEON1 = 1,
+	DUNGEON2,
+	DUNGEON3,
+	DUNGEON4,
 	LISTEND
 };
 
@@ -36,6 +37,7 @@ private:
 public:
 	void enterDungeon(int dungeonNum, char dungeonName[32]);
 	void setMonster(void);
+	userStats us;
 	dungeonClass();
 	~dungeonClass();
 };

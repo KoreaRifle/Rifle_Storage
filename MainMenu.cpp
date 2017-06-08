@@ -1,8 +1,6 @@
 #include "MainMenu.h"
 #include "dungeonClass.h"
-#include "userStats.h"
-
-userStats us;
+//#include "userStats.h"
 
 MainMenu::MainMenu()
 {
@@ -63,6 +61,7 @@ void MainMenu::output(int charNumber)
 		cout << "힘 : " << _vriter->pwr << endl;
 		cout << "민첩 : " << _vriter->dex << endl;
 		cout << "지능 : " << _vriter->intel << endl;
+		us.charactorStatus(_vriter->roleCharactor, _vriter->name, _vriter->hp, _vriter->mp, _vriter->pwr, _vriter->dex, _vriter->intel);
 	}
 }
 
@@ -104,8 +103,6 @@ void MainMenu::setUp(int charactorSelect, char charName[32])
 		ELF1.intel = 10;
 		_role.push_back(ELF1);
 	}
-	// 이 부분
-	us.charactorStatus(_vriter->roleCharactor, _vriter->name, _vriter->hp, _vriter->mp, _vriter->pwr, _vriter->dex, _vriter->intel);
 }
 
 void MainMenu::startMenu()
@@ -129,8 +126,7 @@ void MainMenu::startMenu()
 			case 3:
 			break;
 			case 4:
-				//output(_charactorSelect);
-				us.testViewChar();
+				us.userInfo();
 			break;
 			default:
 				cout << "잘못된 번호를 입력하셨습니다. 다시 입력해주세요." << endl;

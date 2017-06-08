@@ -3,7 +3,6 @@
 
 userStats::userStats()
 {
-	
 }
 
 
@@ -25,13 +24,47 @@ void userStats::charactorStatus(int roleNum, char name[32], int hp, int mp, int 
 	_intel = intel;
 }
 
-void userStats::testViewChar(void)
+void userStats::userInfo(void)
 {
-	cout << "종족 : " << _roleName << endl;
+	while (true)
+	{
+		system("cls");
+		cout << "========== 캐릭터 정보 ==========" << endl;
+		cout << "종족 : " << _roleName << endl;
+		cout << "닉네임 : " << _name << endl;
+		cout << "생명력 : " << _hp << endl;
+		cout << "마나 : " << _mp << endl;
+		cout << "힘 : " << _pwr << endl;
+		cout << "민첩 : " << _dex << endl;
+		cout << "지능 : " << _intel << endl;
+		cout << "========== INFO MENU ==========" << endl;
+		cout << "1.되돌아가기" << endl;
+		int backButton;
+		cin >> backButton;
+		switch (backButton)
+		{
+			case 1:
+				cout << "이전 화면으로 되돌아갑니다." << endl;
+				Sleep(500);
+			break;
+			default:
+				cout << "잘못된 번호를 입력하셨습니다. 다시 입력해주세요." << endl;
+				Sleep(500);
+			continue;
+		}
+		break;
+	}
+}
+
+void userStats::userInterface(void)
+{
+	// 자꾸 쓰레기 값이 나온다... 이유를 모르겠다...
 	cout << "닉네임 : " << _name << endl;
-	cout << "HP : " << _hp << endl;
-	cout << "MP : " << _mp << endl;
-	cout << "PWR : " << _pwr << endl;
-	cout << "DEX : " << _dex << endl;
-	cout << "INTEL : " << _intel << endl;
+	cout << "생명력 : " << _hp << endl;
+	cout << "마나 : " << _mp << endl;
+}
+
+void userStats::attackInfo(int hitPoint)
+{
+
 }
