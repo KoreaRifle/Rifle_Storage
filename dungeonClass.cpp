@@ -1,6 +1,17 @@
 #include "dungeonClass.h"
 
+userStats us;
+
 dungeonClass::dungeonClass()
+{
+}
+
+
+dungeonClass::~dungeonClass()
+{
+}
+
+void dungeonClass::dungeonMain(void)
 {
 	srand(time(NULL));
 	setMonster();
@@ -11,35 +22,30 @@ dungeonClass::dungeonClass()
 		cout << "1.야남 거리 \t 2.버려진 구공방 \t 3.구 시가지 \t 4.금단의 숲" << endl;
 		cin >> dungeonSelect;
 
-		
+
 		switch (dungeonSelect)
 		{
-			case 1:
-				strncpy_s(_dungeonName, "야남 거리", 32);
-				enterDungeon(DUNGEON1, _dungeonName);
+		case 1:
+			strncpy_s(_dungeonName, "야남 거리", 32);
+			enterDungeon(DUNGEON1, _dungeonName);
 			break;
-			case 2:
-				strncpy_s(_dungeonName, "버려진 구공방", 32);
-				enterDungeon(DUNGEON2, _dungeonName);
+		case 2:
+			strncpy_s(_dungeonName, "버려진 구공방", 32);
+			enterDungeon(DUNGEON2, _dungeonName);
 			break;
-			case 3:
-				strncpy_s(_dungeonName, "구 시가지", 32);
-				enterDungeon(DUNGEON3, _dungeonName);
+		case 3:
+			strncpy_s(_dungeonName, "구 시가지", 32);
+			enterDungeon(DUNGEON3, _dungeonName);
 			break;
-			case 4:
-				strncpy_s(_dungeonName, "금단의 숲", 32);
-				enterDungeon(DUNGEON4, _dungeonName);
+		case 4:
+			strncpy_s(_dungeonName, "금단의 숲", 32);
+			enterDungeon(DUNGEON4, _dungeonName);
 			break;
-			default:
-				cout << "잘못된 번호를 입력하셨습니다. 다시 입력해주세요." << endl;
+		default:
+			cout << "잘못된 번호를 입력하셨습니다. 다시 입력해주세요." << endl;
 			continue;
 		}
 	}
-}
-
-
-dungeonClass::~dungeonClass()
-{
 }
 
 void dungeonClass::enterDungeon(int dungeonNum, char dungeonName[32])
@@ -58,7 +64,7 @@ void dungeonClass::enterDungeon(int dungeonNum, char dungeonName[32])
 			system("cls");
 			// 유저 인터페이스 출력
 			// userInterface 진입 후 쓰레기 값 출력됨...
-			us.userInterface();
+			userInterface();
 			cout << "몬스터가 등장하였습니다." << endl;
 			cout << "몬스터이름 : " << _vMonster->name << endl;
 			cout << "HP : " << _vMonster->hp << endl;
@@ -131,3 +137,25 @@ void dungeonClass::setMonster(void)
 	d2_monster4.money = 300;
 	_monster.push_back(d2_monster4);
 }
+
+void dungeonClass::charactorStatus(int roleNum, char name[32], int hp, int mp, int pwr, int dex, int intel)
+{
+	_roleNum = roleNum;
+	if (_roleNum == 1) strncpy(_roleName, "전사", 32);
+	else if (_roleNum == 2) strncpy(_roleName, "마법사", 32);
+	else if (_roleNum == 3) strncpy(_roleName, "엘프", 32);
+	strncpy(_name, name, 32);
+	_hp = hp;
+	_mp = mp;
+	_pwr = pwr;
+	_dex = dex;
+	_intel = intel;
+}
+
+void dungeonClass::userInterface(void)
+{
+	cout << "닉네임 : " << _name << endl;
+	cout << "생명력 : " << _hp << endl;
+	cout << "마나 : " << _mp << endl;
+}
+

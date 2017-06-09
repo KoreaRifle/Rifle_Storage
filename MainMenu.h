@@ -4,6 +4,7 @@
 #include <Windows.h>
 #include <vector>
 #include "userStats.h"
+#include "dungeonClass.h"
 
 using namespace std;
 
@@ -35,6 +36,7 @@ private:
 	vector<tagCharactorStats> _role;
 	vector<tagCharactorStats>::iterator _vriter;
 	userStats us;
+	dungeonClass dg;
 public:
 	void setUp(int charactorSelect, char _charName[32]);
 	void output(int charNumber);

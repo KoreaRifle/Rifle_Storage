@@ -1,6 +1,5 @@
 #include "MainMenu.h"
 #include "dungeonClass.h"
-//#include "userStats.h"
 
 MainMenu::MainMenu()
 {
@@ -62,6 +61,7 @@ void MainMenu::output(int charNumber)
 		cout << "¹ÎÃ¸ : " << _vriter->dex << endl;
 		cout << "Áö´É : " << _vriter->intel << endl;
 		us.charactorStatus(_vriter->roleCharactor, _vriter->name, _vriter->hp, _vriter->mp, _vriter->pwr, _vriter->dex, _vriter->intel);
+		dg.charactorStatus(_vriter->roleCharactor, _vriter->name, _vriter->hp, _vriter->mp, _vriter->pwr, _vriter->dex, _vriter->intel);
 	}
 }
 
@@ -138,4 +138,5 @@ void MainMenu::startMenu()
 void MainMenu::dungeonSelect(void)
 {
 	dungeonClass dg;
+	dg.dungeonMain();
 }

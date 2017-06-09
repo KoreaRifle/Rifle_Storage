@@ -34,11 +34,20 @@ private:
 	vector<tagMONSTERSTATS> _monster;
 	vector<tagMONSTERSTATS>::iterator _vMonster;
 	char _dungeonName[32];
+	char _name[32];
+	int _roleNum;
+	char _roleName[32];
+	int _hp;
+	int _mp;
+	int _pwr;
+	int _dex;
+	int _intel;
 public:
+	void dungeonMain(void);
 	void enterDungeon(int dungeonNum, char dungeonName[32]);
 	void setMonster(void);
-	userStats us;
+	void charactorStatus(int roleNum, char name[32], int hp, int mp, int pwr, int dex, int intel);
+	void userInterface(void);
 	dungeonClass();
 	~dungeonClass();
 };
-

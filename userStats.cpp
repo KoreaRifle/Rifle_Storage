@@ -1,6 +1,8 @@
 #include "userStats.h"
 #include "MainMenu.h"
 
+dungeonClass dg;
+
 userStats::userStats()
 {
 }
