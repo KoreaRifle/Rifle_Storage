@@ -55,13 +55,13 @@ void MainMenu::output(int charNumber)
 		if (_vriter->roleCharactor != charNumber) continue;
 
 		cout << "ÀÌ¸§ : " << _vriter->name << endl;
-		cout << "HP : " << _vriter->hp << endl;
-		cout << "MP : " << _vriter->mp << endl;
+		cout << "HP : " << _vriter->max_hp << endl;
+		cout << "MP : " << _vriter->max_mp << endl;
 		cout << "Èû : " << _vriter->pwr << endl;
 		cout << "¹ÎÃ¸ : " << _vriter->dex << endl;
 		cout << "Áö´É : " << _vriter->intel << endl;
-		us.charactorStatus(_vriter->roleCharactor, _vriter->name, _vriter->hp, _vriter->mp, _vriter->pwr, _vriter->dex, _vriter->intel);
-		dg.charactorStatus(_vriter->roleCharactor, _vriter->name, _vriter->hp, _vriter->mp, _vriter->pwr, _vriter->dex, _vriter->intel);
+		us.charactorStatus(_vriter->roleCharactor, _vriter->name, _vriter->max_hp, _vriter->hp, _vriter->max_mp, _vriter->mp, _vriter->pwr, _vriter->dex, _vriter->intel);
+		dg.charactorStatus(_vriter->roleCharactor, _vriter->name, _vriter->max_hp, _vriter->hp, _vriter->max_mp, _vriter->mp, _vriter->pwr, _vriter->dex, _vriter->intel);
 	}
 }
 
@@ -72,7 +72,9 @@ void MainMenu::setUp(int charactorSelect, char charName[32])
 		tagCharactorStats WARRIOR1;
 		WARRIOR1.roleCharactor = WARRIOR;
 		strncpy_s(WARRIOR1.name, 32, charName, 32);
+		WARRIOR1.max_hp = 200;
 		WARRIOR1.hp = 200;
+		WARRIOR1.max_mp = 50;
 		WARRIOR1.mp = 50;
 		WARRIOR1.pwr = 10;
 		WARRIOR1.dex = 5;
@@ -84,7 +86,9 @@ void MainMenu::setUp(int charactorSelect, char charName[32])
 		tagCharactorStats WIZARD1;
 		WIZARD1.roleCharactor = WIZARD;
 		strncpy_s(WIZARD1.name, 32, charName, 32);
+		WIZARD1.max_hp = 80;
 		WIZARD1.hp = 80;
+		WIZARD1.max_mp = 200;
 		WIZARD1.mp = 200;
 		WIZARD1.pwr = 2;
 		WIZARD1.dex = 4;
@@ -96,8 +100,10 @@ void MainMenu::setUp(int charactorSelect, char charName[32])
 		tagCharactorStats ELF1;
 		ELF1.roleCharactor = ELF;
 		strncpy_s(ELF1.name, 32, charName, 32);
-		ELF1.hp = 80;
-		ELF1.mp = 200;
+		ELF1.max_hp = 100;
+		ELF1.hp = 100;
+		ELF1.max_mp = 150;
+		ELF1.mp = 150;
 		ELF1.pwr = 2;
 		ELF1.dex = 4;
 		ELF1.intel = 10;
@@ -137,6 +143,5 @@ void MainMenu::startMenu()
 
 void MainMenu::dungeonSelect(void)
 {
-	dungeonClass dg;
 	dg.dungeonMain();
 }

@@ -59,34 +59,34 @@ void dungeonClass::enterDungeon(int dungeonNum, char dungeonName[32])
 		if (callMonsterNum != _vMonster->callNum) continue;
 
 		// 인터페이스 작용
-		while (_vMonster->hp > 0)
+		while (_vMonster->hp > 0 || _hp > 0) // 몬스터의 피가 0이상이거나 플레이어의 캐릭터의 피가 0 이상일때 반복
 		{
 			system("cls");
-			// 유저 인터페이스 출력
-			// userInterface 진입 후 쓰레기 값 출력됨...
 			userInterface();
+			cout << endl;
 			cout << "몬스터가 등장하였습니다." << endl;
 			cout << "몬스터이름 : " << _vMonster->name << endl;
 			cout << "HP : " << _vMonster->hp << endl;
 
 			int interfaceSelect;
+			cout << "플레이어의 턴입니다." << endl;
 			cout << "1.공격하기 \t 2.가방 \t 3.도망치기" << endl;
 			cin >> interfaceSelect;
 
 			switch (interfaceSelect)
 			{
-			case 1:
-				cout << "[임시]플레이어가 공격하여 " << _vMonster->name << "의 HP가 30 감소하였습니다." << endl;
-				
+				case 1:
+					attackPoint(); // 유저 턴의 공격 데미지 확인
 				break;
-			case 2:
+				case 2:
+					break;
+				case 3:
 				break;
-			case 3:
-				break;
-			default:
-				cout << "잘못된 번호를 입력하셨습니다. 다시 입력해주세요." << endl;
+				default:
+					cout << "잘못된 번호를 입력하셨습니다. 다시 입력해주세요." << endl;
 				continue;
 			}
+			monsterAttack(); // 몬스터 턴의 공격 데미지 확인
 		}
 	}
 }
@@ -138,24 +138,40 @@ void dungeonClass::setMonster(void)
 	_monster.push_back(d2_monster4);
 }
 
-void dungeonClass::charactorStatus(int roleNum, char name[32], int hp, int mp, int pwr, int dex, int intel)
+void dungeonClass::charactorStatus(int roleNum, char name[32], int max_hp, int hp, int max_mp, int mp, int pwr, int dex, int intel)
 {
 	_roleNum = roleNum;
 	if (_roleNum == 1) strncpy(_roleName, "전사", 32);
 	else if (_roleNum == 2) strncpy(_roleName, "마법사", 32);
 	else if (_roleNum == 3) strncpy(_roleName, "엘프", 32);
 	strncpy(_name, name, 32);
+	_max_hp = max_hp;
 	_hp = hp;
+	_max_mp = max_mp;
 	_mp = mp;
 	_pwr = pwr;
 	_dex = dex;
 	_intel = intel;
 }
 
+void dungeonClass::attackPoint(void)
+{
+	int userAttackPoint = rand() % 20 + _pwr;
+	_vMonster->hp = _vMonster->hp - userAttackPoint;
+}
+
+void dungeonClass::monsterAttack(void)
+{
+	int monsterAttackPoint = rand() % 20 + _pwr;
+	cout << "몬스터 턴입니다." << endl;
+	_hp = _hp - monsterAttackPoint;
+	cout << "몬스터가 " << monsterAttackPoint << "만큼 데미지를 입혔습니다." << endl;
+}
+
 void dungeonClass::userInterface(void)
 {
-	cout << "닉네임 : " << _name << endl;
-	cout << "생명력 : " << _hp << endl;
-	cout << "마나 : " << _mp << endl;
+	cout << "========== " << _name << " ==========" << endl;
+	cout << "생명력 : " << _hp << " / " << _max_hp << endl;
+	cout << "마나 : " << _mp << " / " << _max_mp << endl;
 }
 

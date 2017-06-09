@@ -11,16 +11,17 @@ private:
 	char _name[32];
 	int _roleNum;
 	char _roleName[32];
+	int _max_hp;
 	int _hp;
+	int _max_mp;
 	int _mp;
 	int _pwr;
 	int _dex;
 	int _intel;
 public:
-	void charactorStatus(int roleNum, char name[32], int hp, int mp, int pwr, int dex, int intel);
+	void charactorStatus(int roleNum, char name[32], int max_hp, int hp, int max_mp, int mp, int pwr, int dex, int intel);
 	void userInfo(void);
 	void userInterface(void);
-	void attackInfo(int hitPoint);
 	userStats();
 	~userStats();
 };

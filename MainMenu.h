@@ -20,7 +20,9 @@ struct tagCharactorStats
 {
 	ROLE roleCharactor; // 캐릭터직업
 	char name[32];
+	int max_hp;
 	int hp;
+	int max_mp;
 	int mp;
 	int pwr;
 	int dex;
