@@ -12,7 +12,7 @@ userStats::~userStats()
 {
 }
 
-void userStats::charactorStatus(int roleNum, char name[32], int max_hp, int hp, int max_mp, int mp, int pwr, int dex, int intel)
+void userStats::charactorStatus(int roleNum, char name[32], int max_hp, int hp, int max_mp, int mp, int pwr, int dex, int intel, int totalExp)
 {
 	_roleNum = roleNum;
 	if (_roleNum == 1) strncpy_s(_roleName, "전사", 32);
@@ -26,6 +26,7 @@ void userStats::charactorStatus(int roleNum, char name[32], int max_hp, int hp, 
 	_pwr = pwr;
 	_dex = dex;
 	_intel = intel;
+	_totalExp = totalExp;
 }
 
 void userStats::userInfo(void)
@@ -36,6 +37,7 @@ void userStats::userInfo(void)
 		cout << "========== 캐릭터 정보 ==========" << endl;
 		cout << "종족 : " << _roleName << endl;
 		cout << "닉네임 : " << _name << endl;
+		cout << "레벨 : " << _level << endl;
 		cout << "생명력 : " << _hp << " / " << _max_hp << endl;
 		cout << "마나 : " << _mp << " / " << _max_mp << endl;
 		cout << "힘 : " << _pwr << endl;
@@ -60,10 +62,16 @@ void userStats::userInfo(void)
 	}
 }
 
-void userStats::userInterface(void)
+void userStats::levelUp(int exp)
 {
-	// 자꾸 쓰레기 값이 나온다... 이유를 모르겠다...
-	cout << "닉네임 : " << _name << endl;
-	cout << "생명력 : " << _hp << endl;
-	cout << "마나 : " << _mp << endl;
+	if (_exp + exp >= _totalExp)
+	{
+		_level++;
+		_exp = _exp - _totalExp;
+		_totalExp = _totalExp * 2;
+	}
+	else
+	{
+		_exp = _exp + exp;
+	}
 }

@@ -27,6 +27,7 @@ struct tagCharactorStats
 	int pwr;
 	int dex;
 	int intel;
+	int totalExp = 100;
 };
 
 
@@ -40,6 +41,7 @@ private:
 	userStats us;
 	dungeonClass dg;
 public:
+	void mainStart(void);
 	void setUp(int charactorSelect, char _charName[32]);
 	void output(int charNumber);
 	void startMenu(void);

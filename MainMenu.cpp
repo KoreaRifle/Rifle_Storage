@@ -1,9 +1,16 @@
 #include "MainMenu.h"
-#include "dungeonClass.h"
 
 MainMenu::MainMenu()
 {
-	
+}
+
+
+MainMenu::~MainMenu()
+{
+}
+
+void MainMenu::mainStart()
+{
 	while (true)
 	{
 		cout << "========== 캐릭터 선택 ==========" << endl;
@@ -13,55 +20,50 @@ MainMenu::MainMenu()
 
 		switch (_charactorSelect)
 		{
-			case 1:
-				cout << "캐릭터 닉네임을 입력하세요(최대 14자)" << endl;
-				cin >> _charName;
-				setUp(WARRIOR, _charName);
+		case 1:
+			cout << "캐릭터 닉네임을 입력하세요(최대 14자)" << endl;
+			cin >> _charName;
+			setUp(WARRIOR, _charName);
 			break;
-			case 2:
-				cout << "캐릭터 닉네임을 입력하세요(최대 14자)" << endl;
-				cin >> _charName;
-				setUp(WIZARD, _charName);
+		case 2:
+			cout << "캐릭터 닉네임을 입력하세요(최대 14자)" << endl;
+			cin >> _charName;
+			setUp(WIZARD, _charName);
 			break;
-			case 3:
-				cout << "캐릭터 닉네임을 입력하세요(최대 14자)" << endl;
-				cin >> _charName;
-				setUp(ELF, _charName);
+		case 3:
+			cout << "캐릭터 닉네임을 입력하세요(최대 14자)" << endl;
+			cin >> _charName;
+			setUp(ELF, _charName);
 			break;
-			default:
-				cout << "잘못된 번호를 입력했습니다. 다시 입력해주세요." << endl;
-				system("cls");
+		default:
+			cout << "잘못된 번호를 입력했습니다. 다시 입력해주세요." << endl;
+			system("cls");
 			continue;
 		}
 		break;
 	}
-	
+
 	system("cls");
 	output(_charactorSelect);
 
 	startMenu();
 }
 
-
-MainMenu::~MainMenu()
-{
-}
-
 void MainMenu::output(int charNumber)
 {
-	int trashButton;
 	for (_vriter = _role.begin(); _vriter != _role.end(); ++_vriter)
 	{
 		if (_vriter->roleCharactor != charNumber) continue;
 
 		cout << "이름 : " << _vriter->name << endl;
+		cout << "총경험치 :	" << _vriter->totalExp << endl;
 		cout << "HP : " << _vriter->max_hp << endl;
 		cout << "MP : " << _vriter->max_mp << endl;
 		cout << "힘 : " << _vriter->pwr << endl;
 		cout << "민첩 : " << _vriter->dex << endl;
 		cout << "지능 : " << _vriter->intel << endl;
-		us.charactorStatus(_vriter->roleCharactor, _vriter->name, _vriter->max_hp, _vriter->hp, _vriter->max_mp, _vriter->mp, _vriter->pwr, _vriter->dex, _vriter->intel);
-		dg.charactorStatus(_vriter->roleCharactor, _vriter->name, _vriter->max_hp, _vriter->hp, _vriter->max_mp, _vriter->mp, _vriter->pwr, _vriter->dex, _vriter->intel);
+		us.charactorStatus(_vriter->roleCharactor, _vriter->name, _vriter->max_hp, _vriter->hp, _vriter->max_mp, _vriter->mp, _vriter->pwr, _vriter->dex, _vriter->intel, _vriter->totalExp);
+		dg.charactorStatus(_vriter->roleCharactor, _vriter->name, _vriter->max_hp, _vriter->hp, _vriter->max_mp, _vriter->mp, _vriter->pwr, _vriter->dex, _vriter->intel, _vriter->totalExp);
 	}
 }
 

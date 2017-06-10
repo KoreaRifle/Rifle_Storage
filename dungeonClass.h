@@ -3,6 +3,7 @@
 #include<time.h>
 #include<Windows.h>
 #include<vector>
+#include "MainMenu.h"
 #include "userStats.h"
 
 using namespace std;
@@ -44,11 +45,13 @@ private:
 	int _pwr;
 	int _dex;
 	int _intel;
+	int _exp;
+	int _totalExp;
 public:
 	void dungeonMain(void);
 	void enterDungeon(int dungeonNum, char dungeonName[32]);
 	void setMonster(void);
-	void charactorStatus(int roleNum, char name[32], int max_hp, int hp, int max_mp, int mp, int pwr, int dex, int intel);
+	void charactorStatus(int roleNum, char name[32], int max_hp, int hp, int max_mp, int mp, int pwr, int dex, int intel, int totalExp);
 	void monsterAttack(void);
 	void userInterface(void);
 	void attackPoint(void);
