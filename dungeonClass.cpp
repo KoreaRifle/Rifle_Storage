@@ -1,8 +1,5 @@
 #include "dungeonClass.h"
 
-MainMenu mm;
-userStats us;
-
 dungeonClass::dungeonClass()
 {
 	srand(time(NULL));

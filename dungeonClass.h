@@ -34,6 +34,8 @@ class dungeonClass
 private:
 	vector<tagMONSTERSTATS> _monster;
 	vector<tagMONSTERSTATS>::iterator _vMonster;
+	MainMenu mm;
+	userStats us;
 	char _dungeonName[32];
 	char _name[32];
 	int _roleNum;

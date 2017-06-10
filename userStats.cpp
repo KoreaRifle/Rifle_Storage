@@ -1,7 +1,4 @@
 #include "userStats.h"
-#include "MainMenu.h"
-
-dungeonClass dg;
 
 userStats::userStats()
 {
@@ -18,7 +15,7 @@ void userStats::charactorStatus(int roleNum, char name[32], int max_hp, int hp, 
 	if (_roleNum == 1) strncpy_s(_roleName, "전사", 32);
 	else if (_roleNum == 2) strncpy_s(_roleName, "마법사", 32);
 	else if (_roleNum == 3) strncpy_s(_roleName, "엘프", 32);
-	strncpy(_name, name, 32);
+	strncpy_s(_name, name, 32);
 	_max_hp = max_hp;
 	_hp = hp;
 	_max_mp = max_mp;

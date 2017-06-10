@@ -40,6 +40,7 @@ private:
 	vector<tagCharactorStats>::iterator _vriter;
 	userStats us;
 	dungeonClass dg;
+	
 public:
 	void mainStart(void);
 	void setUp(int charactorSelect, char _charName[32]);
