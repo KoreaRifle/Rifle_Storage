@@ -49,6 +49,7 @@ void MainMenu::mainStart()
 	startMenu();
 }
 
+// 최초 캐릭터 생성 시 기본 스탯 정의
 void MainMenu::output(int charNumber)
 {
 	for (_vriter = _role.begin(); _vriter != _role.end(); ++_vriter)
@@ -56,7 +57,8 @@ void MainMenu::output(int charNumber)
 		if (_vriter->roleCharactor != charNumber) continue;
 		
 		_vriter->exp = 0;
-		_vriter->totalExp = 100;
+		_vriter->totalExp = 50;
+		_vriter->money = 100;
 
 		cout << "이름 : " << _vriter->name << endl;
 		cout << "총경험치 : " << _vriter->totalExp << endl;
@@ -65,15 +67,14 @@ void MainMenu::output(int charNumber)
 		cout << "힘 : " << _vriter->pwr << endl;
 		cout << "민첩 : " << _vriter->dex << endl;
 		cout << "지능 : " << _vriter->intel << endl;
-		us.charactorStatus(_vriter->roleCharactor, _vriter->name, _vriter->level, _vriter->max_hp, _vriter->hp, _vriter->max_mp, _vriter->mp, _vriter->pwr, _vriter->dex, _vriter->intel, _vriter->exp, _vriter->totalExp);
-		dg.charactorStatus(_vriter->roleCharactor, _vriter->name, _vriter->level, _vriter->max_hp, _vriter->hp, _vriter->max_mp, _vriter->mp, _vriter->pwr, _vriter->dex, _vriter->intel, _vriter->exp, _vriter->totalExp);
+		cout << "보유금액 : " << _vriter->money << " G" << endl;
+		us.charactorStatus(_vriter->roleCharactor, _vriter->name, _vriter->level, _vriter->max_hp, _vriter->hp, _vriter->max_mp, _vriter->mp, _vriter->pwr, _vriter->dex, _vriter->intel, _vriter->exp, _vriter->totalExp, _vriter->money);
+		dg.charactorStatus(_vriter->roleCharactor, _vriter->name, _vriter->level, _vriter->max_hp, _vriter->hp, _vriter->max_mp, _vriter->mp, _vriter->pwr, _vriter->dex, _vriter->intel, _vriter->exp, _vriter->totalExp, _vriter->money);
 	}
 }
 
-void MainMenu::charactorStatus(int viewPoint, int roleNum, char name[32], int level, int max_hp, int hp, int max_mp, int mp, int pwr, int dex, int intel, int exp, int totalExp)
+void MainMenu::charactorStatus(int viewPoint, int roleNum, char name[32], int level, int max_hp, int hp, int max_mp, int mp, int pwr, int dex, int intel, int exp, int totalExp, int money)
 {
-	// 이 함수를 계속 호출하면 호출한만큼 _role 의 저장갯수가 증가하여 반복증가되어 출력됨...
-	// 한번만 출력되도록 바꿔야 함
 	tagCharactorStats USER;
 	USER.roleCharactor = ROLE(roleNum);
 	strncpy_s(USER.name, name, 32);
@@ -87,11 +88,14 @@ void MainMenu::charactorStatus(int viewPoint, int roleNum, char name[32], int le
 	USER.intel = intel;
 	USER.exp = exp;
 	USER.totalExp = totalExp;
+	USER.money = money;
 	_role.push_back(USER);
 	for (_vriter = _role.begin(); _vriter != _role.end(); ++_vriter)
 	{
 		if (_vriter->roleCharactor != roleNum) continue;
 
+		// 캐릭터 정보 출력이 필요할 경우 viewPoint를 0 으로,
+		// 단순히 정보만 넘길 경우 viewPoint를 1로
 		if (viewPoint == 0)
 		{
 			cout << "이름 : " << _vriter->name << endl;
@@ -101,13 +105,13 @@ void MainMenu::charactorStatus(int viewPoint, int roleNum, char name[32], int le
 			cout << "힘 : " << _vriter->pwr << endl;
 			cout << "민첩 : " << _vriter->dex << endl;
 			cout << "지능 : " << _vriter->intel << endl;
-			us.charactorStatus(_vriter->roleCharactor, _vriter->name, _vriter->level, _vriter->max_hp, _vriter->hp, _vriter->max_mp, _vriter->mp, _vriter->pwr, _vriter->dex, _vriter->intel, _vriter->exp, _vriter->totalExp);
-			dg.charactorStatus(_vriter->roleCharactor, _vriter->name, _vriter->level, _vriter->max_hp, _vriter->hp, _vriter->max_mp, _vriter->mp, _vriter->pwr, _vriter->dex, _vriter->intel, _vriter->exp, _vriter->totalExp);
+			us.charactorStatus(_vriter->roleCharactor, _vriter->name, _vriter->level, _vriter->max_hp, _vriter->hp, _vriter->max_mp, _vriter->mp, _vriter->pwr, _vriter->dex, _vriter->intel, _vriter->exp, _vriter->totalExp, _vriter->money);
+			dg.charactorStatus(_vriter->roleCharactor, _vriter->name, _vriter->level, _vriter->max_hp, _vriter->hp, _vriter->max_mp, _vriter->mp, _vriter->pwr, _vriter->dex, _vriter->intel, _vriter->exp, _vriter->totalExp, _vriter->money);
 		}
 		else if (viewPoint == 1)
 		{
-			us.charactorStatus(_vriter->roleCharactor, _vriter->name, _vriter->level, _vriter->max_hp, _vriter->hp, _vriter->max_mp, _vriter->mp, _vriter->pwr, _vriter->dex, _vriter->intel, _vriter->exp, _vriter->totalExp);
-			dg.charactorStatus(_vriter->roleCharactor, _vriter->name, _vriter->level, _vriter->max_hp, _vriter->hp, _vriter->max_mp, _vriter->mp, _vriter->pwr, _vriter->dex, _vriter->intel, _vriter->exp, _vriter->totalExp);
+			us.charactorStatus(_vriter->roleCharactor, _vriter->name, _vriter->level, _vriter->max_hp, _vriter->hp, _vriter->max_mp, _vriter->mp, _vriter->pwr, _vriter->dex, _vriter->intel, _vriter->exp, _vriter->totalExp, _vriter->money);
+			dg.charactorStatus(_vriter->roleCharactor, _vriter->name, _vriter->level, _vriter->max_hp, _vriter->hp, _vriter->max_mp, _vriter->mp, _vriter->pwr, _vriter->dex, _vriter->intel, _vriter->exp, _vriter->totalExp, _vriter->money);
 		}
 	}
 	Sleep(500);
@@ -170,7 +174,7 @@ void MainMenu::startMenu()
 		system("cls");
 		int inGameMenuSelect;
 		cout << "========== IN GAME MENU ==========" << endl;
-		cout << "1.던전\t 2.상점\t 3.주점\t 4.캐릭정보" << endl;
+		cout << "1.던전\t 2.상점\t 3.여관\t 4.캐릭정보" << endl;
 		cout << "메뉴를 선택하세요." << endl;
 		cin >> inGameMenuSelect;
 		switch (inGameMenuSelect)
@@ -181,6 +185,7 @@ void MainMenu::startMenu()
 			case 2:
 			break;
 			case 3:
+				inn.innMenu();
 			break;
 			case 4:
 				us.userInfo();

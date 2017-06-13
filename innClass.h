@@ -2,14 +2,15 @@
 #include <iostream>
 #include <time.h>
 #include <Windows.h>
+#include "MainMenu.h"
 
 using namespace std;
 
-class userStats
+class innClass
 {
 private:
-	int _level;
 	char _name[32];
+	int _level;
 	int _roleNum;
 	char _roleName[32];
 	int _max_hp;
@@ -23,11 +24,9 @@ private:
 	int _totalExp;
 	int _money;
 public:
+	void innMenu(void);
 	void charactorStatus(int roleNum, char name[32], int level, int max_hp, int hp, int max_mp, int mp, int pwr, int dex, int intel, int exp, int totalExp, int money);
-	void userInfo(void);
-	void userInfo_pageNum(int pageNum, int totalPageNum);
-	void levelUp(int exp);
-	userStats();
-	~userStats();
+	innClass();
+	~innClass();
 };
 

@@ -49,11 +49,12 @@ private:
 	int _intel;
 	int _exp;
 	int _totalExp;
+	int _money;
 public:
 	void dungeonMain(void);
 	void enterDungeon(int dungeonNum, char dungeonName[32]);
 	void setMonster(void);
-	void charactorStatus(int roleNum, char name[32], int level, int max_hp, int hp, int max_mp, int mp, int pwr, int dex, int intel, int exp, int totalExp);
+	void charactorStatus(int roleNum, char name[32], int level, int max_hp, int hp, int max_mp, int mp, int pwr, int dex, int intel, int exp, int totalExp, int money);
 	void levelUp(void);
 	void monsterAttack(void);
 	void userInterface(void);

@@ -1,4 +1,5 @@
 #include "userStats.h"
+#include "MainMenu.h"
 
 dungeonClass dg;
 
@@ -11,7 +12,7 @@ userStats::~userStats()
 {
 }
 
-void userStats::charactorStatus(int roleNum, char name[32], int level, int max_hp, int hp, int max_mp, int mp, int pwr, int dex, int intel, int exp, int totalExp)
+void userStats::charactorStatus(int roleNum, char name[32], int level, int max_hp, int hp, int max_mp, int mp, int pwr, int dex, int intel, int exp, int totalExp, int money)
 {
 	_roleNum = roleNum;
 	if (_roleNum == 1) strncpy_s(_roleName, "전사", 32);
@@ -28,14 +29,98 @@ void userStats::charactorStatus(int roleNum, char name[32], int level, int max_h
 	_intel = intel;
 	_exp = exp;
 	_totalExp = totalExp;
+	_money = money;
 }
 
 void userStats::userInfo(void)
 {
-	while (true)
+	int pageNum = 1;
+	int totalPageNum = 3;
+	bool backNum = 1;
+	while (backNum == 1)
 	{
 		system("cls");
-		cout << "========== 캐릭터 정보 ==========" << endl;
+		userInfo_pageNum(pageNum, totalPageNum);
+
+		cout << "========== INFO MENU ==========" << endl;
+		int backButton;
+		if (pageNum == 1)
+		{
+			cout << "1.다음 페이지\t 2.되돌아가기" << endl;
+			cin >> backButton;
+			switch (backButton)
+			{
+				case 1:
+					system("cls");
+					pageNum++;
+				break;
+				case 2:
+					cout << "이전 화면으로 되돌아갑니다." << endl;
+					backNum = 0;
+					Sleep(500);
+				break;
+				default:
+					cout << "잘못된 번호를 입력하셨습니다. 다시 입력해주세요." << endl;
+					Sleep(500);
+				continue;
+			}
+		}
+
+		else if (pageNum > 1 && pageNum != totalPageNum)
+		{
+			cout << "1.다음 페이지\t 2.이전 페이지\t 3.되돌아가기" << endl;
+			cin >> backButton;
+			switch (backButton)
+			{
+				case 1:
+					system("cls");
+					pageNum++;
+				break;
+				case 2:
+					cout << "이전 페이지로 돌아갑니다." << endl;
+					pageNum--;
+				break;
+				case 3:
+					cout << "이전 화면으로 되돌아갑니다." << endl;
+					backNum = 0;
+					Sleep(500);
+				break;
+				default:
+					cout << "잘못된 번호를 입력하셨습니다. 다시 입력해주세요." << endl;
+					Sleep(500);
+				continue;
+			}
+		}
+
+		else if (pageNum > 1 && pageNum == totalPageNum)
+		{
+			cout << "1.이전 페이지\t 2.되돌아가기" << endl;
+			cin >> backButton;
+			switch (backButton)
+			{
+				case 1:
+					cout << "이전 페이지로 돌아갑니다." << endl;
+					pageNum--;
+				break;
+				case 2:
+					cout << "이전 화면으로 되돌아갑니다." << endl;
+					backNum = 0;
+					Sleep(500);
+				break;
+				default:
+					cout << "잘못된 번호를 입력하셨습니다. 다시 입력해주세요." << endl;
+					Sleep(500);
+				continue;
+			}
+		}
+	}
+}
+
+void userStats::userInfo_pageNum(int pageNum, int totalPageNum)
+{
+	if (pageNum == 1)
+	{
+		cout << "========== 캐릭터 정보 (" << pageNum << " / " << totalPageNum << ") ==========" << endl;
 		cout << "직업 : " << _roleName << endl;
 		cout << "닉네임 : " << _name << endl;
 		cout << "레벨 : " << _level << endl;
@@ -45,22 +130,16 @@ void userStats::userInfo(void)
 		cout << "힘 : " << _pwr << endl;
 		cout << "민첩 : " << _dex << endl;
 		cout << "지능 : " << _intel << endl;
-		cout << "========== INFO MENU ==========" << endl;
-		cout << "1.되돌아가기" << endl;
-		int backButton;
-		cin >> backButton;
-		switch (backButton)
-		{
-			case 1:
-				cout << "이전 화면으로 되돌아갑니다." << endl;
-				Sleep(500);
-			break;
-			default:
-				cout << "잘못된 번호를 입력하셨습니다. 다시 입력해주세요." << endl;
-				Sleep(500);
-			continue;
-		}
-		break;
+	}
+	else if (pageNum == 2)
+	{
+		cout << "========== 캐릭터 정보 (" << pageNum << " / " << totalPageNum << ") ==========" << endl;
+		cout << "소지금액 : " << _money << " G" << endl;
+	}
+	else if (pageNum == 3)
+	{
+		cout << "========== 캐릭터 정보 (" << pageNum << " / " << totalPageNum << ") ==========" << endl;
+		cout << "미구현 상태 -> 착용장비 및 세트정보 출력예정" << endl;
 	}
 }
 
