@@ -20,15 +20,21 @@ enum ROLE
 struct tagCharactorStats
 {
 	ROLE roleCharactor; // 캐릭터직업
-	char name[32];
+	char name[32]; // 32자 이상 입력하면 뻑남... 해결방안 필요
 	int level;
 	int max_hp;
+	int add_max_hp;
 	int hp;
 	int max_mp;
+	int add_max_mp;
 	int mp;
 	int pwr;
+	int add_pwr;
+	int mindmg;
 	int dex;
+	int add_dex;
 	int intel;
+	int add_intel;
 	int exp;
 	int totalExp;
 	int money;
@@ -48,9 +54,10 @@ public:
 	void mainStart(void);
 	void setUp(int charactorSelect, char _charName[32]);
 	void output(int charNumber);
-	void charactorStatus(int viewPoint, int roleNum, char name[32], int level, int max_hp, int hp, int max_mp, int mp, int pwr, int dex, int intel, int exp, int totalExp, int money);
+	void charactorStatus(int viewPoint, int roleNum, char name[32], int level, int max_hp, int add_max_hp, int hp, int max_mp, int add_max_mp, int mp, int pwr, int add_pwr, int mindmg, int dex, int add_dex, int intel, int add_intel, int exp, int totalExp, int money);
 	void startMenu(void);
 	void dungeonSelect(void);
+	void init(void);
 	MainMenu();
 	~MainMenu();
 };

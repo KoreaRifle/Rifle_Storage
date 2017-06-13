@@ -1,8 +1,8 @@
 #include "dungeonClass.h"
 #include "MainMenu.h"
 
-MainMenu mm;
-userStats us;
+MainMenu dungeon_mm;
+userStats dungeon_us;
 
 dungeonClass::dungeonClass()
 {
@@ -16,9 +16,12 @@ dungeonClass::~dungeonClass()
 
 void dungeonClass::dungeonMain(void)
 {
+	system("cls");
 	setMonster();
 	while (true)
 	{
+		userInterface();
+		cout << endl;
 		int dungeonSelect;
 		cout << "어느 던전을 탐험하시겠습니까?" << endl;
 		cout << "1.야남 거리 \t 2.버려진 구공방 \t 3.구 시가지 \t 4.금단의 숲 \t 5.되돌아가기" << endl;
@@ -56,14 +59,14 @@ void dungeonClass::dungeonMain(void)
 				else cout << "입장 레벨 제한 : 최소 레벨 4 이상" << endl;
 			break;
 			case 5:
-				mm.charactorStatus(1, _roleNum, _name, _level, _max_hp, _hp, _max_mp, _mp, _pwr, _dex, _intel, _exp, _totalExp, _money);
-				mm.startMenu();
+				dungeon_mm.charactorStatus(1, _roleNum, _name, _level, _max_hp, _add_max_hp, _hp, _max_mp, _add_max_mp, _mp, _pwr, _add_pwr, _mindmg, _dex, _add_dex, _intel, _add_intel, _exp, _totalExp, _money);
+				dungeon_mm.startMenu();
 			break;
 			default:
-			cout << "잘못된 번호를 입력하셨습니다. 다시 입력해주세요." << endl;
+				cout << "잘못된 번호를 입력하셨습니다. 다시 입력해주세요." << endl;
 			continue;
 		}
-		Sleep(100);
+		Sleep(500);
 		system("cls");
 	}
 }
@@ -72,13 +75,20 @@ void dungeonClass::enterDungeon(int dungeonNum, char dungeonName[32])
 {
 	system("cls");
 	cout << dungeonName << " 던전에 입장하셨습니다." << endl;
-	int callMonsterNum = rand() % 3 + 1;
+	int callMonsterNum = rand() % 3 + 1; // 1 ~ 3
+	int callBossMonsterNum = rand() % 30 + 1; // 1 ~ 30
+
+	if (callMonsterNum == callBossMonsterNum) callMonsterNum = 4;
+
 	for (_vMonster = _monster.begin(); _vMonster != _monster.end(); ++_vMonster)
 	{
 		if (dungeonNum != _vMonster->dl) continue;
 		if (callMonsterNum != _vMonster->callNum) continue;
 
-		cout << "몬스터가 등장하였습니다." << endl;
+		if(callMonsterNum != 4) cout << "몬스터가 등장하였습니다." << endl;
+		else cout << "☆★☆★☆★☆★☆★ 보스 몬스터가 출현하였습니다!!!! ☆★☆★☆★☆★☆★" << endl;
+		cout << endl;
+		Sleep(100);
 
 		// 인터페이스 작용
 		while (_vMonster->hp > 0 && _hp > 0) // 몬스터의 피가 0이상이거나 플레이어의 캐릭터의 피가 0 이상일때 반복
@@ -98,21 +108,23 @@ void dungeonClass::enterDungeon(int dungeonNum, char dungeonName[32])
 				runNum = rand() % 2;
 				randomNum = rand() % 2;
 			}
-			system("cls");
+			// system("cls");
 			userInterface();
-			cout << endl;
+			cout << "========== MONSTER INFO ==========" << endl;
 			cout << "몬스터이름 : " << _vMonster->name << endl;
 			cout << "HP : " << _vMonster->hp << endl;
 
+			_vMonster->monsterAttackPoint = rand() % 20 + _vMonster->pwr; // 몬스터 공격력 난수 발생
+
 			int interfaceSelect;
 			cout << "플레이어의 턴입니다." << endl;
-			cout << "1.공격하기 \t 2.가방 \t 3.도망치기" << endl;
+			cout << "1.공격하기 \t 2.가방 \t 3.도망치기\t 4.(비전투상태)되돌아가기" << endl;
 			cin >> interfaceSelect;
 
 			switch (interfaceSelect)
 			{
 				case 1:
-					attackPoint(); // 유저 턴의 공격 데미지 확인
+					attackPoint(_mindmg); // 유저 턴의 공격 데미지 확인
 				break;
 				case 2:
 				break;
@@ -121,24 +133,39 @@ void dungeonClass::enterDungeon(int dungeonNum, char dungeonName[32])
 					{
 						cout << "도망가지 못했습니다." << endl;
 						// cout << "runNum / randomNum : " << runNum << " / " << randomNum << endl;
-						Sleep(1000);
+						Sleep(300);
 						break;
 					}
 					else
 					{
 						cout << "무사히 도망쳤습니다." << endl;
 						// cout << "runNum / randomNum : " << runNum << " / " << randomNum << endl;
-						Sleep(1000);
+						Sleep(300);
 						_vMonster->hp = _vMonster->max_hp;
 						dungeonMain();
 					}
+				case 4:
+					if (_vMonster->hp == _vMonster->max_hp) dungeonMain();
+					else
+					{
+						cout << "현재 전투상태입니다. 되돌아갈 수 없습니다." << endl;
+						Sleep(300);
+						continue;
+					}
+				break;
 				default:
 					cout << "잘못된 번호를 입력하셨습니다. 다시 입력해주세요." << endl;
 					system("cls");
 				continue;
 			}
-			monsterAttack(); // 몬스터 턴의 공격 데미지 확인
-			Sleep(100);
+			monsterAttack(_vMonster->monsterAttackPoint); // 몬스터 턴의 공격 데미지 확인
+			if (_userAttackPoint != 0)
+			{
+				_vMonster->hp = _vMonster->hp - _userAttackPoint;
+				cout << "플레이어가 " << _userAttackPoint << "만큼 데미지를 주었습니다." << endl;
+			}
+			
+			Sleep(300);
 			system("cls");
 			continue;
 		}
@@ -146,31 +173,31 @@ void dungeonClass::enterDungeon(int dungeonNum, char dungeonName[32])
 		{
 			if (_hp > 0)
 			{
+				int moneyTemp;
 				int randomMoneyNum = rand() % _vMonster->money;
 				cout << "몬스터가 죽었습니다." << endl;
 				cout << "경험치 " << _vMonster->exp << " 획득!" << endl;
 				_exp = _exp + _vMonster->exp;
-				_money = _vMonster->money - randomMoneyNum;
-				cout << "골드 " << _money << "G 획득!" << endl;
+				moneyTemp = _vMonster->money - randomMoneyNum;
+				_money = _money + moneyTemp;
+				cout << "골드 " << moneyTemp << "G 획득!" << endl;
 				_vMonster->hp = _vMonster->max_hp;
-				Sleep(100);
+				Sleep(300);
+				levelUp();
 			}
 			else if (_hp <= 0)
 			{
 				playerDead();
-				Sleep(1000);
-				break;
 			}
 		}
 		if (_hp <= 0)
 		{
 			playerDead();
-			Sleep(1000);
 		}
 	}
 }
 
-void dungeonClass::charactorStatus(int roleNum, char name[32], int level, int max_hp, int hp, int max_mp, int mp, int pwr, int dex, int intel, int exp, int totalExp, int money)
+void dungeonClass::charactorStatus(int roleNum, char name[32], int level, int max_hp, int add_max_hp, int hp, int max_mp, int add_max_mp, int mp, int pwr, int add_pwr, int mindmg, int dex, int add_dex, int intel, int add_intel, int exp, int totalExp, int money)
 {
 	_roleNum = roleNum;
 	if (_roleNum == 1) strncpy_s(_roleName, "전사", 32);
@@ -179,12 +206,18 @@ void dungeonClass::charactorStatus(int roleNum, char name[32], int level, int ma
 	strncpy_s(_name, name, 32);
 	_level = level;
 	_max_hp = max_hp;
+	_add_max_hp = add_max_hp;
 	_hp = hp;
 	_max_mp = max_mp;
+	_add_max_mp = add_max_mp;
 	_mp = mp;
 	_pwr = pwr;
+	_add_pwr = add_pwr;
+	_mindmg = mindmg;
 	_dex = dex;
+	_add_dex = add_dex;
 	_intel = intel;
+	_add_intel = add_intel;
 	_exp = exp;
 	_totalExp = totalExp;
 	_money = money;
@@ -192,8 +225,10 @@ void dungeonClass::charactorStatus(int roleNum, char name[32], int level, int ma
 
 void dungeonClass::levelUp(void)
 {
-	if (_totalExp <= _exp)
+	if (_exp >= _totalExp)
 	{
+		Sleep(300);
+		system("cls");
 		cout << "LEVEL UP!" << endl;
 		_exp = _exp - _totalExp;
 		if (_level <= 10) _totalExp = _totalExp + 50;
@@ -211,6 +246,7 @@ void dungeonClass::levelUp(void)
 			_dex = _dex + 2;
 			_intel = _intel + 1;
 		}
+		// 마법사일 경우
 		else if (_roleNum == 2)
 		{
 			_max_hp = _max_hp + 30;
@@ -221,6 +257,7 @@ void dungeonClass::levelUp(void)
 			_dex = _dex + 3;
 			_intel = _intel + 2;
 		}
+		// 엘프일 경우
 		else if (_roleNum == 3)
 		{
 			_max_hp = _max_hp + 20;
@@ -240,26 +277,75 @@ void dungeonClass::levelUp(void)
 		cout << "힘 : " << _pwr << endl;
 		cout << "민첩 : " << _dex << endl;
 		cout << "지능 : " << _intel << endl;
+		Sleep(3000);
 	}
 	else _exp = _exp;
 }
 
-void dungeonClass::attackPoint(void)
+void dungeonClass::attackPoint(int mindmg)
 {
-	int userAttackPoint = rand() % 20 + _pwr; // 공격력 변수 생성
+	_userAttackPoint = rand() % _pwr + mindmg + 1; // 공격력 변수 생성(최소 공격력 1이상) --> 캐릭터 힘(난수) + 최소데미지
+	int dodgeCheck;
 
 	// 회피는 모든 몬스터들에 대한 공격 확률이 조정되어야 함
-	int dodgePoint = rand() % 20 + _dex; // 회피확률 변수 생성
+	// 회피확률 변수 생성
+	_playerDodgePoint = ((rand() % _dex + 1) % 10) + ((rand() % _dex + 1) / 10);
 
-	_vMonster->hp = _vMonster->hp - userAttackPoint;
+	// 플레이어 회피 확률 계산
+	if (_playerDodgePoint >= _monsterDodgePoint)
+	{
+		dodgeCheck = rand() % 2;
+		if (dodgeCheck == 1)
+		{
+			_vMonster->monsterAttackPoint = 0;
+			cout << "몬스터의 공격을 회피하였습니다." << endl;
+		}
+	}
+	else
+	{
+		dodgeCheck = rand() % _vMonster->dex - _playerDodgePoint + 1;
+		if (dodgeCheck == 1)
+		{
+			_vMonster->monsterAttackPoint = 0;
+			cout << "몬스터의 공격을 회피하였습니다." << endl;
+		}
+	}
+	Sleep(300);
 }
 
-void dungeonClass::monsterAttack(void)
+void dungeonClass::monsterAttack(int monsterAttackPoint)
 {
-	int monsterAttackPoint = rand() % 20 + _pwr;
-	cout << "몬스터 턴입니다." << endl;
-	_hp = _hp - monsterAttackPoint;
-	cout << "몬스터가 " << monsterAttackPoint << "만큼 데미지를 주었습니다." << endl;
+	_monsterDodgePoint = ((rand() % _vMonster->dex + 1) % 10) + ((rand() % _vMonster->dex + 1) / 10);
+	int dodgeCheck;
+
+	if (_vMonster->monsterAttackPoint != 0)
+	{
+		cout << "몬스터 턴입니다." << endl;
+		_hp = _hp - _vMonster->monsterAttackPoint;
+
+		cout << "몬스터가 " << _vMonster->monsterAttackPoint << "만큼 데미지를 주었습니다." << endl;
+	}
+
+	// 몬스터의 회피 확률 계산
+	if (_monsterDodgePoint >= _playerDodgePoint)
+	{
+		dodgeCheck = rand() % 2;
+		if (dodgeCheck == 1)
+		{
+			_userAttackPoint = 0;
+			cout << "플레이어의 공격을 회피하였습니다." << endl;
+		}
+	}
+	else
+	{
+		dodgeCheck = rand() % _playerDodgePoint - _vMonster->dex + 1;
+		if (dodgeCheck == 1)
+		{
+			_userAttackPoint = 0;
+			cout << "플레이어의 공격을 회피하였습니다." << endl;
+		}
+	}
+	Sleep(300);
 }
 
 void dungeonClass::userInterface(void)
@@ -267,8 +353,11 @@ void dungeonClass::userInterface(void)
 	cout << "========== " << _name << " ==========" << endl;
 	cout << "레벨 : " << _level << endl;
 	cout << "경험치 : " << _exp << " / " << _totalExp << endl;
+	cout << "========== HP / MP / GOLD ==========" << endl;
 	cout << "생명력 : " << _hp << " / " << _max_hp << endl;
 	cout << "마나 : " << _mp << " / " << _max_mp << endl;
+	cout << "보유금액 : " << _money << " G" << endl;
+	cout << endl;
 }
 
 // 플레이어가 죽었을 때
@@ -294,6 +383,7 @@ void dungeonClass::playerDead(void)
 	_mp = _max_mp;
 	_vMonster->hp = _vMonster->max_hp;
 	cout << "죽기 전 경험치 : " << tempExp << " / 현재 경험치 : " << _exp << endl;
+	dungeonMain();
 }
 
 void dungeonClass::setMonster(void)
@@ -337,6 +427,19 @@ void dungeonClass::setMonster(void)
 	d1_monster3.monsterPwr = 5;
 	_monster.push_back(d1_monster3);
 
+	tagMONSTERSTATS d1_monster4_special;
+	d1_monster4_special.dl = DUNGEON1;
+	d1_monster4_special.callNum = 4;
+	strncpy_s(d1_monster4_special.name, "보스몬스터1", 32);
+	d1_monster4_special.max_hp = 200;
+	d1_monster4_special.hp = 200;
+	d1_monster4_special.pwr = 15;
+	d1_monster4_special.dex = 10;
+	d1_monster4_special.exp = 25;
+	d1_monster4_special.money = 800;
+	d1_monster4_special.monsterPwr = 15;
+	_monster.push_back(d1_monster4_special);
+
 	tagMONSTERSTATS d2_monster1;
 	d2_monster1.dl = DUNGEON2;
 	d2_monster1.callNum = 1;
@@ -349,4 +452,43 @@ void dungeonClass::setMonster(void)
 	d2_monster1.money = 300;
 	d2_monster1.monsterPwr = 10;
 	_monster.push_back(d2_monster1);
+
+	tagMONSTERSTATS d2_monster2;
+	d2_monster2.dl = DUNGEON2;
+	d2_monster2.callNum = 2;
+	strncpy_s(d2_monster2.name, "몬스터5", 32);
+	d2_monster2.max_hp = 130;
+	d2_monster2.hp = 130;
+	d2_monster2.pwr = 7;
+	d2_monster2.dex = 5;
+	d2_monster2.exp = 15;
+	d2_monster2.money = 400;
+	d2_monster2.monsterPwr = 13;
+	_monster.push_back(d2_monster2);
+
+	tagMONSTERSTATS d2_monster3;
+	d2_monster3.dl = DUNGEON2;
+	d2_monster3.callNum = 3;
+	strncpy_s(d2_monster3.name, "몬스터6", 32);
+	d2_monster3.max_hp = 150;
+	d2_monster3.hp = 150;
+	d2_monster3.pwr = 10;
+	d2_monster3.dex = 7;
+	d2_monster3.exp = 20;
+	d2_monster3.money = 450;
+	d2_monster3.monsterPwr = 15;
+	_monster.push_back(d2_monster3);
+
+	tagMONSTERSTATS d2_monster4_special;
+	d2_monster4_special.dl = DUNGEON2;
+	d2_monster4_special.callNum = 4;
+	strncpy_s(d2_monster4_special.name, "보스몬스터2", 32);
+	d2_monster4_special.max_hp = 400;
+	d2_monster4_special.hp = 400;
+	d2_monster4_special.pwr = 30;
+	d2_monster4_special.dex = 20;
+	d2_monster4_special.exp = 50;
+	d2_monster4_special.money = 900;
+	d2_monster4_special.monsterPwr = 30;
+	_monster.push_back(d2_monster4_special);
 }

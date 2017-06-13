@@ -17,21 +17,22 @@ void MainMenu::mainStart()
 		cout << "1.전사\t 2.마법사\t 3.엘프" << endl;
 		cout << "캐릭터를 선택하세요." << endl;
 		cin >> _charactorSelect;
+		system("cls");
 
 		switch (_charactorSelect)
 		{
 			case 1:
-				cout << "캐릭터 닉네임을 입력하세요(최대 14자)" << endl;
+				cout << "캐릭터 닉네임을 입력하세요(최대 영문 31자, 한글 15자)" << endl;
 				cin >> _charName;
 				setUp(WARRIOR, _charName);
 			break;
 			case 2:
-				cout << "캐릭터 닉네임을 입력하세요(최대 14자)" << endl;
+				cout << "캐릭터 닉네임을 입력하세요(최대 영문 31자, 한글 15자)" << endl;
 				cin >> _charName;
 				setUp(WIZARD, _charName);
 			break;
 			case 3:
-				cout << "캐릭터 닉네임을 입력하세요(최대 14자)" << endl;
+				cout << "캐릭터 닉네임을 입력하세요(최대 영문 31자, 한글 15자)" << endl;
 				cin >> _charName;
 				setUp(ELF, _charName);
 			break;
@@ -56,9 +57,7 @@ void MainMenu::output(int charNumber)
 	{
 		if (_vriter->roleCharactor != charNumber) continue;
 		
-		_vriter->exp = 0;
-		_vriter->totalExp = 50;
-		_vriter->money = 100;
+		init();
 
 		cout << "이름 : " << _vriter->name << endl;
 		cout << "총경험치 : " << _vriter->totalExp << endl;
@@ -68,24 +67,31 @@ void MainMenu::output(int charNumber)
 		cout << "민첩 : " << _vriter->dex << endl;
 		cout << "지능 : " << _vriter->intel << endl;
 		cout << "보유금액 : " << _vriter->money << " G" << endl;
-		us.charactorStatus(_vriter->roleCharactor, _vriter->name, _vriter->level, _vriter->max_hp, _vriter->hp, _vriter->max_mp, _vriter->mp, _vriter->pwr, _vriter->dex, _vriter->intel, _vriter->exp, _vriter->totalExp, _vriter->money);
-		dg.charactorStatus(_vriter->roleCharactor, _vriter->name, _vriter->level, _vriter->max_hp, _vriter->hp, _vriter->max_mp, _vriter->mp, _vriter->pwr, _vriter->dex, _vriter->intel, _vriter->exp, _vriter->totalExp, _vriter->money);
+		us.charactorStatus(_vriter->roleCharactor, _vriter->name, _vriter->level, _vriter->max_hp, _vriter->add_max_hp, _vriter->hp, _vriter->max_mp, _vriter->add_max_mp, _vriter->mp, _vriter->pwr, _vriter->add_pwr, _vriter->mindmg, _vriter->dex, _vriter->add_dex, _vriter->intel, _vriter->add_intel, _vriter->exp, _vriter->totalExp, _vriter->money);
+		dg.charactorStatus(_vriter->roleCharactor, _vriter->name, _vriter->level, _vriter->max_hp, _vriter->add_max_hp, _vriter->hp, _vriter->max_mp, _vriter->add_max_mp, _vriter->mp, _vriter->pwr, _vriter->add_pwr, _vriter->mindmg, _vriter->dex, _vriter->add_dex, _vriter->intel, _vriter->add_intel, _vriter->exp, _vriter->totalExp, _vriter->money);
+		inn.charactorStatus(_vriter->roleCharactor, _vriter->name, _vriter->level, _vriter->max_hp, _vriter->add_max_hp, _vriter->hp, _vriter->max_mp, _vriter->add_max_mp, _vriter->mp, _vriter->pwr, _vriter->add_pwr, _vriter->mindmg, _vriter->dex, _vriter->add_dex, _vriter->intel, _vriter->add_intel, _vriter->exp, _vriter->totalExp, _vriter->money);
 	}
 }
 
-void MainMenu::charactorStatus(int viewPoint, int roleNum, char name[32], int level, int max_hp, int hp, int max_mp, int mp, int pwr, int dex, int intel, int exp, int totalExp, int money)
+void MainMenu::charactorStatus(int viewPoint, int roleNum, char name[32], int level, int max_hp, int add_max_hp, int hp, int max_mp, int add_max_mp, int mp, int pwr, int add_pwr, int mindmg, int dex, int add_dex, int intel, int add_intel, int exp, int totalExp, int money)
 {
 	tagCharactorStats USER;
 	USER.roleCharactor = ROLE(roleNum);
 	strncpy_s(USER.name, name, 32);
 	USER.level = level;
 	USER.max_hp = max_hp;
+	USER.add_max_hp = add_max_hp;
 	USER.hp = hp;
 	USER.max_mp = max_mp;
+	USER.add_max_mp = add_max_mp;
 	USER.mp = mp;
 	USER.pwr = pwr;
+	USER.add_pwr = add_pwr;
+	USER.mindmg = mindmg;
 	USER.dex = dex;
+	USER.add_dex = add_dex;
 	USER.intel = intel;
+	USER.add_intel = add_intel;
 	USER.exp = exp;
 	USER.totalExp = totalExp;
 	USER.money = money;
@@ -105,13 +111,16 @@ void MainMenu::charactorStatus(int viewPoint, int roleNum, char name[32], int le
 			cout << "힘 : " << _vriter->pwr << endl;
 			cout << "민첩 : " << _vriter->dex << endl;
 			cout << "지능 : " << _vriter->intel << endl;
-			us.charactorStatus(_vriter->roleCharactor, _vriter->name, _vriter->level, _vriter->max_hp, _vriter->hp, _vriter->max_mp, _vriter->mp, _vriter->pwr, _vriter->dex, _vriter->intel, _vriter->exp, _vriter->totalExp, _vriter->money);
-			dg.charactorStatus(_vriter->roleCharactor, _vriter->name, _vriter->level, _vriter->max_hp, _vriter->hp, _vriter->max_mp, _vriter->mp, _vriter->pwr, _vriter->dex, _vriter->intel, _vriter->exp, _vriter->totalExp, _vriter->money);
+			us.charactorStatus(_vriter->roleCharactor, _vriter->name, _vriter->level, _vriter->max_hp, _vriter->add_max_hp, _vriter->hp, _vriter->max_mp, _vriter->add_max_mp, _vriter->mp, _vriter->pwr, _vriter->add_pwr, _vriter->mindmg, _vriter->dex, _vriter->add_dex, _vriter->intel, _vriter->add_intel, _vriter->exp, _vriter->totalExp, _vriter->money);
+			dg.charactorStatus(_vriter->roleCharactor, _vriter->name, _vriter->level, _vriter->max_hp, _vriter->add_max_hp, _vriter->hp, _vriter->max_mp, _vriter->add_max_mp, _vriter->mp, _vriter->pwr, _vriter->add_pwr, _vriter->mindmg, _vriter->dex, _vriter->add_dex, _vriter->intel, _vriter->add_intel, _vriter->exp, _vriter->totalExp, _vriter->money);
+			inn.charactorStatus(_vriter->roleCharactor, _vriter->name, _vriter->level, _vriter->max_hp, _vriter->add_max_hp, _vriter->hp, _vriter->max_mp, _vriter->add_max_mp, _vriter->mp, _vriter->pwr, _vriter->add_pwr, _vriter->mindmg, _vriter->dex, _vriter->add_dex, _vriter->intel, _vriter->add_intel, _vriter->exp, _vriter->totalExp, _vriter->money);
+			Sleep(3000);
 		}
 		else if (viewPoint == 1)
 		{
-			us.charactorStatus(_vriter->roleCharactor, _vriter->name, _vriter->level, _vriter->max_hp, _vriter->hp, _vriter->max_mp, _vriter->mp, _vriter->pwr, _vriter->dex, _vriter->intel, _vriter->exp, _vriter->totalExp, _vriter->money);
-			dg.charactorStatus(_vriter->roleCharactor, _vriter->name, _vriter->level, _vriter->max_hp, _vriter->hp, _vriter->max_mp, _vriter->mp, _vriter->pwr, _vriter->dex, _vriter->intel, _vriter->exp, _vriter->totalExp, _vriter->money);
+			us.charactorStatus(_vriter->roleCharactor, _vriter->name, _vriter->level, _vriter->max_hp, _vriter->add_max_hp, _vriter->hp, _vriter->max_mp, _vriter->add_max_mp, _vriter->mp, _vriter->pwr, _vriter->add_pwr, _vriter->mindmg, _vriter->dex, _vriter->add_dex, _vriter->intel, _vriter->add_intel, _vriter->exp, _vriter->totalExp, _vriter->money);
+			dg.charactorStatus(_vriter->roleCharactor, _vriter->name, _vriter->level, _vriter->max_hp, _vriter->add_max_hp, _vriter->hp, _vriter->max_mp, _vriter->add_max_mp, _vriter->mp, _vriter->pwr, _vriter->add_pwr, _vriter->mindmg, _vriter->dex, _vriter->add_dex, _vriter->intel, _vriter->add_intel, _vriter->exp, _vriter->totalExp, _vriter->money);
+			inn.charactorStatus(_vriter->roleCharactor, _vriter->name, _vriter->level, _vriter->max_hp, _vriter->add_max_hp, _vriter->hp, _vriter->max_mp, _vriter->add_max_mp, _vriter->mp, _vriter->pwr, _vriter->add_pwr, _vriter->mindmg, _vriter->dex, _vriter->add_dex, _vriter->intel, _vriter->add_intel, _vriter->exp, _vriter->totalExp, _vriter->money);
 		}
 	}
 	Sleep(500);
@@ -170,7 +179,7 @@ void MainMenu::startMenu()
 {
 	while (true)
 	{
-		Sleep(1000);
+		Sleep(100);
 		system("cls");
 		int inGameMenuSelect;
 		cout << "========== IN GAME MENU ==========" << endl;
@@ -200,5 +209,18 @@ void MainMenu::startMenu()
 void MainMenu::dungeonSelect(void)
 {
 	dg.dungeonMain();
+}
+
+void MainMenu::init(void)
+{
+	_vriter->exp = 0;
+	_vriter->totalExp = 20;
+	_vriter->money = 100;
+	_vriter->mindmg = 0;
+	_vriter->add_max_hp = 0;
+	_vriter->add_max_mp = 0;
+	_vriter->add_pwr = 0;
+	_vriter->add_dex = 0;
+	_vriter->add_intel = 0;
 }
 

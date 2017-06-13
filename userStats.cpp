@@ -12,7 +12,7 @@ userStats::~userStats()
 {
 }
 
-void userStats::charactorStatus(int roleNum, char name[32], int level, int max_hp, int hp, int max_mp, int mp, int pwr, int dex, int intel, int exp, int totalExp, int money)
+void userStats::charactorStatus(int roleNum, char name[32], int level, int max_hp, int add_max_hp, int hp, int max_mp, int add_max_mp, int mp, int pwr, int add_pwr, int mindmg, int dex, int add_dex, int intel, int add_intel, int exp, int totalExp, int money)
 {
 	_roleNum = roleNum;
 	if (_roleNum == 1) strncpy_s(_roleName, "Àü»ç", 32);
@@ -21,12 +21,18 @@ void userStats::charactorStatus(int roleNum, char name[32], int level, int max_h
 	strncpy_s(_name, name, 32);
 	_level = level;
 	_max_hp = max_hp;
+	_add_max_hp = add_max_hp;
 	_hp = hp;
 	_max_mp = max_mp;
+	_add_max_mp = add_max_mp;
 	_mp = mp;
 	_pwr = pwr;
+	_add_pwr = add_pwr;
+	_mindmg = mindmg;
 	_dex = dex;
+	_add_dex = add_dex;
 	_intel = intel;
+	_add_intel = add_intel;
 	_exp = exp;
 	_totalExp = totalExp;
 	_money = money;
@@ -125,11 +131,11 @@ void userStats::userInfo_pageNum(int pageNum, int totalPageNum)
 		cout << "´Ð³×ÀÓ : " << _name << endl;
 		cout << "·¹º§ : " << _level << endl;
 		cout << "°æÇèÄ¡ : " << _exp << " / " << _totalExp << endl;
-		cout << "»ý¸í·Â : " << _hp << " / " << _max_hp << endl;
-		cout << "¸¶³ª : " << _mp << " / " << _max_mp << endl;
-		cout << "Èû : " << _pwr << endl;
-		cout << "¹ÎÃ¸ : " << _dex << endl;
-		cout << "Áö´É : " << _intel << endl;
+		cout << "»ý¸í·Â : " << _hp << " / " << _max_hp << " + " << _add_max_hp << endl;
+		cout << "¸¶³ª : " << _mp << " / " << _max_mp << " + " << _add_max_mp << endl;
+		cout << "Èû : " << _pwr << " + " << _add_pwr << endl;
+		cout << "¹ÎÃ¸ : " << _dex << " + " << _add_dex << endl;
+		cout << "Áö´É : " << _intel << " + " << _add_intel << endl;
 	}
 	else if (pageNum == 2)
 	{
