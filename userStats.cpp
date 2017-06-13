@@ -1,5 +1,7 @@
 #include "userStats.h"
 
+dungeonClass dg;
+
 userStats::userStats()
 {
 }
@@ -9,13 +11,14 @@ userStats::~userStats()
 {
 }
 
-void userStats::charactorStatus(int roleNum, char name[32], int max_hp, int hp, int max_mp, int mp, int pwr, int dex, int intel, int totalExp)
+void userStats::charactorStatus(int roleNum, char name[32], int level, int max_hp, int hp, int max_mp, int mp, int pwr, int dex, int intel, int exp, int totalExp)
 {
 	_roleNum = roleNum;
 	if (_roleNum == 1) strncpy_s(_roleName, "전사", 32);
 	else if (_roleNum == 2) strncpy_s(_roleName, "마법사", 32);
 	else if (_roleNum == 3) strncpy_s(_roleName, "엘프", 32);
 	strncpy_s(_name, name, 32);
+	_level = level;
 	_max_hp = max_hp;
 	_hp = hp;
 	_max_mp = max_mp;
@@ -23,6 +26,7 @@ void userStats::charactorStatus(int roleNum, char name[32], int max_hp, int hp, 
 	_pwr = pwr;
 	_dex = dex;
 	_intel = intel;
+	_exp = exp;
 	_totalExp = totalExp;
 }
 
@@ -32,9 +36,10 @@ void userStats::userInfo(void)
 	{
 		system("cls");
 		cout << "========== 캐릭터 정보 ==========" << endl;
-		cout << "종족 : " << _roleName << endl;
+		cout << "직업 : " << _roleName << endl;
 		cout << "닉네임 : " << _name << endl;
 		cout << "레벨 : " << _level << endl;
+		cout << "경험치 : " << _exp << " / " << _totalExp << endl;
 		cout << "생명력 : " << _hp << " / " << _max_hp << endl;
 		cout << "마나 : " << _mp << " / " << _max_mp << endl;
 		cout << "힘 : " << _pwr << endl;

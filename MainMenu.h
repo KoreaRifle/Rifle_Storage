@@ -20,6 +20,7 @@ struct tagCharactorStats
 {
 	ROLE roleCharactor; // 캐릭터직업
 	char name[32];
+	int level;
 	int max_hp;
 	int hp;
 	int max_mp;
@@ -27,7 +28,8 @@ struct tagCharactorStats
 	int pwr;
 	int dex;
 	int intel;
-	int totalExp = 100;
+	int exp;
+	int totalExp;
 };
 
 
@@ -45,6 +47,7 @@ public:
 	void mainStart(void);
 	void setUp(int charactorSelect, char _charName[32]);
 	void output(int charNumber);
+	void charactorStatus(int viewPoint, int roleNum, char name[32], int level, int max_hp, int hp, int max_mp, int mp, int pwr, int dex, int intel, int exp, int totalExp);
 	void startMenu(void);
 	void dungeonSelect(void);
 	MainMenu();

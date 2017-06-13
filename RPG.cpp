@@ -1,6 +1,8 @@
 #include "MainMenu.h"
 
+MainMenu rpg;
+
 void main()
 {
-	MainMenu rpg;
+	rpg.mainStart();
 }
