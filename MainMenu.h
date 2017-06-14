@@ -6,6 +6,7 @@
 #include "userStats.h"
 #include "dungeonClass.h"
 #include "innClass.h"
+#include "itemList.h"
 
 using namespace std;
 
@@ -50,6 +51,7 @@ private:
 	userStats us;
 	dungeonClass dg;
 	innClass inn;
+	itemList il;
 public:
 	void mainStart(void);
 	void setUp(int charactorSelect, char _charName[32]);
@@ -57,6 +59,7 @@ public:
 	void charactorStatus(int viewPoint, int roleNum, char name[32], int level, int max_hp, int add_max_hp, int hp, int max_mp, int add_max_mp, int mp, int pwr, int add_pwr, int mindmg, int dex, int add_dex, int intel, int add_intel, int exp, int totalExp, int money);
 	void startMenu(void);
 	void dungeonSelect(void);
+	void store(void);
 	void init(void);
 	MainMenu();
 	~MainMenu();

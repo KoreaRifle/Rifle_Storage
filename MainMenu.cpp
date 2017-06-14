@@ -192,6 +192,7 @@ void MainMenu::startMenu()
 				dungeonSelect();
 			break;
 			case 2:
+				store();
 			break;
 			case 3:
 				inn.innMenu();
@@ -209,6 +210,33 @@ void MainMenu::startMenu()
 void MainMenu::dungeonSelect(void)
 {
 	dg.dungeonMain();
+}
+
+void MainMenu::store(void)
+{
+	while (true)
+	{
+		int storeMenuSelect;
+		cout << "========== STORE ==========" << endl;
+		cout << "1.무기\t 2.방어구\t 3.악세사리" << endl;
+		cin >> storeMenuSelect;
+
+		switch (storeMenuSelect)
+		{
+			case 1:
+				il.storeItemList(storeMenuSelect);
+			break;
+			case 2:
+				il.storeItemList(storeMenuSelect);
+			break;
+			case 3:
+				il.storeItemList(storeMenuSelect);
+			break;
+			default:
+				cout << "잘못된 번호를 입력하셨습니다. 다시 입력해주세요." << endl;
+			continue;
+		}
+	}
 }
 
 void MainMenu::init(void)
