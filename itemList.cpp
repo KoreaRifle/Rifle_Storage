@@ -50,7 +50,7 @@ void itemList::storeItemList(int kindNum)
 				if (_vitem->role == WARRIORITEM) cout << "Àü»ç" << endl;
 				else if (_vitem->role == WIZARDITEM) cout << "¸¶¹ý»ç" << endl;
 				else if (_vitem->role == ELFITEM) cout << "¿¤ÇÁ" << endl;
-				cout << "°ø°Ý·Â : " << _vitem->point << endl;
+				cout << "¹æ¾î·Â : " << _vitem->point << endl;
 				if (_vitem->pwrOption != 0) cout << "¿É¼Ç(Èû) : " << _vitem->pwrOption << endl;
 				if (_vitem->dexOption != 0) cout << "¿É¼Ç(¹ÎÃ¸) : " << _vitem->dexOption << endl;
 				if (_vitem->intelOption != 0) cout << "¿É¼Ç(Áö´É) : " << _vitem->intelOption << endl;
@@ -91,6 +91,8 @@ void itemList::purchaseMenu(int kindNum)
 						{
 							system("cls");
 							_money = _money - _vitem->price;
+							inventorySaveTemp(_vitem->kind, _vitem->role, _vitem->itemName, _vitem->req_level, _vitem->req_pwr, _vitem->req_dex, _vitem->req_intel, _vitem->point, _vitem->pwrOption, _vitem->dexOption, _vitem->intelOption, _vitem->price);
+							il_mm.charactorStatus(1, _roleNum, _name, _level, _max_hp, _add_max_hp, _hp, _max_mp, _add_max_mp, _mp, _pwr, _add_pwr, _mindmg, _dex, _add_dex, _intel, _add_intel, _exp, _totalExp, _money);
 							if (_vitem->division != STOREITEM) continue;
 							if (_vitem->kind != kindNum - 1) continue;
 							cout << "±¸¸Å¹øÈ£ : " << _vitem->itemNum << endl;
@@ -109,13 +111,9 @@ void itemList::purchaseMenu(int kindNum)
 							switch (equipSelect)
 							{
 								case 1:
-									il_mm.charactorStatus(1, _roleNum, _name, _level, _max_hp, _add_max_hp, _hp, _max_mp, _add_max_mp, _mp, _pwr, _add_pwr, _mindmg, _dex, _add_dex, _intel, _add_intel, _exp, _totalExp, _money);
-									inventorySaveTemp(_vitem->kind, _vitem->role, _vitem->itemName, _vitem->req_level, _vitem->req_pwr, _vitem->req_dex, _vitem->req_intel, _vitem->point, _vitem->pwrOption, _vitem->dexOption, _vitem->intelOption, _vitem->price);
 									il_mm.store();
 								break;
 								case 2:
-									il_mm.charactorStatus(1, _roleNum, _name, _level, _max_hp, _add_max_hp, _hp, _max_mp, _add_max_mp, _mp, _pwr, _add_pwr, _mindmg, _dex, _add_dex, _intel, _add_intel, _exp, _totalExp, _money);
-									inventorySaveTemp(_vitem->kind, _vitem->role, _vitem->itemName, _vitem->req_level, _vitem->req_pwr, _vitem->req_dex, _vitem->req_intel, _vitem->point, _vitem->pwrOption, _vitem->dexOption, _vitem->intelOption, _vitem->price);
 									il_mm.store();
 								break;
 								default:
@@ -284,10 +282,10 @@ void itemList::inventoryViewTemp(void)
 		if (_vinven->pwrOption != 0) cout << "¿É¼Ç(Èû) : " << _vinven->pwrOption << endl;
 		if (_vinven->dexOption != 0) cout << "¿É¼Ç(¹ÎÃ¸) : " << _vinven->dexOption << endl;
 		if (_vinven->intelOption != 0) cout << "¿É¼Ç(Áö´É) : " << _vinven->intelOption << endl;
-		cout << "Âø¿ëÁ¦ÇÑ ·¹º§ : " << _vinven->req_level << endl;
-		cout << "Âø¿ëÁ¦ÇÑ Èû : " << _vinven->req_pwr << endl;
-		cout << "Âø¿ëÁ¦ÇÑ ¹ÎÃ¸ : " << _vinven->req_dex << endl;
-		cout << "Âø¿ëÁ¦ÇÑ Áö´É : " << _vinven->req_intel << endl;
+		if (_vinven->req_level != 0) cout << "Âø¿ëÁ¦ÇÑ ·¹º§ : " << _vinven->req_level << endl;
+		if (_vinven->req_pwr != 0) cout << "Âø¿ëÁ¦ÇÑ Èû : " << _vinven->req_pwr << endl;
+		if (_vinven->req_dex != 0) cout << "Âø¿ëÁ¦ÇÑ ¹ÎÃ¸ : " << _vinven->req_dex << endl;
+		if (_vinven->req_intel != 0) cout << "Âø¿ëÁ¦ÇÑ Áö´É : " << _vinven->req_intel << endl;
 		cout << "====================" << endl;
 		itemNum++;
 	}
