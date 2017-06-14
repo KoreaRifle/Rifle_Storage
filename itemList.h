@@ -49,11 +49,33 @@ struct ITEM
 	int price;
 };
 
+struct INVENTORY
+{
+	ITEMDIVISION division;
+	ITEMKIND kind;
+	ITEMROLE role;
+	int itemNum;
+	char itemName[32];
+	int point;
+	int req_level;
+	int req_pwr;
+	int req_dex;
+	int req_intel;
+	int hpOption;
+	int mpOption;
+	int pwrOption;
+	int dexOption;
+	int intelOption;
+	int price;
+};
+
 class itemList
 {
 private:
 	vector<ITEM> _item;
 	vector<ITEM>::iterator _vitem;
+	vector<INVENTORY> _inventory;
+	vector<INVENTORY>::iterator _vinven;
 	int itemNum = 1;
 	int _level;
 	char _name[32];
@@ -77,10 +99,12 @@ private:
 	int _money;
 public:
 	void storeItemList(int kindNum);
-	void purchaseMenu(int itemNum);
-	void itemInit(void);
+	void purchaseMenu(int kindNum);
+	void itemInit(int initNum);
 	void charactorStatus(int roleNum, char name[32], int level, int max_hp, int add_max_hp, int hp, int max_mp, int add_max_mp, int mp, int pwr, int add_pwr, int mindmg, int dex, int add_dex, int intel, int add_intel, int exp, int totalExp, int money);
 	void storeItemSetting(void);
+	void inventorySaveTemp(int kind, int role, char itemName[32], int req_level, int req_pwr, int req_dex, int req_intel, int point, int pwrOption, int dexOption, int intelOption, int price);
+	void inventoryViewTemp(void);
 	itemList();
 	~itemList();
 };

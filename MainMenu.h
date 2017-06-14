@@ -7,6 +7,7 @@
 #include "dungeonClass.h"
 #include "innClass.h"
 #include "itemList.h"
+#include "inventory.h"
 
 using namespace std;
 
@@ -52,6 +53,7 @@ private:
 	dungeonClass dg;
 	innClass inn;
 	itemList il;
+	inventory inven;
 public:
 	void mainStart(void);
 	void setUp(int charactorSelect, char _charName[32]);

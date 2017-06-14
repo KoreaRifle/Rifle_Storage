@@ -70,6 +70,7 @@ void MainMenu::output(int charNumber)
 		us.charactorStatus(_vriter->roleCharactor, _vriter->name, _vriter->level, _vriter->max_hp, _vriter->add_max_hp, _vriter->hp, _vriter->max_mp, _vriter->add_max_mp, _vriter->mp, _vriter->pwr, _vriter->add_pwr, _vriter->mindmg, _vriter->dex, _vriter->add_dex, _vriter->intel, _vriter->add_intel, _vriter->exp, _vriter->totalExp, _vriter->money);
 		dg.charactorStatus(_vriter->roleCharactor, _vriter->name, _vriter->level, _vriter->max_hp, _vriter->add_max_hp, _vriter->hp, _vriter->max_mp, _vriter->add_max_mp, _vriter->mp, _vriter->pwr, _vriter->add_pwr, _vriter->mindmg, _vriter->dex, _vriter->add_dex, _vriter->intel, _vriter->add_intel, _vriter->exp, _vriter->totalExp, _vriter->money);
 		inn.charactorStatus(_vriter->roleCharactor, _vriter->name, _vriter->level, _vriter->max_hp, _vriter->add_max_hp, _vriter->hp, _vriter->max_mp, _vriter->add_max_mp, _vriter->mp, _vriter->pwr, _vriter->add_pwr, _vriter->mindmg, _vriter->dex, _vriter->add_dex, _vriter->intel, _vriter->add_intel, _vriter->exp, _vriter->totalExp, _vriter->money);
+		il.charactorStatus(_vriter->roleCharactor, _vriter->name, _vriter->level, _vriter->max_hp, _vriter->add_max_hp, _vriter->hp, _vriter->max_mp, _vriter->add_max_mp, _vriter->mp, _vriter->pwr, _vriter->add_pwr, _vriter->mindmg, _vriter->dex, _vriter->add_dex, _vriter->intel, _vriter->add_intel, _vriter->exp, _vriter->totalExp, _vriter->money);
 	}
 }
 
@@ -114,6 +115,7 @@ void MainMenu::charactorStatus(int viewPoint, int roleNum, char name[32], int le
 			us.charactorStatus(_vriter->roleCharactor, _vriter->name, _vriter->level, _vriter->max_hp, _vriter->add_max_hp, _vriter->hp, _vriter->max_mp, _vriter->add_max_mp, _vriter->mp, _vriter->pwr, _vriter->add_pwr, _vriter->mindmg, _vriter->dex, _vriter->add_dex, _vriter->intel, _vriter->add_intel, _vriter->exp, _vriter->totalExp, _vriter->money);
 			dg.charactorStatus(_vriter->roleCharactor, _vriter->name, _vriter->level, _vriter->max_hp, _vriter->add_max_hp, _vriter->hp, _vriter->max_mp, _vriter->add_max_mp, _vriter->mp, _vriter->pwr, _vriter->add_pwr, _vriter->mindmg, _vriter->dex, _vriter->add_dex, _vriter->intel, _vriter->add_intel, _vriter->exp, _vriter->totalExp, _vriter->money);
 			inn.charactorStatus(_vriter->roleCharactor, _vriter->name, _vriter->level, _vriter->max_hp, _vriter->add_max_hp, _vriter->hp, _vriter->max_mp, _vriter->add_max_mp, _vriter->mp, _vriter->pwr, _vriter->add_pwr, _vriter->mindmg, _vriter->dex, _vriter->add_dex, _vriter->intel, _vriter->add_intel, _vriter->exp, _vriter->totalExp, _vriter->money);
+			il.charactorStatus(_vriter->roleCharactor, _vriter->name, _vriter->level, _vriter->max_hp, _vriter->add_max_hp, _vriter->hp, _vriter->max_mp, _vriter->add_max_mp, _vriter->mp, _vriter->pwr, _vriter->add_pwr, _vriter->mindmg, _vriter->dex, _vriter->add_dex, _vriter->intel, _vriter->add_intel, _vriter->exp, _vriter->totalExp, _vriter->money);
 			Sleep(3000);
 		}
 		else if (viewPoint == 1)
@@ -121,6 +123,7 @@ void MainMenu::charactorStatus(int viewPoint, int roleNum, char name[32], int le
 			us.charactorStatus(_vriter->roleCharactor, _vriter->name, _vriter->level, _vriter->max_hp, _vriter->add_max_hp, _vriter->hp, _vriter->max_mp, _vriter->add_max_mp, _vriter->mp, _vriter->pwr, _vriter->add_pwr, _vriter->mindmg, _vriter->dex, _vriter->add_dex, _vriter->intel, _vriter->add_intel, _vriter->exp, _vriter->totalExp, _vriter->money);
 			dg.charactorStatus(_vriter->roleCharactor, _vriter->name, _vriter->level, _vriter->max_hp, _vriter->add_max_hp, _vriter->hp, _vriter->max_mp, _vriter->add_max_mp, _vriter->mp, _vriter->pwr, _vriter->add_pwr, _vriter->mindmg, _vriter->dex, _vriter->add_dex, _vriter->intel, _vriter->add_intel, _vriter->exp, _vriter->totalExp, _vriter->money);
 			inn.charactorStatus(_vriter->roleCharactor, _vriter->name, _vriter->level, _vriter->max_hp, _vriter->add_max_hp, _vriter->hp, _vriter->max_mp, _vriter->add_max_mp, _vriter->mp, _vriter->pwr, _vriter->add_pwr, _vriter->mindmg, _vriter->dex, _vriter->add_dex, _vriter->intel, _vriter->add_intel, _vriter->exp, _vriter->totalExp, _vriter->money);
+			il.charactorStatus(_vriter->roleCharactor, _vriter->name, _vriter->level, _vriter->max_hp, _vriter->add_max_hp, _vriter->hp, _vriter->max_mp, _vriter->add_max_mp, _vriter->mp, _vriter->pwr, _vriter->add_pwr, _vriter->mindmg, _vriter->dex, _vriter->add_dex, _vriter->intel, _vriter->add_intel, _vriter->exp, _vriter->totalExp, _vriter->money);
 		}
 	}
 	Sleep(500);
@@ -218,7 +221,7 @@ void MainMenu::store(void)
 	{
 		int storeMenuSelect;
 		cout << "========== STORE ==========" << endl;
-		cout << "1.무기\t 2.방어구\t 3.악세사리" << endl;
+		cout << "1.무기\t 2.방어구\t 3.악세사리\t 4.되돌아가기\t 5.(관리자)인벤토리 확인" << endl;
 		cin >> storeMenuSelect;
 
 		switch (storeMenuSelect)
@@ -232,6 +235,12 @@ void MainMenu::store(void)
 			case 3:
 				il.storeItemList(storeMenuSelect);
 			break;
+			case 4:
+				startMenu();
+			break;
+			case 5:
+				il.inventoryViewTemp();
+			break;
 			default:
 				cout << "잘못된 번호를 입력하셨습니다. 다시 입력해주세요." << endl;
 			continue;
@@ -243,7 +252,7 @@ void MainMenu::init(void)
 {
 	_vriter->exp = 0;
 	_vriter->totalExp = 20;
-	_vriter->money = 100;
+	_vriter->money = 10000;
 	_vriter->mindmg = 0;
 	_vriter->add_max_hp = 0;
 	_vriter->add_max_mp = 0;
