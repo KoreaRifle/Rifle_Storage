@@ -1,5 +1,7 @@
 #include "MainMenu.h"
 
+MainMenu mm;
+
 MainMenu::MainMenu()
 {
 }
@@ -129,6 +131,36 @@ void MainMenu::charactorStatus(int viewPoint, int roleNum, char name[32], int le
 	Sleep(500);
 }
 
+void MainMenu::itemInfoSave(ITEMDIVISION div, ITEMKIND kind, ITEMROLE role, char itemName[32], int point, int req_level, int req_pwr, int req_dex, int req_intel, int hpOption, int mpOption, int pwrOption, int dexOption, int intelOption, int price)
+{
+	INVENTORY userInven;
+	userInven.division = div;
+	userInven.kind = kind;
+	userInven.role = role;
+	strncpy_s(userInven.itemName, itemName, 32);
+	userInven.point = point;
+	userInven.req_level = req_level;
+	userInven.req_pwr = req_pwr;
+	userInven.req_dex = req_dex;
+	userInven.req_intel = req_intel;
+	userInven.hpOption = hpOption;
+	userInven.mpOption = mpOption;
+	userInven.pwrOption = pwrOption;
+	userInven.dexOption = dexOption;
+	userInven.intelOption = intelOption;
+	userInven.price = price;
+	_inventory.push_back(userInven);
+	cout << "[MainMenu] itemInfoSave 저장 끝" << endl;
+	cout << "========== MainMenu Item Save List ==========" << endl;
+	for (_vinven = _inventory.begin(); _vinven != _inventory.end(); ++_vinven)
+	{
+		cout << "[MainMenu] for문 시작" << endl;
+		cout << "[" << _vinven->itemNum << "] ";
+		cout << _vinven->itemName << endl;
+	}
+	Sleep(1000);
+}
+
 void MainMenu::setUp(int charactorSelect, char charName[32])
 {
 	if (charactorSelect == WARRIOR)
@@ -221,7 +253,7 @@ void MainMenu::store(void)
 	{
 		int storeMenuSelect;
 		cout << "========== STORE ==========" << endl;
-		cout << "1.무기\t 2.방어구\t 3.악세사리\t 4.되돌아가기\t 5.(관리자)인벤토리 확인" << endl;
+		cout << "1.무기\t 2.방어구\t 3.악세사리\t 4.아이템판매\t 5.되돌아가기\t 6.(관리자)인벤토리 확인" << endl;
 		cin >> storeMenuSelect;
 
 		switch (storeMenuSelect)
@@ -236,10 +268,21 @@ void MainMenu::store(void)
 				il.storeItemList(storeMenuSelect);
 			break;
 			case 4:
-				startMenu();
+
 			break;
 			case 5:
-				il.inventoryViewTemp();
+				startMenu();
+			break;
+			case 6:
+				for (_vinven = _inventory.begin(); _vinven != _inventory.end(); ++_vinven)
+				{
+					inven.itemInfoSave(1, _vinven->division, _vinven->kind, _vinven->role, _vinven->itemName, _vinven->point, _vinven->req_level, _vinven->req_pwr, _vinven->req_dex, _vinven->req_intel, _vinven->hpOption, _vinven->mpOption, _vinven->pwrOption, _vinven->dexOption, _vinven->intelOption, _vinven->price);
+					cout << "[MainMenu-store()] for문 시작" << endl;
+					cout << "[" << _vinven->itemNum << "] ";
+					cout << _vinven->itemName << endl;
+					Sleep(3000);
+				}
+				inven.inventoryView();
 			break;
 			default:
 				cout << "잘못된 번호를 입력하셨습니다. 다시 입력해주세요." << endl;
@@ -261,3 +304,32 @@ void MainMenu::init(void)
 	_vriter->add_intel = 0;
 }
 
+//inventoryInfoSave::inventoryInfoSave()
+//{
+//}
+//
+//inventoryInfoSave::~inventoryInfoSave()
+//{
+//}
+//
+//void inventoryInfoSave::itemInfoSave(ITEMDIVISION div, ITEMKIND kind, ITEMROLE role, char itemName[32], int point, int req_level, int req_pwr, int req_dex, int req_intel, int hpOption, int mpOption, int pwrOption, int dexOption, int intelOption, int price)
+//{
+	//INVENTORY userInven;
+	//userInven.division = div;
+	//userInven.kind = kind;
+	//userInven.role = role;
+	//strncpy_s(userInven.itemName, itemName, 32);
+	//userInven.point = point;
+	//userInven.req_level = req_level;
+	//userInven.req_pwr = req_pwr;
+	//userInven.req_dex = req_dex;
+	//userInven.req_intel = req_intel;
+	//userInven.hpOption = hpOption;
+	//userInven.mpOption = mpOption;
+	//userInven.pwrOption = pwrOption;
+	//userInven.dexOption = dexOption;
+	//userInven.intelOption = intelOption;
+	//userInven.price = price;
+	//_inventory.push_back(userInven);
+//	
+//}

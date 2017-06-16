@@ -6,27 +6,28 @@
 
 using namespace std;
 
-enum ITEMDIVISION
+enum class ITEMDIVISION
 {
 	DROPITEM,
 	STOREITEM,
-	ITEMDIVISIONEND
+	END
 };
 
-enum ITEMKIND
+enum class ITEMKIND
 {
 	WEAPON,
 	ARMOR,
 	ACC,
-	ITEMKINDEND
+	POTION,
+	END
 };
 
-enum ITEMROLE
+enum class ITEMROLE
 {
-	WARRIORITEM,
-	WIZARDITEM,
-	ELFITEM,
-	ITEMROLEEND
+	WARRIOR,
+	WIZARD,
+	ELF,
+	END
 };
 
 struct ITEM
@@ -103,7 +104,7 @@ public:
 	void itemInit(int initNum);
 	void charactorStatus(int roleNum, char name[32], int level, int max_hp, int add_max_hp, int hp, int max_mp, int add_max_mp, int mp, int pwr, int add_pwr, int mindmg, int dex, int add_dex, int intel, int add_intel, int exp, int totalExp, int money);
 	void storeItemSetting(void);
-	void inventorySaveTemp(int kind, int role, char itemName[32], int req_level, int req_pwr, int req_dex, int req_intel, int point, int pwrOption, int dexOption, int intelOption, int price);
+	void inventorySaveTemp(ITEMKIND kind, ITEMROLE role, char itemName[32], int req_level, int req_pwr, int req_dex, int req_intel, int point, int pwrOption, int dexOption, int intelOption, int price);
 	void inventoryViewTemp(void);
 	itemList();
 	~itemList();
