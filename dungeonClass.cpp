@@ -3,6 +3,7 @@
 
 MainMenu dungeon_mm;
 userStats dungeon_us;
+itemList dungeon_il;
 
 dungeonClass::dungeonClass()
 {
@@ -173,15 +174,36 @@ void dungeonClass::enterDungeon(int dungeonNum, char dungeonName[32])
 		{
 			if (_hp > 0)
 			{
+				int bootySelect = rand() % 4; // ¿¸∏Æ«∞ »πµÊ ∫–±‚
 				int moneyTemp;
-				int randomMoneyNum = rand() % _vMonster->money;
 				cout << "∏ÛΩ∫≈Õ∞° ¡◊æ˙Ω¿¥œ¥Ÿ." << endl;
 				cout << "∞Ê«Ëƒ° " << _vMonster->exp << " »πµÊ!" << endl;
 				_exp = _exp + _vMonster->exp;
-				moneyTemp = _vMonster->money - randomMoneyNum;
-				_money = _money + moneyTemp;
-				cout << "∞ÒµÂ " << moneyTemp << "G »πµÊ!" << endl;
-				_vMonster->hp = _vMonster->max_hp;
+
+				if (bootySelect == 0) cout << "∏ÛΩ∫≈Õø°∞‘º≠ æ∆π´ ¿¸∏Æ«∞µµ »πµÊ«œ¡ˆ ∏¯«ﬂΩ¿¥œ¥Ÿ." << endl;
+				else if (bootySelect == 1) // µ∑∏∏ ∏‘æ˙¿ª ∂ß
+				{
+					int randomMoneyNum = rand() % _vMonster->money;
+					moneyTemp = _vMonster->money - randomMoneyNum;
+					_money = _money + moneyTemp;
+					cout << "∞ÒµÂ " << moneyTemp << "G »πµÊ!" << endl;
+				}
+				else if (bootySelect == 2) // æ∆¿Ã≈€∏∏ ∏‘æ˙¿ª ∂ß
+				{
+					cout << "[TEST] æ∆¿Ã≈€∏∏ »πµÊ" << endl;
+					dungeon_il.dropItemList(_vMonster->dl, _vMonster->callNum);
+				}
+				else // µ∑, æ∆¿Ã≈€ ∏µŒ ∏‘æ˙¿ª ∂ß
+				{
+					cout << "[TEST] ∞ÒµÂ/æ∆¿Ã≈€ »πµÊ" << endl;
+					int randomMoneyNum = rand() % _vMonster->money;
+					moneyTemp = _vMonster->money - randomMoneyNum;
+					_money = _money + moneyTemp;
+					cout << "∞ÒµÂ " << moneyTemp << "G »πµÊ!" << endl;
+					dungeon_il.dropItemList(_vMonster->dl, _vMonster->callNum);
+				}
+
+				_vMonster->hp = _vMonster->max_hp; // ∏ÛΩ∫≈Õ «« ¿Ã¿¸ ªÛ≈¬∑Œ ∑—πÈ
 				Sleep(300);
 				levelUp();
 			}
@@ -225,25 +247,6 @@ void dungeonClass::charactorStatus(int roleNum, char name[32], int level, int ma
 
 void dungeonClass::itemInfoSave(ITEMDIVISION div, ITEMKIND kind, ITEMROLE role, char itemName[32], int point, int req_level, int req_pwr, int req_dex, int req_intel, int hpOption, int mpOption, int pwrOption, int dexOption, int intelOption, int price)
 {
-	/*INVENTORY userInven;
-	userInven.division = div;
-	userInven.kind = kind;
-	userInven.role = role;
-	strncpy_s(userInven.itemName, itemName, 32);
-	userInven.point = point;
-	userInven.req_level = req_level;
-	userInven.req_pwr = req_pwr;
-	userInven.req_dex = req_dex;
-	userInven.req_intel = req_intel;
-	userInven.hpOption = hpOption;
-	userInven.mpOption = mpOption;
-	userInven.pwrOption = pwrOption;
-	userInven.dexOption = dexOption;
-	userInven.intelOption = intelOption;
-	userInven.price = price;
-	_inventory.push_back(userInven);*/
-
-	//cout << "[dungeonClass] itemInfoSave ¿˙¿Â ≥°" << endl;
 	dungeon_mm.itemInfoSave(1, div, kind, role, itemName, point, req_level, req_pwr, req_dex, req_intel, hpOption, mpOption, pwrOption, dexOption, intelOption, price);
 }
 
@@ -301,9 +304,10 @@ void dungeonClass::levelUp(void)
 		cout << "»˚ : " << _pwr << endl;
 		cout << "πŒ√∏ : " << _dex << endl;
 		cout << "¡ˆ¥… : " << _intel << endl;
-		Sleep(3000);
+		Sleep(2000);
 	}
 	else _exp = _exp;
+	dungeonMain();
 }
 
 void dungeonClass::attackPoint(int mindmg)
@@ -416,8 +420,8 @@ void dungeonClass::setMonster(void)
 	d1_monster1.dl = DUNGEON1;
 	d1_monster1.callNum = 1;
 	strncpy_s(d1_monster1.name, "∏ÛΩ∫≈Õ1", 32);
-	d1_monster1.max_hp = 50;
-	d1_monster1.hp = 50;
+	d1_monster1.max_hp = 30;
+	d1_monster1.hp = 30;
 	d1_monster1.pwr = 1;
 	d1_monster1.dex = 1;
 	d1_monster1.exp = 2;
@@ -429,8 +433,8 @@ void dungeonClass::setMonster(void)
 	d1_monster2.dl = DUNGEON1;
 	d1_monster2.callNum = 2;
 	strncpy_s(d1_monster2.name, "∏ÛΩ∫≈Õ2", 32);
-	d1_monster2.max_hp = 60;
-	d1_monster2.hp = 60;
+	d1_monster2.max_hp = 40;
+	d1_monster2.hp = 40;
 	d1_monster2.pwr = 2;
 	d1_monster2.dex = 2;
 	d1_monster2.exp = 3;
@@ -442,8 +446,8 @@ void dungeonClass::setMonster(void)
 	d1_monster3.dl = DUNGEON1;
 	d1_monster3.callNum = 3;
 	strncpy_s(d1_monster3.name, "∏ÛΩ∫≈Õ3", 32);
-	d1_monster3.max_hp = 70;
-	d1_monster3.hp = 70;
+	d1_monster3.max_hp = 50;
+	d1_monster3.hp = 50;
 	d1_monster3.pwr = 3;
 	d1_monster3.dex = 3;
 	d1_monster3.exp = 4;

@@ -133,25 +133,6 @@ void MainMenu::charactorStatus(int viewPoint, int roleNum, char name[32], int le
 
 void MainMenu::itemInfoSave(int selectView, ITEMDIVISION div, ITEMKIND kind, ITEMROLE role, char itemName[32], int point, int req_level, int req_pwr, int req_dex, int req_intel, int hpOption, int mpOption, int pwrOption, int dexOption, int intelOption, int price)
 {
-	/*INVENTORY userInven;
-	userInven.division = div;
-	userInven.kind = kind;
-	userInven.role = role;
-	strncpy_s(userInven.itemName, itemName, 32);
-	userInven.point = point;
-	userInven.req_level = req_level;
-	userInven.req_pwr = req_pwr;
-	userInven.req_dex = req_dex;
-	userInven.req_intel = req_intel;
-	userInven.hpOption = hpOption;
-	userInven.mpOption = mpOption;
-	userInven.pwrOption = pwrOption;
-	userInven.dexOption = dexOption;
-	userInven.intelOption = intelOption;
-	userInven.price = price;
-	_inventory.push_back(userInven);*/
-	//cout << "[MainMenu] itemInfoSave ÀúÀå ³¡" << endl;
-
 	if (selectView == 0)
 	{
 		dg.itemInfoSave(div, kind, role, itemName, point, req_level, req_pwr, req_dex, req_intel, hpOption, mpOption, pwrOption, dexOption, intelOption, price);
@@ -159,8 +140,6 @@ void MainMenu::itemInfoSave(int selectView, ITEMDIVISION div, ITEMKIND kind, ITE
 		us.itemInfoSave(div, kind, role, itemName, point, req_level, req_pwr, req_dex, req_intel, hpOption, mpOption, pwrOption, dexOption, intelOption, price);
 	}
 	inven.itemInfoSave(div, kind, role, itemName, point, req_level, req_pwr, req_dex, req_intel, hpOption, mpOption, pwrOption, dexOption, intelOption, price);
-	//us.itemInfoSave(_vinven->division, _vinven->kind, _vinven->role, _vinven->itemName, _vinven->point, _vinven->req_level, _vinven->req_pwr, _vinven->req_dex, _vinven->req_intel, _vinven->hpOption, _vinven->mpOption, _vinven->pwrOption, _vinven->dexOption, _vinven->intelOption, _vinven->price);
-	//Sleep(1000);
 }
 
 void MainMenu::setUp(int charactorSelect, char charName[32])
@@ -175,7 +154,7 @@ void MainMenu::setUp(int charactorSelect, char charName[32])
 		WARRIOR1.hp = 200;
 		WARRIOR1.max_mp = 50;
 		WARRIOR1.mp = 50;
-		WARRIOR1.pwr = 10;
+		WARRIOR1.pwr = 1000;////////////////////////////////////////////////////
 		WARRIOR1.dex = 5;
 		WARRIOR1.intel = 2;
 		_role.push_back(WARRIOR1);

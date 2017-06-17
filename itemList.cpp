@@ -7,6 +7,7 @@ inventory il_inven;
 
 itemList::itemList()
 {
+	dropItemSetting();
 	storeItemSetting();
 }
 
@@ -21,42 +22,42 @@ void itemList::storeItemList(int kindNum)
 	switch (kindNum)
 	{
 		case 1:
-			for (_vitem = _item.begin(); _vitem != _item.end(); ++_vitem)
+			for (_vstoreItem = _storeItem.begin(); _vstoreItem != _storeItem.end(); ++_vstoreItem)
 			{
 				itemInit(1);
-				if (_vitem->division != ITEMDIVISION::STOREITEM) continue;
-				if (_vitem->kind != ITEMKIND(kindNum - 1)) continue;
-				cout << "구매번호 : " << _vitem->itemNum << endl;
-				cout << "아이템명 : " << _vitem->itemName << endl;
+				if (_vstoreItem->division != ITEMDIVISION::STOREITEM) continue;
+				if (_vstoreItem->kind != ITEMKIND(kindNum - 1)) continue;
+				cout << "구매번호 : " << _vstoreItem->itemNum << endl;
+				cout << "아이템명 : " << _vstoreItem->itemName << endl;
 				cout << "구입가능직업 : ";
-				if (_vitem->role == ITEMROLE::WARRIOR) cout << "전사" << endl;
-				else if (_vitem->role == ITEMROLE::WIZARD) cout << "마법사" << endl;
-				else if (_vitem->role == ITEMROLE::ELF) cout << "엘프" << endl;
-				cout << "공격력 : " << _vitem->point << endl;
-				if (_vitem->pwrOption != 0) cout << "옵션(힘) : " << _vitem->pwrOption << endl;
-				if (_vitem->dexOption != 0) cout << "옵션(민첩) : " << _vitem->dexOption << endl;
-				if (_vitem->intelOption != 0) cout << "옵션(지능) : " << _vitem->intelOption << endl;
-				cout << "가격 : " << _vitem->price << endl;
+				if (_vstoreItem->role == ITEMROLE::WARRIOR) cout << "전사" << endl;
+				else if (_vstoreItem->role == ITEMROLE::WIZARD) cout << "마법사" << endl;
+				else if (_vstoreItem->role == ITEMROLE::ELF) cout << "엘프" << endl;
+				cout << "공격력 : " << _vstoreItem->point << endl;
+				if (_vstoreItem->pwrOption != 0) cout << "옵션(힘) : " << _vstoreItem->pwrOption << endl;
+				if (_vstoreItem->dexOption != 0) cout << "옵션(민첩) : " << _vstoreItem->dexOption << endl;
+				if (_vstoreItem->intelOption != 0) cout << "옵션(지능) : " << _vstoreItem->intelOption << endl;
+				cout << "가격 : " << _vstoreItem->price << endl;
 				cout << endl;
 			}
 		break;
 		case 2:
-			for (_vitem = _item.begin(); _vitem != _item.end(); ++_vitem)
+			for (_vstoreItem = _storeItem.begin(); _vstoreItem != _storeItem.end(); ++_vstoreItem)
 			{
 				itemInit(1);
-				if (_vitem->division != ITEMDIVISION::STOREITEM) continue;
-				if (_vitem->kind != ITEMKIND(kindNum - 1)) continue;
-				cout << "구매번호 : " << _vitem->itemNum << endl;
-				cout << "아이템명 : " << _vitem->itemName << endl;
+				if (_vstoreItem->division != ITEMDIVISION::STOREITEM) continue;
+				if (_vstoreItem->kind != ITEMKIND(kindNum - 1)) continue;
+				cout << "구매번호 : " << _vstoreItem->itemNum << endl;
+				cout << "아이템명 : " << _vstoreItem->itemName << endl;
 				cout << "구입가능직업 : ";
-				if (_vitem->role == ITEMROLE::WARRIOR) cout << "전사" << endl;
-				else if (_vitem->role == ITEMROLE::WIZARD) cout << "마법사" << endl;
-				else if (_vitem->role == ITEMROLE::ELF) cout << "엘프" << endl;
-				cout << "방어력 : " << _vitem->point << endl;
-				if (_vitem->pwrOption != 0) cout << "옵션(힘) : " << _vitem->pwrOption << endl;
-				if (_vitem->dexOption != 0) cout << "옵션(민첩) : " << _vitem->dexOption << endl;
-				if (_vitem->intelOption != 0) cout << "옵션(지능) : " << _vitem->intelOption << endl;
-				cout << "가격 : " << _vitem->price << endl;
+				if (_vstoreItem->role == ITEMROLE::WARRIOR) cout << "전사" << endl;
+				else if (_vstoreItem->role == ITEMROLE::WIZARD) cout << "마법사" << endl;
+				else if (_vstoreItem->role == ITEMROLE::ELF) cout << "엘프" << endl;
+				cout << "방어력 : " << _vstoreItem->point << endl;
+				if (_vstoreItem->pwrOption != 0) cout << "옵션(힘) : " << _vstoreItem->pwrOption << endl;
+				if (_vstoreItem->dexOption != 0) cout << "옵션(민첩) : " << _vstoreItem->dexOption << endl;
+				if (_vstoreItem->intelOption != 0) cout << "옵션(지능) : " << _vstoreItem->intelOption << endl;
+				cout << "가격 : " << _vstoreItem->price << endl;
 				cout << endl;
 			}
 		break;
@@ -66,6 +67,35 @@ void itemList::storeItemList(int kindNum)
 		break;
 	}
 	purchaseMenu(kindNum);
+}
+
+void itemList::dropItemList(int dungeonNum, int callNum)
+{
+	cout << "dropItemList 함수 진입" << endl;
+	int dropItemChoice = rand() % _dropItem.size() + 1;
+	for (_vdropItem = _dropItem.begin(); _vdropItem != _dropItem.end(); ++_vdropItem)
+	{
+		//cout << "for문 진입" << endl;
+		if (_vdropItem->dropDungeon != DROPDUNGEON(dungeonNum)) continue;
+		if (_vdropItem->monsterNum != MONSTERNUM::BOSS) // 획득범위가 보스 제외 모든 몬스터일때
+		{
+			// 드랍템 저장수만큼 난수 생성
+			cout << "_dropItem.size() : " << _dropItem.size() << endl;
+			cout << "dropItemChoice : " << dropItemChoice << endl;
+			cout << "================================" << endl;
+			Sleep(5000);
+			if (_vdropItem->itemNum == dropItemChoice)
+			{
+				cout << "[TEST] 드랍 아이템 INVENTORY로 저장 중..." << endl;
+				itemInfoSave(_vdropItem->division, _vdropItem->kind, _vdropItem->role, _vdropItem->itemName, _vdropItem->req_level, _vdropItem->req_pwr, _vdropItem->req_dex, _vdropItem->req_intel, _vdropItem->hpOption, _vdropItem->mpOption, _vdropItem->point, _vdropItem->pwrOption, _vdropItem->dexOption, _vdropItem->intelOption, _vdropItem->price);
+			}
+		}
+		else
+		{
+			cout << "보스를 잡았습니다." << endl;
+			Sleep(1000);
+		}
+	}
 }
 
 void itemList::purchaseMenu(int kindNum)
@@ -84,55 +114,54 @@ void itemList::purchaseMenu(int kindNum)
 			case 1:
 				cout << "구매 아이템 번호를 입력하세요." << endl;
 				cin >> purchaseNum;
-				for (_vitem = _item.begin(); _vitem != _item.end(); ++_vitem)
+				for (_vstoreItem = _storeItem.begin(); _vstoreItem != _storeItem.end(); ++_vstoreItem)
 				{
-					if (purchaseNum == _vitem->itemNum)
+					if (purchaseNum == _vstoreItem->itemNum)
 					{
-						if (_vitem->kind != ITEMKIND(kindNum - 1)) continue;
-						if (_money >= _vitem->price)
+						if (_vstoreItem->kind != ITEMKIND(kindNum - 1)) continue;
+						if (_money >= _vstoreItem->price)
 						{
 							system("cls");
-							_money = _money - _vitem->price;
+							_money = _money - _vstoreItem->price;
 							il_mm.charactorStatus(1, _roleNum, _name, _level, _max_hp, _add_max_hp, _hp, _max_mp, _add_max_mp, _mp, _pwr, _add_pwr, _mindmg, _dex, _add_dex, _intel, _add_intel, _exp, _totalExp, _money);
-							if (_vitem->division != ITEMDIVISION::STOREITEM) continue;
-							if (_vitem->kind != ITEMKIND(kindNum - 1)) continue;
-							itemInfoSave(_vitem->division, _vitem->kind, _vitem->role, _vitem->itemName, _vitem->req_level, _vitem->req_pwr, _vitem->req_dex, _vitem->req_intel, _vitem->hpOption, _vitem->mpOption, _vitem->point, _vitem->pwrOption, _vitem->dexOption, _vitem->intelOption, _vitem->price);
-							cout << "구매번호 : " << _vitem->itemNum << endl;
-							cout << "아이템명 : " << _vitem->itemName << endl;
-							cout << "착용가능직업 : ";
-							if (_vitem->role == ITEMROLE::WARRIOR) cout << "전사" << endl;
-							else if (_vitem->role == ITEMROLE::WIZARD) cout << "마법사" << endl;
-							else if (_vitem->role == ITEMROLE::ELF) cout << "엘프" << endl;
-							cout << "공격력 : " << _vitem->point << endl;
-							if (_vitem->pwrOption != 0) cout << "옵션(힘) : " << _vitem->pwrOption << endl;
-							if (_vitem->dexOption != 0) cout << "옵션(민첩) : " << _vitem->dexOption << endl;
-							if (_vitem->intelOption != 0) cout << "옵션(지능) : " << _vitem->intelOption << endl;
-							cout << "가격 : " << _vitem->price << endl;
-							cout << "======================================" << endl;
-							cout << "해당 아이템을 장착하시겠습니까? (예:1 / 아니오:2)" << endl;
-							cin >> equipSelect;
-							switch (equipSelect)
+							if (_vstoreItem->division != ITEMDIVISION::STOREITEM) continue;
+							if (_vstoreItem->kind != ITEMKIND(kindNum - 1)) continue;
+							itemInfoSave(_vstoreItem->division, _vstoreItem->kind, _vstoreItem->role, _vstoreItem->itemName, _vstoreItem->req_level, _vstoreItem->req_pwr, _vstoreItem->req_dex, _vstoreItem->req_intel, _vstoreItem->hpOption, _vstoreItem->mpOption, _vstoreItem->point, _vstoreItem->pwrOption, _vstoreItem->dexOption, _vstoreItem->intelOption, _vstoreItem->price);
+							while (true)
 							{
-								case 1:
-									/*for (_vinven = _inventory.begin(); _vinven != _inventory.end(); ++_vinven)
-									{
-										il_mm.itemInfoSave(0, _vinven->division, _vinven->kind, _vinven->role, _vinven->itemName, _vinven->point, _vinven->req_level, _vinven->req_pwr, _vinven->req_dex, _vinven->req_intel, _vinven->hpOption, _vinven->mpOption, _vinven->pwrOption, _vinven->dexOption, _vinven->intelOption, _vinven->price);
-									}*/
-									il_mm.store();
-								break;
-								case 2:
-									il_mm.store();
-								break;
-								default:
-									cout << "잘못된 번호를 입력하셨습니다. 다시 입력해주세요." << endl;
-									system("cls");
-								continue;
+								cout << "구매번호 : " << _vstoreItem->itemNum << endl;
+								cout << "아이템명 : " << _vstoreItem->itemName << endl;
+								cout << "착용가능직업 : ";
+								if (_vstoreItem->role == ITEMROLE::WARRIOR) cout << "전사" << endl;
+								else if (_vstoreItem->role == ITEMROLE::WIZARD) cout << "마법사" << endl;
+								else if (_vstoreItem->role == ITEMROLE::ELF) cout << "엘프" << endl;
+								cout << "공격력 : " << _vstoreItem->point << endl;
+								if (_vstoreItem->pwrOption != 0) cout << "옵션(힘) : " << _vstoreItem->pwrOption << endl;
+								if (_vstoreItem->dexOption != 0) cout << "옵션(민첩) : " << _vstoreItem->dexOption << endl;
+								if (_vstoreItem->intelOption != 0) cout << "옵션(지능) : " << _vstoreItem->intelOption << endl;
+								cout << "가격 : " << _vstoreItem->price << endl;
+								cout << "======================================" << endl;
+								cout << "해당 아이템을 장착하시겠습니까? (예:1 / 아니오:2)" << endl;
+								cin >> equipSelect;
+								switch (equipSelect)
+								{
+									case 1:
+										il_mm.store();
+									break;
+									case 2:
+										il_mm.store();
+									break;
+									default:
+										cout << "잘못된 번호를 입력하셨습니다. 다시 입력해주세요." << endl;
+										system("cls");
+									continue;
+								}
 							}
 						}						
 						else
 						{
 							cout << "보유금액이 부족합니다." << endl;
-							cout << "부족한 금액 : " << _vitem->price - _money << " G" << endl;
+							cout << "부족한 금액 : " << _vstoreItem->price - _money << " G" << endl;
 						}
 					}
 				}
@@ -143,7 +172,7 @@ void itemList::purchaseMenu(int kindNum)
 			break;
 			default:
 				cout << "잘못된 번호를 입력하셨습니다. 다시 입력해주세요." << endl;
-			break;
+			continue;
 		}
 	}
 }
@@ -152,17 +181,17 @@ void itemList::itemInit(int initNum)
 {
 	if (initNum == 1)
 	{
-		if (_vitem->point <= 0) _vitem->point = 0;
-		if (_vitem->hpOption <= 0) _vitem->hpOption = 0;
-		if (_vitem->mpOption <= 0) _vitem->mpOption = 0;
-		if (_vitem->pwrOption <= 0) _vitem->pwrOption = 0;
-		if (_vitem->dexOption <= 0) _vitem->dexOption = 0;
-		if (_vitem->intelOption <= 0) _vitem->intelOption = 0;
-		if (_vitem->price <= 0) _vitem->price = 0;
-		if (_vitem->req_level <= 0) _vitem->req_level = 1;
-		if (_vitem->req_pwr <= 0) _vitem->req_pwr = 0;
-		if (_vitem->req_dex <= 0) _vitem->req_dex = 0;
-		if (_vitem->req_intel <= 0) _vitem->req_intel = 0;
+		if (_vstoreItem->point <= 0) _vstoreItem->point = 0;
+		if (_vstoreItem->hpOption <= 0) _vstoreItem->hpOption = 0;
+		if (_vstoreItem->mpOption <= 0) _vstoreItem->mpOption = 0;
+		if (_vstoreItem->pwrOption <= 0) _vstoreItem->pwrOption = 0;
+		if (_vstoreItem->dexOption <= 0) _vstoreItem->dexOption = 0;
+		if (_vstoreItem->intelOption <= 0) _vstoreItem->intelOption = 0;
+		if (_vstoreItem->price <= 0) _vstoreItem->price = 0;
+		if (_vstoreItem->req_level <= 0) _vstoreItem->req_level = 1;
+		if (_vstoreItem->req_pwr <= 0) _vstoreItem->req_pwr = 0;
+		if (_vstoreItem->req_dex <= 0) _vstoreItem->req_dex = 0;
+		if (_vstoreItem->req_intel <= 0) _vstoreItem->req_intel = 0;
 	}
 	else if (initNum == 2)
 	{
@@ -209,23 +238,6 @@ void itemList::charactorStatus(int roleNum, char name[32], int level, int max_hp
 
 void itemList::itemInfoSave(ITEMDIVISION div, ITEMKIND kind, ITEMROLE role, char itemName[32], int point, int req_level, int req_pwr, int req_dex, int req_intel, int hpOption, int mpOption, int pwrOption, int dexOption, int intelOption, int price)
 {
-	/*INVENTORY inventory;
-	inventory.division = division;
-	inventory.kind = kind;
-	inventory.role = role;
-	strncpy_s(inventory.itemName, itemName, 32);
-	inventory.req_level = req_level;
-	inventory.req_pwr = req_pwr;
-	inventory.req_dex = req_dex;
-	inventory.req_intel = req_intel;
-	inventory.point = point;
-	inventory.pwrOption = pwrOption;
-	inventory.dexOption = dexOption;
-	inventory.intelOption = intelOption;
-	inventory.price = price;
-	_inventory.push_back(inventory);*/
-	//cout << "[itemList] itemInfoSave 저장 끝" << endl;
-
 	il_mm.itemInfoSave(0, div, kind, role, itemName, point, req_level, req_pwr, req_dex, req_intel, hpOption, mpOption, pwrOption, dexOption, intelOption, price);
 }
 
@@ -244,7 +256,7 @@ void itemList::storeItemSetting(void)
 	storeItem_weapon1.pwrOption = 1;
 	storeItem_weapon1.price = 500;
 	storeItem_weapon1.itemNum = 1;
-	_item.push_back(storeItem_weapon1);
+	_storeItem.push_back(storeItem_weapon1);
 
 	ITEM storeItem_weapon2;
 	storeItem_weapon2.division = ITEMDIVISION::STOREITEM;
@@ -260,7 +272,7 @@ void itemList::storeItemSetting(void)
 	storeItem_weapon2.dexOption = 1;
 	storeItem_weapon2.price = 1200;
 	storeItem_weapon2.itemNum = storeItem_weapon1.itemNum + 1;
-	_item.push_back(storeItem_weapon2);
+	_storeItem.push_back(storeItem_weapon2);
 
 	ITEM storeItem_armor1;
 	storeItem_armor1.division = ITEMDIVISION::STOREITEM;
@@ -276,7 +288,7 @@ void itemList::storeItemSetting(void)
 	storeItem_armor1.dexOption = 0;
 	storeItem_armor1.price = 400;
 	storeItem_armor1.itemNum = 1;
-	_item.push_back(storeItem_armor1);
+	_storeItem.push_back(storeItem_armor1);
 
 	ITEM storeItem_armor2;
 	storeItem_armor2.division = ITEMDIVISION::STOREITEM;
@@ -292,5 +304,44 @@ void itemList::storeItemSetting(void)
 	storeItem_armor2.dexOption = 1;
 	storeItem_armor2.price = 3000;
 	storeItem_armor2.itemNum = storeItem_armor1.itemNum + 1;
-	_item.push_back(storeItem_armor2);
+	_storeItem.push_back(storeItem_armor2);
+}
+
+void itemList::dropItemSetting(void)
+{
+	ITEM dropItem1_dungeon1;
+	dropItem1_dungeon1.division = ITEMDIVISION::DROPITEM;
+	dropItem1_dungeon1.kind = ITEMKIND::WEAPON;
+	dropItem1_dungeon1.role = ITEMROLE::WARRIOR;
+	dropItem1_dungeon1.dropDungeon = DROPDUNGEON::DUNGEON1;
+	strncpy_s(dropItem1_dungeon1.itemName, "날카로운 직검", 32);
+	dropItem1_dungeon1.req_level = 1;
+	dropItem1_dungeon1.req_pwr = 5;
+	dropItem1_dungeon1.req_dex = 4;
+	dropItem1_dungeon1.req_intel = 1;
+	dropItem1_dungeon1.point = 10;
+	dropItem1_dungeon1.pwrOption = 5;
+	dropItem1_dungeon1.dexOption = 2;
+	dropItem1_dungeon1.price = 800;
+	dropItem1_dungeon1.monsterNum = MONSTERNUM::MONSTER;
+	dropItem1_dungeon1.itemNum = 1;
+	_dropItem.push_back(dropItem1_dungeon1);
+
+	ITEM dropItem2_dungeon1;
+	dropItem2_dungeon1.division = ITEMDIVISION::DROPITEM;
+	dropItem2_dungeon1.kind = ITEMKIND::WEAPON;
+	dropItem2_dungeon1.role = ITEMROLE::WARRIOR;
+	dropItem2_dungeon1.dropDungeon = DROPDUNGEON::DUNGEON1;
+	strncpy_s(dropItem2_dungeon1.itemName, "거대한 브로드소드", 32);
+	dropItem2_dungeon1.req_level = 2;
+	dropItem2_dungeon1.req_pwr = 13;
+	dropItem2_dungeon1.req_dex = 6;
+	dropItem2_dungeon1.req_intel = 0;
+	dropItem2_dungeon1.point = 25;
+	dropItem2_dungeon1.pwrOption = 15;
+	dropItem2_dungeon1.dexOption = 10;
+	dropItem2_dungeon1.price = 3200;
+	dropItem2_dungeon1.monsterNum = MONSTERNUM::MONSTER;
+	dropItem2_dungeon1.itemNum = dropItem1_dungeon1.itemNum + 1;
+	_dropItem.push_back(dropItem2_dungeon1);
 }
