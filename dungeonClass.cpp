@@ -60,6 +60,10 @@ void dungeonClass::dungeonMain(void)
 			break;
 			case 5:
 				dungeon_mm.charactorStatus(1, _roleNum, _name, _level, _max_hp, _add_max_hp, _hp, _max_mp, _add_max_mp, _mp, _pwr, _add_pwr, _mindmg, _dex, _add_dex, _intel, _add_intel, _exp, _totalExp, _money);
+				/*for (_vinven = _inventory.begin(); _vinven != _inventory.end(); ++_vinven)
+				{
+					dungeon_mm.itemInfoSave(_vinven->division, _vinven->kind, _vinven->role, _vinven->itemName, _vinven->point, _vinven->req_level, _vinven->req_pwr, _vinven->req_dex, _vinven->req_intel, _vinven->hpOption, _vinven->mpOption, _vinven->pwrOption, _vinven->dexOption, _vinven->intelOption, _vinven->price);
+				}*/
 				dungeon_mm.startMenu();
 			break;
 			default:
@@ -132,15 +136,11 @@ void dungeonClass::enterDungeon(int dungeonNum, char dungeonName[32])
 					if (runNum != randomNum)
 					{
 						cout << "도망가지 못했습니다." << endl;
-						// cout << "runNum / randomNum : " << runNum << " / " << randomNum << endl;
-						Sleep(300);
 						break;
 					}
 					else
 					{
 						cout << "무사히 도망쳤습니다." << endl;
-						// cout << "runNum / randomNum : " << runNum << " / " << randomNum << endl;
-						Sleep(300);
 						_vMonster->hp = _vMonster->max_hp;
 						dungeonMain();
 					}
@@ -221,6 +221,30 @@ void dungeonClass::charactorStatus(int roleNum, char name[32], int level, int ma
 	_exp = exp;
 	_totalExp = totalExp;
 	_money = money;
+}
+
+void dungeonClass::itemInfoSave(ITEMDIVISION div, ITEMKIND kind, ITEMROLE role, char itemName[32], int point, int req_level, int req_pwr, int req_dex, int req_intel, int hpOption, int mpOption, int pwrOption, int dexOption, int intelOption, int price)
+{
+	/*INVENTORY userInven;
+	userInven.division = div;
+	userInven.kind = kind;
+	userInven.role = role;
+	strncpy_s(userInven.itemName, itemName, 32);
+	userInven.point = point;
+	userInven.req_level = req_level;
+	userInven.req_pwr = req_pwr;
+	userInven.req_dex = req_dex;
+	userInven.req_intel = req_intel;
+	userInven.hpOption = hpOption;
+	userInven.mpOption = mpOption;
+	userInven.pwrOption = pwrOption;
+	userInven.dexOption = dexOption;
+	userInven.intelOption = intelOption;
+	userInven.price = price;
+	_inventory.push_back(userInven);*/
+
+	//cout << "[dungeonClass] itemInfoSave 저장 끝" << endl;
+	dungeon_mm.itemInfoSave(1, div, kind, role, itemName, point, req_level, req_pwr, req_dex, req_intel, hpOption, mpOption, pwrOption, dexOption, intelOption, price);
 }
 
 void dungeonClass::levelUp(void)

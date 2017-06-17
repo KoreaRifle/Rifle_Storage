@@ -104,8 +104,7 @@ public:
 	void itemInit(int initNum);
 	void charactorStatus(int roleNum, char name[32], int level, int max_hp, int add_max_hp, int hp, int max_mp, int add_max_mp, int mp, int pwr, int add_pwr, int mindmg, int dex, int add_dex, int intel, int add_intel, int exp, int totalExp, int money);
 	void storeItemSetting(void);
-	void inventorySaveTemp(ITEMKIND kind, ITEMROLE role, char itemName[32], int req_level, int req_pwr, int req_dex, int req_intel, int point, int pwrOption, int dexOption, int intelOption, int price);
-	void inventoryViewTemp(void);
+	void itemInfoSave(ITEMDIVISION div, ITEMKIND kind, ITEMROLE role, char itemName[32], int point, int req_level, int req_pwr, int req_dex, int req_intel, int hpOption, int mpOption, int pwrOption, int dexOption, int intelOption, int price);
 	itemList();
 	~itemList();
 };

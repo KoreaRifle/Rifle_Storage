@@ -96,8 +96,7 @@ void itemList::purchaseMenu(int kindNum)
 							il_mm.charactorStatus(1, _roleNum, _name, _level, _max_hp, _add_max_hp, _hp, _max_mp, _add_max_mp, _mp, _pwr, _add_pwr, _mindmg, _dex, _add_dex, _intel, _add_intel, _exp, _totalExp, _money);
 							if (_vitem->division != ITEMDIVISION::STOREITEM) continue;
 							if (_vitem->kind != ITEMKIND(kindNum - 1)) continue;
-							//inventorySaveTemp(_vitem->kind, _vitem->role, _vitem->itemName, _vitem->req_level, _vitem->req_pwr, _vitem->req_dex, _vitem->req_intel, _vitem->point, _vitem->pwrOption, _vitem->dexOption, _vitem->intelOption, _vitem->price);
-							il_inven.itemInfoSave(0, _vitem->division, _vitem->kind, _vitem->role, _vitem->itemName, _vitem->req_level, _vitem->req_pwr, _vitem->req_dex, _vitem->req_intel, _vitem->hpOption, _vitem->mpOption, _vitem->point, _vitem->pwrOption, _vitem->dexOption, _vitem->intelOption, _vitem->price);
+							itemInfoSave(_vitem->division, _vitem->kind, _vitem->role, _vitem->itemName, _vitem->req_level, _vitem->req_pwr, _vitem->req_dex, _vitem->req_intel, _vitem->hpOption, _vitem->mpOption, _vitem->point, _vitem->pwrOption, _vitem->dexOption, _vitem->intelOption, _vitem->price);
 							cout << "±¸¸Å¹øÈ£ : " << _vitem->itemNum << endl;
 							cout << "¾ÆÀÌÅÛ¸í : " << _vitem->itemName << endl;
 							cout << "Âø¿ë°¡´ÉÁ÷¾÷ : ";
@@ -115,6 +114,10 @@ void itemList::purchaseMenu(int kindNum)
 							switch (equipSelect)
 							{
 								case 1:
+									/*for (_vinven = _inventory.begin(); _vinven != _inventory.end(); ++_vinven)
+									{
+										il_mm.itemInfoSave(0, _vinven->division, _vinven->kind, _vinven->role, _vinven->itemName, _vinven->point, _vinven->req_level, _vinven->req_pwr, _vinven->req_dex, _vinven->req_intel, _vinven->hpOption, _vinven->mpOption, _vinven->pwrOption, _vinven->dexOption, _vinven->intelOption, _vinven->price);
+									}*/
 									il_mm.store();
 								break;
 								case 2:
@@ -204,12 +207,12 @@ void itemList::charactorStatus(int roleNum, char name[32], int level, int max_hp
 }
 
 
-void itemList::inventorySaveTemp(ITEMKIND kind, ITEMROLE role, char itemName[32], int req_level, int req_pwr, int req_dex, int req_intel, int point, int pwrOption, int dexOption, int intelOption, int price)
+void itemList::itemInfoSave(ITEMDIVISION div, ITEMKIND kind, ITEMROLE role, char itemName[32], int point, int req_level, int req_pwr, int req_dex, int req_intel, int hpOption, int mpOption, int pwrOption, int dexOption, int intelOption, int price)
 {
-	INVENTORY inventory;
-	inventory.division = ITEMDIVISION::STOREITEM;
-	inventory.kind = ITEMKIND(kind);
-	inventory.role = ITEMROLE(role);
+	/*INVENTORY inventory;
+	inventory.division = division;
+	inventory.kind = kind;
+	inventory.role = role;
 	strncpy_s(inventory.itemName, itemName, 32);
 	inventory.req_level = req_level;
 	inventory.req_pwr = req_pwr;
@@ -220,81 +223,74 @@ void itemList::inventorySaveTemp(ITEMKIND kind, ITEMROLE role, char itemName[32]
 	inventory.dexOption = dexOption;
 	inventory.intelOption = intelOption;
 	inventory.price = price;
-	_inventory.push_back(inventory);
-}
+	_inventory.push_back(inventory);*/
+	//cout << "[itemList] itemInfoSave ÀúÀå ³¡" << endl;
 
-//void itemList::inventoryViewTemp(void)
-//{
-//	cout << "ÁøÀÔ" << endl;
-//	int itemNum = 1;
-//	for (_vinven = _inventory.begin(); _vinven != _inventory.end(); ++_vinven)
-//	{
-//		itemInit(2);
-//		cout << "±¸¸Å¹øÈ£ : " << itemNum << endl;
-//		cout << "¾ÆÀÌÅÛ¸í : " << _vinven->itemName << endl;
-//		cout << "Âø¿ë°¡´ÉÁ÷¾÷ : ";
-//		if (_vinven->role == ITEMROLE::WARRIOR) cout << "Àü»ç" << endl;
-//		else if (_vinven->role == ITEMROLE::WIZARD) cout << "¸¶¹ý»ç" << endl;
-//		else if (_vinven->role == ITEMROLE::ELF) cout << "¿¤ÇÁ" << endl;
-//		cout << "°ø°Ý·Â : " << _vinven->point << endl;
-//		if (_vinven->pwrOption != 0) cout << "¿É¼Ç(Èû) : " << _vinven->pwrOption << endl;
-//		if (_vinven->dexOption != 0) cout << "¿É¼Ç(¹ÎÃ¸) : " << _vinven->dexOption << endl;
-//		if (_vinven->intelOption != 0) cout << "¿É¼Ç(Áö´É) : " << _vinven->intelOption << endl;
-//		if (_vinven->req_level != 0) cout << "Âø¿ëÁ¦ÇÑ ·¹º§ : " << _vinven->req_level << endl;
-//		if (_vinven->req_pwr != 0) cout << "Âø¿ëÁ¦ÇÑ Èû : " << _vinven->req_pwr << endl;
-//		if (_vinven->req_dex != 0) cout << "Âø¿ëÁ¦ÇÑ ¹ÎÃ¸ : " << _vinven->req_dex << endl;
-//		if (_vinven->req_intel != 0) cout << "Âø¿ëÁ¦ÇÑ Áö´É : " << _vinven->req_intel << endl;
-//		cout << "====================" << endl;
-//		itemNum++;
-//	}
-//}
+	il_mm.itemInfoSave(0, div, kind, role, itemName, point, req_level, req_pwr, req_dex, req_intel, hpOption, mpOption, pwrOption, dexOption, intelOption, price);
+}
 
 void itemList::storeItemSetting(void)
 {
-	ITEM storeItem1;
-	storeItem1.division = ITEMDIVISION::STOREITEM;
-	storeItem1.kind = ITEMKIND::WEAPON;
-	storeItem1.role = ITEMROLE::WARRIOR;
-	strncpy_s(storeItem1.itemName, "¼ô¼îµå", 32);
-	storeItem1.req_level = 1;
-	storeItem1.req_pwr = 3;
-	storeItem1.req_dex = 1;
-	storeItem1.req_intel = 0;
-	storeItem1.point = 5;
-	storeItem1.pwrOption = 1;
-	storeItem1.price = 500;
-	storeItem1.itemNum = 1;
-	_item.push_back(storeItem1);
+	ITEM storeItem_weapon1;
+	storeItem_weapon1.division = ITEMDIVISION::STOREITEM;
+	storeItem_weapon1.kind = ITEMKIND::WEAPON;
+	storeItem_weapon1.role = ITEMROLE::WARRIOR;
+	strncpy_s(storeItem_weapon1.itemName, "¼ô¼îµå", 32);
+	storeItem_weapon1.req_level = 1;
+	storeItem_weapon1.req_pwr = 3;
+	storeItem_weapon1.req_dex = 1;
+	storeItem_weapon1.req_intel = 0;
+	storeItem_weapon1.point = 5;
+	storeItem_weapon1.pwrOption = 1;
+	storeItem_weapon1.price = 500;
+	storeItem_weapon1.itemNum = 1;
+	_item.push_back(storeItem_weapon1);
 
-	ITEM storeItem2;
-	storeItem2.division = ITEMDIVISION::STOREITEM;
-	storeItem2.kind = ITEMKIND::WEAPON;
-	storeItem2.role = ITEMROLE::WARRIOR;
-	strncpy_s(storeItem2.itemName, "³¯ÀÌ ¼­ ÀÖ´Â ºê·Îµå¼Òµå", 32);
-	storeItem2.req_level = 2;
-	storeItem2.req_pwr = 8;
-	storeItem2.req_dex = 5;
-	storeItem2.req_intel = 0;
-	storeItem2.point = 15;
-	storeItem2.pwrOption = 3;
-	storeItem2.dexOption = 1;
-	storeItem2.price = 1200;
-	storeItem2.itemNum = storeItem1.itemNum + 1;
-	_item.push_back(storeItem2);
+	ITEM storeItem_weapon2;
+	storeItem_weapon2.division = ITEMDIVISION::STOREITEM;
+	storeItem_weapon2.kind = ITEMKIND::WEAPON;
+	storeItem_weapon2.role = ITEMROLE::WARRIOR;
+	strncpy_s(storeItem_weapon2.itemName, "³¯ÀÌ ¼­ ÀÖ´Â ºê·Îµå¼Òµå", 32);
+	storeItem_weapon2.req_level = 2;
+	storeItem_weapon2.req_pwr = 8;
+	storeItem_weapon2.req_dex = 5;
+	storeItem_weapon2.req_intel = 0;
+	storeItem_weapon2.point = 15;
+	storeItem_weapon2.pwrOption = 3;
+	storeItem_weapon2.dexOption = 1;
+	storeItem_weapon2.price = 1200;
+	storeItem_weapon2.itemNum = storeItem_weapon1.itemNum + 1;
+	_item.push_back(storeItem_weapon2);
 
-	ITEM storeItem3;
-	storeItem3.division = ITEMDIVISION::STOREITEM;
-	storeItem3.kind = ITEMKIND::ARMOR;
-	storeItem3.role = ITEMROLE::WARRIOR;
-	strncpy_s(storeItem3.itemName, "³°Àº ÆÇ±Ý °©¿Ê", 32);
-	storeItem3.req_level = 1;
-	storeItem3.req_pwr = 3;
-	storeItem3.req_dex = 1;
-	storeItem3.req_intel = 0;
-	storeItem3.point = 5;
-	storeItem3.pwrOption = 1;
-	storeItem3.dexOption = 0;
-	storeItem3.price = 400;
-	storeItem3.itemNum = 1;
-	_item.push_back(storeItem3);
+	ITEM storeItem_armor1;
+	storeItem_armor1.division = ITEMDIVISION::STOREITEM;
+	storeItem_armor1.kind = ITEMKIND::ARMOR;
+	storeItem_armor1.role = ITEMROLE::WARRIOR;
+	strncpy_s(storeItem_armor1.itemName, "³°Àº ÆÇ±Ý °©¿Ê", 32);
+	storeItem_armor1.req_level = 1;
+	storeItem_armor1.req_pwr = 3;
+	storeItem_armor1.req_dex = 1;
+	storeItem_armor1.req_intel = 0;
+	storeItem_armor1.point = 5;
+	storeItem_armor1.pwrOption = 1;
+	storeItem_armor1.dexOption = 0;
+	storeItem_armor1.price = 400;
+	storeItem_armor1.itemNum = 1;
+	_item.push_back(storeItem_armor1);
+
+	ITEM storeItem_armor2;
+	storeItem_armor2.division = ITEMDIVISION::STOREITEM;
+	storeItem_armor2.kind = ITEMKIND::ARMOR;
+	storeItem_armor2.role = ITEMROLE::WARRIOR;
+	strncpy_s(storeItem_armor2.itemName, "ÇÃ·¹ÀÌÆ® ¾Æ¸Ó", 32);
+	storeItem_armor2.req_level = 2;
+	storeItem_armor2.req_pwr = 8;
+	storeItem_armor2.req_dex = 3;
+	storeItem_armor2.req_intel = 0;
+	storeItem_armor2.point = 12;
+	storeItem_armor2.pwrOption = 3;
+	storeItem_armor2.dexOption = 1;
+	storeItem_armor2.price = 3000;
+	storeItem_armor2.itemNum = storeItem_armor1.itemNum + 1;
+	_item.push_back(storeItem_armor2);
 }
