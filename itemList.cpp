@@ -72,28 +72,74 @@ void itemList::storeItemList(int kindNum)
 void itemList::dropItemList(int dungeonNum, int callNum)
 {
 	cout << "dropItemList 함수 진입" << endl;
-	int dropItemChoice = rand() % _dropItem.size() + 1;
-	for (_vdropItem = _dropItem.begin(); _vdropItem != _dropItem.end(); ++_vdropItem)
+	if (dungeonNum == 1)
 	{
-		//cout << "for문 진입" << endl;
-		if (_vdropItem->dropDungeon != DROPDUNGEON(dungeonNum)) continue;
-		if (_vdropItem->monsterNum != MONSTERNUM::BOSS) // 획득범위가 보스 제외 모든 몬스터일때
+		int _d1DropItemChoice = rand() % (_d1DropItem.size() - _d1BossDropItem.size()) + 1;
+		int _d1BossDropItemChoice = _d1BossItemArray[rand() % _d1BossDropItem.size()];
+		for (_vdropItem = _d1DropItem.begin(); _vdropItem != _d1DropItem.end(); ++_vdropItem)
 		{
-			// 드랍템 저장수만큼 난수 생성
-			cout << "_dropItem.size() : " << _dropItem.size() << endl;
-			cout << "dropItemChoice : " << dropItemChoice << endl;
-			cout << "================================" << endl;
-			Sleep(5000);
-			if (_vdropItem->itemNum == dropItemChoice)
+			if (_vdropItem->dropDungeon != DROPDUNGEON(dungeonNum)) continue;
+			if (MONSTERNUM(callNum) != MONSTERNUM::BOSS) // 획득범위가 보스 제외 모든 몬스터일때
 			{
-				cout << "[TEST] 드랍 아이템 INVENTORY로 저장 중..." << endl;
-				itemInfoSave(_vdropItem->division, _vdropItem->kind, _vdropItem->role, _vdropItem->itemName, _vdropItem->req_level, _vdropItem->req_pwr, _vdropItem->req_dex, _vdropItem->req_intel, _vdropItem->hpOption, _vdropItem->mpOption, _vdropItem->point, _vdropItem->pwrOption, _vdropItem->dexOption, _vdropItem->intelOption, _vdropItem->price);
+				// 드랍템 저장수만큼 난수 생성
+				cout << "_d1DropItem.size() : " << _d1DropItem.size() - _d1BossDropItem.size() << endl;
+				cout << "_vdropItem->itemNum : " << _vdropItem->itemNum << endl;
+				cout << "_d1DropItemChoice : " << _d1DropItemChoice << endl;
+				cout << "================================" << endl;
+				Sleep(1000);
+				if (_vdropItem->itemNum == _d1DropItemChoice)
+				{
+					cout << "[TEST] 드랍 아이템 INVENTORY로 저장 중..." << endl;
+					itemInfoSave(_vdropItem->division, _vdropItem->kind, _vdropItem->role, _vdropItem->itemName, _vdropItem->req_level, _vdropItem->req_pwr, _vdropItem->req_dex, _vdropItem->req_intel, _vdropItem->hpOption, _vdropItem->mpOption, _vdropItem->point, _vdropItem->pwrOption, _vdropItem->dexOption, _vdropItem->intelOption, _vdropItem->price);
+				}
+			}
+			else if (MONSTERNUM(callNum) == MONSTERNUM::BOSS)
+			{
+				cout << "_d1BossDropItem.size() : " << _d1BossDropItem.size() << endl;
+				cout << "_vdropItem->itemNum : " << _vdropItem->itemNum << endl;
+				cout << "_d1BossDropItemChoice : " << _d1BossDropItemChoice << endl;
+				cout << "================================" << endl;
+				Sleep(1000);
+				if (_vdropItem->itemNum == _d1BossDropItemChoice)
+				{
+					cout << "[TEST] BOSS 드랍 아이템 INVENTORY로 저장 중..." << endl;
+					itemInfoSave(_vdropItem->division, _vdropItem->kind, _vdropItem->role, _vdropItem->itemName, _vdropItem->req_level, _vdropItem->req_pwr, _vdropItem->req_dex, _vdropItem->req_intel, _vdropItem->hpOption, _vdropItem->mpOption, _vdropItem->point, _vdropItem->pwrOption, _vdropItem->dexOption, _vdropItem->intelOption, _vdropItem->price);
+				}
 			}
 		}
-		else
+	}
+	else if (dungeonNum == 2)
+	{
+		int _d2DropItemChoice = rand() % (_d2DropItem.size() - _d2BossDropItem.size()) + 1;
+		int _d2BossDropItemChoice = _d2BossItemArray[rand() % _d2BossDropItem.size()];
+		for (_vdropItem = _d2DropItem.begin(); _vdropItem != _d2DropItem.end(); ++_vdropItem)
 		{
-			cout << "보스를 잡았습니다." << endl;
-			Sleep(1000);
+			if (_vdropItem->dropDungeon != DROPDUNGEON(dungeonNum)) continue;
+			if (_vdropItem->monsterNum != MONSTERNUM::BOSS) // 획득범위가 보스 제외 모든 몬스터일때
+			{
+				// 드랍템 저장수만큼 난수 생성
+				cout << "_dropItem.size() : " << _d2DropItem.size() - _d2BossDropItem.size() << endl;
+				cout << "_d2DropItemChoice : " << _d2DropItemChoice << endl;
+				cout << "================================" << endl;
+				Sleep(1000);
+				if (_vdropItem->itemNum == _d2DropItemChoice)
+				{
+					cout << "[TEST] 드랍 아이템 INVENTORY로 저장 중..." << endl;
+					itemInfoSave(_vdropItem->division, _vdropItem->kind, _vdropItem->role, _vdropItem->itemName, _vdropItem->req_level, _vdropItem->req_pwr, _vdropItem->req_dex, _vdropItem->req_intel, _vdropItem->hpOption, _vdropItem->mpOption, _vdropItem->point, _vdropItem->pwrOption, _vdropItem->dexOption, _vdropItem->intelOption, _vdropItem->price);
+				}
+			}
+			else
+			{
+				cout << "_dropItem.size() : " << _d2BossDropItem.size() << endl;
+				cout << "_d2BossDropItemChoice : " << _d2BossDropItemChoice << endl;
+				cout << "================================" << endl;
+				Sleep(1000);
+				if (_vdropItem->itemNum == _d2BossDropItemChoice)
+				{
+					cout << "[TEST] BOSS 드랍 아이템 INVENTORY로 저장 중..." << endl;
+					itemInfoSave(_vdropItem->division, _vdropItem->kind, _vdropItem->role, _vdropItem->itemName, _vdropItem->req_level, _vdropItem->req_pwr, _vdropItem->req_dex, _vdropItem->req_intel, _vdropItem->hpOption, _vdropItem->mpOption, _vdropItem->point, _vdropItem->pwrOption, _vdropItem->dexOption, _vdropItem->intelOption, _vdropItem->price);
+				}
+			}
 		}
 	}
 }
@@ -326,6 +372,7 @@ void itemList::dropItemSetting(void)
 	dropItem1_dungeon1.monsterNum = MONSTERNUM::MONSTER;
 	dropItem1_dungeon1.itemNum = 1;
 	_dropItem.push_back(dropItem1_dungeon1);
+	_d1DropItem.push_back(dropItem1_dungeon1);
 
 	ITEM dropItem2_dungeon1;
 	dropItem2_dungeon1.division = ITEMDIVISION::DROPITEM;
@@ -344,4 +391,98 @@ void itemList::dropItemSetting(void)
 	dropItem2_dungeon1.monsterNum = MONSTERNUM::MONSTER;
 	dropItem2_dungeon1.itemNum = dropItem1_dungeon1.itemNum + 1;
 	_dropItem.push_back(dropItem2_dungeon1);
+	_d1DropItem.push_back(dropItem2_dungeon1);
+
+	ITEM dropItem3_dungeon1;
+	dropItem3_dungeon1.division = ITEMDIVISION::DROPITEM;
+	dropItem3_dungeon1.kind = ITEMKIND::WEAPON;
+	dropItem3_dungeon1.role = ITEMROLE::WARRIOR;
+	dropItem3_dungeon1.dropDungeon = DROPDUNGEON::DUNGEON1;
+	strncpy_s(dropItem3_dungeon1.itemName, "[RARE]모략가", 32);
+	dropItem3_dungeon1.req_level = 2;
+	dropItem3_dungeon1.req_pwr = 13;
+	dropItem3_dungeon1.req_dex = 6;
+	dropItem3_dungeon1.req_intel = 0;
+	dropItem3_dungeon1.point = 25;
+	dropItem3_dungeon1.pwrOption = 15;
+	dropItem3_dungeon1.dexOption = 10;
+	dropItem3_dungeon1.price = 3200;
+	dropItem3_dungeon1.monsterNum = MONSTERNUM::BOSS;
+	dropItem3_dungeon1.itemNum = dropItem2_dungeon1.itemNum + 1;
+	_d1BossDropItem.push_back(dropItem3_dungeon1);
+	_dropItem.push_back(dropItem3_dungeon1);
+	_d1DropItem.push_back(dropItem3_dungeon1);
+
+	ITEM dropItem4_dungeon1;
+	dropItem4_dungeon1.division = ITEMDIVISION::DROPITEM;
+	dropItem4_dungeon1.kind = ITEMKIND::WEAPON;
+	dropItem4_dungeon1.role = ITEMROLE::WARRIOR;
+	dropItem4_dungeon1.dropDungeon = DROPDUNGEON::DUNGEON1;
+	strncpy_s(dropItem4_dungeon1.itemName, "테스트_노말템", 32);
+	dropItem4_dungeon1.req_level = 2;
+	dropItem4_dungeon1.req_pwr = 13;
+	dropItem4_dungeon1.req_dex = 6;
+	dropItem4_dungeon1.req_intel = 0;
+	dropItem4_dungeon1.point = 25;
+	dropItem4_dungeon1.pwrOption = 15;
+	dropItem4_dungeon1.dexOption = 10;
+	dropItem4_dungeon1.price = 3200;
+	dropItem4_dungeon1.monsterNum = MONSTERNUM::MONSTER;
+	dropItem4_dungeon1.itemNum = dropItem3_dungeon1.itemNum + 1;
+	_dropItem.push_back(dropItem4_dungeon1);
+	_d1DropItem.push_back(dropItem4_dungeon1);
+
+	ITEM dropItem5_dungeon1;
+	dropItem5_dungeon1.division = ITEMDIVISION::DROPITEM;
+	dropItem5_dungeon1.kind = ITEMKIND::WEAPON;
+	dropItem5_dungeon1.role = ITEMROLE::WARRIOR;
+	dropItem5_dungeon1.dropDungeon = DROPDUNGEON::DUNGEON1;
+	strncpy_s(dropItem5_dungeon1.itemName, "[RARE] 레어템", 32);
+	dropItem5_dungeon1.req_level = 2;
+	dropItem5_dungeon1.req_pwr = 13;
+	dropItem5_dungeon1.req_dex = 6;
+	dropItem5_dungeon1.req_intel = 0;
+	dropItem5_dungeon1.point = 25;
+	dropItem5_dungeon1.pwrOption = 15;
+	dropItem5_dungeon1.dexOption = 10;
+	dropItem5_dungeon1.price = 3200;
+	dropItem5_dungeon1.monsterNum = MONSTERNUM::BOSS;
+	dropItem5_dungeon1.itemNum = dropItem4_dungeon1.itemNum + 1;
+	_d1BossDropItem.push_back(dropItem5_dungeon1);
+	_dropItem.push_back(dropItem5_dungeon1);
+	_d1DropItem.push_back(dropItem5_dungeon1);
+
+	ITEM dropItem1_dungeon2;
+	dropItem1_dungeon2.division = ITEMDIVISION::DROPITEM;
+	dropItem1_dungeon2.kind = ITEMKIND::WEAPON;
+	dropItem1_dungeon2.role = ITEMROLE::WARRIOR;
+	dropItem1_dungeon2.dropDungeon = DROPDUNGEON::DUNGEON2;
+	strncpy_s(dropItem1_dungeon2.itemName, "테스트아이템", 32);
+	dropItem1_dungeon2.req_level = 2;
+	dropItem1_dungeon2.req_pwr = 13;
+	dropItem1_dungeon2.req_dex = 6;
+	dropItem1_dungeon2.req_intel = 0;
+	dropItem1_dungeon2.point = 25;
+	dropItem1_dungeon2.pwrOption = 15;
+	dropItem1_dungeon2.dexOption = 10;
+	dropItem1_dungeon2.price = 3200;
+	dropItem1_dungeon2.monsterNum = MONSTERNUM::MONSTER;
+	dropItem1_dungeon2.itemNum = 1;
+	_dropItem.push_back(dropItem1_dungeon2);
+	_d2DropItem.push_back(dropItem1_dungeon2);
+
+	// 보스 드랍 아이템 번호 배열에 저장
+	int num = 0;
+	for (_vdropItem = _d1BossDropItem.begin(); _vdropItem != _d1BossDropItem.end(); ++_vdropItem)
+	{
+		_d1BossItemArray[num] = _vdropItem->itemNum;
+		num++;
+	}
+
+	num = 0;
+	for (_vdropItem = _d2BossDropItem.begin(); _vdropItem != _d2BossDropItem.end(); ++_vdropItem)
+	{
+		_d2BossItemArray[num] = _vdropItem->itemNum;
+		num++;
+	}
 }

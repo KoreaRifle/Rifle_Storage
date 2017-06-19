@@ -34,22 +34,6 @@ private:
 	vector<INVENTORY>::iterator _vinven;
 	INVENTORY inn_inven;
 	int selectView = 0;
-	/*ITEMDIVISION division;
-	ITEMKIND kind;
-	ITEMROLE role;
-	int itemNum;
-	char itemName[32];
-	int point;
-	int req_level;
-	int req_pwr;
-	int req_dex;
-	int req_intel;
-	int hpOption;
-	int mpOption;
-	int pwrOption;
-	int dexOption;
-	int intelOption;
-	int price;*/
 public:
 	void innMenu(void);
 	void charactorStatus(int roleNum, char name[32], int level, int max_hp, int add_max_hp, int hp, int max_mp, int add_max_mp, int mp, int pwr, int add_pwr, int mindmg, int dex, int add_dex, int intel, int add_intel, int exp, int totalExp, int money);

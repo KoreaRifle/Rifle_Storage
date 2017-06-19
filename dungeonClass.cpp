@@ -81,16 +81,16 @@ void dungeonClass::enterDungeon(int dungeonNum, char dungeonName[32])
 	system("cls");
 	cout << dungeonName << " 던전에 입장하셨습니다." << endl;
 	int callMonsterNum = rand() % 3 + 1; // 1 ~ 3
-	int callBossMonsterNum = rand() % 30 + 1; // 1 ~ 30
+	int callBossMonsterNum = rand() % 10 + 1; // 1 ~ 30
 
-	if (callMonsterNum == callBossMonsterNum) callMonsterNum = 4;
+	if (callMonsterNum == callBossMonsterNum) callMonsterNum = 99;
 
 	for (_vMonster = _monster.begin(); _vMonster != _monster.end(); ++_vMonster)
 	{
 		if (dungeonNum != _vMonster->dl) continue;
 		if (callMonsterNum != _vMonster->callNum) continue;
 
-		if(callMonsterNum != 4) cout << "몬스터가 등장하였습니다." << endl;
+		if(callMonsterNum != 99) cout << "몬스터가 등장하였습니다." << endl;
 		else cout << "☆★☆★☆★☆★☆★ 보스 몬스터가 출현하였습니다!!!! ☆★☆★☆★☆★☆★" << endl;
 		cout << endl;
 		Sleep(100);
@@ -457,7 +457,7 @@ void dungeonClass::setMonster(void)
 
 	tagMONSTERSTATS d1_monster4_special;
 	d1_monster4_special.dl = DUNGEON1;
-	d1_monster4_special.callNum = 4;
+	d1_monster4_special.callNum = 99;
 	strncpy_s(d1_monster4_special.name, "보스몬스터1", 32);
 	d1_monster4_special.max_hp = 200;
 	d1_monster4_special.hp = 200;
@@ -509,7 +509,7 @@ void dungeonClass::setMonster(void)
 
 	tagMONSTERSTATS d2_monster4_special;
 	d2_monster4_special.dl = DUNGEON2;
-	d2_monster4_special.callNum = 4;
+	d2_monster4_special.callNum = 99;
 	strncpy_s(d2_monster4_special.name, "보스몬스터2", 32);
 	d2_monster4_special.max_hp = 400;
 	d2_monster4_special.hp = 400;

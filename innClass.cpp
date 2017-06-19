@@ -94,24 +94,5 @@ void innClass::charactorStatus(int roleNum, char name[32], int level, int max_hp
 
 void innClass::itemInfoSave(ITEMDIVISION div, ITEMKIND kind, ITEMROLE role, char itemName[32], int point, int req_level, int req_pwr, int req_dex, int req_intel, int hpOption, int mpOption, int pwrOption, int dexOption, int intelOption, int price)
 {
-	/*INVENTORY userInven;
-	userInven.division = div;
-	userInven.kind = kind;
-	userInven.role = role;
-	strncpy_s(userInven.itemName, itemName, 32);
-	userInven.point = point;
-	userInven.req_level = req_level;
-	userInven.req_pwr = req_pwr;
-	userInven.req_dex = req_dex;
-	userInven.req_intel = req_intel;
-	userInven.hpOption = hpOption;
-	userInven.mpOption = mpOption;
-	userInven.pwrOption = pwrOption;
-	userInven.dexOption = dexOption;
-	userInven.intelOption = intelOption;
-	userInven.price = price;
-	_inventory.push_back(userInven);*/
-	//cout << "[innClass] itemInfoSave ÀúÀå ³¡" << endl;
-
 	inn_mm.itemInfoSave(1, div, kind, role, itemName, point, req_level, req_pwr, req_dex, req_intel, hpOption, mpOption, pwrOption, dexOption, intelOption, price);
 }

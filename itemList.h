@@ -43,8 +43,7 @@ enum class DROPDUNGEON
 enum class MONSTERNUM
 {
 	MONSTER = 1,
-	BOSS = 4,
-	END
+	BOSS = 99,
 };
 
 struct ITEM
@@ -95,9 +94,15 @@ private:
 	vector<ITEM> _storeItem;
 	vector<ITEM>::iterator _vstoreItem;
 	vector<ITEM> _dropItem;
+	vector<ITEM> _d1DropItem;
+	vector<ITEM> _d1BossDropItem;
+	vector<ITEM> _d2DropItem;
+	vector<ITEM> _d2BossDropItem;
 	vector<ITEM>::iterator _vdropItem;
 	vector<INVENTORY> _inventory;
 	vector<INVENTORY>::iterator _vinven;
+	int _d1BossItemArray[20];
+	int _d2BossItemArray[20];
 	int itemNum = 1;
 	int _level;
 	char _name[32];

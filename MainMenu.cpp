@@ -73,6 +73,7 @@ void MainMenu::output(int charNumber)
 		dg.charactorStatus(_vriter->roleCharactor, _vriter->name, _vriter->level, _vriter->max_hp, _vriter->add_max_hp, _vriter->hp, _vriter->max_mp, _vriter->add_max_mp, _vriter->mp, _vriter->pwr, _vriter->add_pwr, _vriter->mindmg, _vriter->dex, _vriter->add_dex, _vriter->intel, _vriter->add_intel, _vriter->exp, _vriter->totalExp, _vriter->money);
 		inn.charactorStatus(_vriter->roleCharactor, _vriter->name, _vriter->level, _vriter->max_hp, _vriter->add_max_hp, _vriter->hp, _vriter->max_mp, _vriter->add_max_mp, _vriter->mp, _vriter->pwr, _vriter->add_pwr, _vriter->mindmg, _vriter->dex, _vriter->add_dex, _vriter->intel, _vriter->add_intel, _vriter->exp, _vriter->totalExp, _vriter->money);
 		il.charactorStatus(_vriter->roleCharactor, _vriter->name, _vriter->level, _vriter->max_hp, _vriter->add_max_hp, _vriter->hp, _vriter->max_mp, _vriter->add_max_mp, _vriter->mp, _vriter->pwr, _vriter->add_pwr, _vriter->mindmg, _vriter->dex, _vriter->add_dex, _vriter->intel, _vriter->add_intel, _vriter->exp, _vriter->totalExp, _vriter->money);
+		inven.charactorStatus(_vriter->roleCharactor, _vriter->name, _vriter->level, _vriter->max_hp, _vriter->add_max_hp, _vriter->hp, _vriter->max_mp, _vriter->add_max_mp, _vriter->mp, _vriter->pwr, _vriter->add_pwr, _vriter->mindmg, _vriter->dex, _vriter->add_dex, _vriter->intel, _vriter->add_intel, _vriter->exp, _vriter->totalExp, _vriter->money);
 	}
 }
 
@@ -118,6 +119,7 @@ void MainMenu::charactorStatus(int viewPoint, int roleNum, char name[32], int le
 			dg.charactorStatus(_vriter->roleCharactor, _vriter->name, _vriter->level, _vriter->max_hp, _vriter->add_max_hp, _vriter->hp, _vriter->max_mp, _vriter->add_max_mp, _vriter->mp, _vriter->pwr, _vriter->add_pwr, _vriter->mindmg, _vriter->dex, _vriter->add_dex, _vriter->intel, _vriter->add_intel, _vriter->exp, _vriter->totalExp, _vriter->money);
 			inn.charactorStatus(_vriter->roleCharactor, _vriter->name, _vriter->level, _vriter->max_hp, _vriter->add_max_hp, _vriter->hp, _vriter->max_mp, _vriter->add_max_mp, _vriter->mp, _vriter->pwr, _vriter->add_pwr, _vriter->mindmg, _vriter->dex, _vriter->add_dex, _vriter->intel, _vriter->add_intel, _vriter->exp, _vriter->totalExp, _vriter->money);
 			il.charactorStatus(_vriter->roleCharactor, _vriter->name, _vriter->level, _vriter->max_hp, _vriter->add_max_hp, _vriter->hp, _vriter->max_mp, _vriter->add_max_mp, _vriter->mp, _vriter->pwr, _vriter->add_pwr, _vriter->mindmg, _vriter->dex, _vriter->add_dex, _vriter->intel, _vriter->add_intel, _vriter->exp, _vriter->totalExp, _vriter->money);
+			inven.charactorStatus(_vriter->roleCharactor, _vriter->name, _vriter->level, _vriter->max_hp, _vriter->add_max_hp, _vriter->hp, _vriter->max_mp, _vriter->add_max_mp, _vriter->mp, _vriter->pwr, _vriter->add_pwr, _vriter->mindmg, _vriter->dex, _vriter->add_dex, _vriter->intel, _vriter->add_intel, _vriter->exp, _vriter->totalExp, _vriter->money);
 			Sleep(3000);
 		}
 		else if (viewPoint == 1)
@@ -126,6 +128,7 @@ void MainMenu::charactorStatus(int viewPoint, int roleNum, char name[32], int le
 			dg.charactorStatus(_vriter->roleCharactor, _vriter->name, _vriter->level, _vriter->max_hp, _vriter->add_max_hp, _vriter->hp, _vriter->max_mp, _vriter->add_max_mp, _vriter->mp, _vriter->pwr, _vriter->add_pwr, _vriter->mindmg, _vriter->dex, _vriter->add_dex, _vriter->intel, _vriter->add_intel, _vriter->exp, _vriter->totalExp, _vriter->money);
 			inn.charactorStatus(_vriter->roleCharactor, _vriter->name, _vriter->level, _vriter->max_hp, _vriter->add_max_hp, _vriter->hp, _vriter->max_mp, _vriter->add_max_mp, _vriter->mp, _vriter->pwr, _vriter->add_pwr, _vriter->mindmg, _vriter->dex, _vriter->add_dex, _vriter->intel, _vriter->add_intel, _vriter->exp, _vriter->totalExp, _vriter->money);
 			il.charactorStatus(_vriter->roleCharactor, _vriter->name, _vriter->level, _vriter->max_hp, _vriter->add_max_hp, _vriter->hp, _vriter->max_mp, _vriter->add_max_mp, _vriter->mp, _vriter->pwr, _vriter->add_pwr, _vriter->mindmg, _vriter->dex, _vriter->add_dex, _vriter->intel, _vriter->add_intel, _vriter->exp, _vriter->totalExp, _vriter->money);
+			inven.charactorStatus(_vriter->roleCharactor, _vriter->name, _vriter->level, _vriter->max_hp, _vriter->add_max_hp, _vriter->hp, _vriter->max_mp, _vriter->add_max_mp, _vriter->mp, _vriter->pwr, _vriter->add_pwr, _vriter->mindmg, _vriter->dex, _vriter->add_dex, _vriter->intel, _vriter->add_intel, _vriter->exp, _vriter->totalExp, _vriter->money);
 		}
 	}
 	Sleep(500);
@@ -138,8 +141,8 @@ void MainMenu::itemInfoSave(int selectView, ITEMDIVISION div, ITEMKIND kind, ITE
 		dg.itemInfoSave(div, kind, role, itemName, point, req_level, req_pwr, req_dex, req_intel, hpOption, mpOption, pwrOption, dexOption, intelOption, price);
 		inn.itemInfoSave(div, kind, role, itemName, point, req_level, req_pwr, req_dex, req_intel, hpOption, mpOption, pwrOption, dexOption, intelOption, price);
 		us.itemInfoSave(div, kind, role, itemName, point, req_level, req_pwr, req_dex, req_intel, hpOption, mpOption, pwrOption, dexOption, intelOption, price);
+		inven.itemInfoSave(0, div, kind, role, itemName, point, req_level, req_pwr, req_dex, req_intel, hpOption, mpOption, pwrOption, dexOption, intelOption, price);
 	}
-	inven.itemInfoSave(div, kind, role, itemName, point, req_level, req_pwr, req_dex, req_intel, hpOption, mpOption, pwrOption, dexOption, intelOption, price);
 }
 
 void MainMenu::setUp(int charactorSelect, char charName[32])
@@ -214,10 +217,6 @@ void MainMenu::startMenu()
 				inn.innMenu();
 			break;
 			case 4:
-				/*for (_vinven = _inventory.begin(); _vinven != _inventory.end(); ++_vinven)
-				{
-					us.itemInfoSave(_vinven->division, _vinven->kind, _vinven->role, _vinven->itemName, _vinven->point, _vinven->req_level, _vinven->req_pwr, _vinven->req_dex, _vinven->req_intel, _vinven->hpOption, _vinven->mpOption, _vinven->pwrOption, _vinven->dexOption, _vinven->intelOption, _vinven->price);
-				}*/
 				us.userInfo();
 			break;
 			case 5:
@@ -232,24 +231,16 @@ void MainMenu::startMenu()
 
 void MainMenu::dungeonSelect(void)
 {
-	/*for (_vinven = _inventory.begin(); _vinven != _inventory.end(); ++_vinven)
-	{
-		dg.itemInfoSave(_vinven->division, _vinven->kind, _vinven->role, _vinven->itemName, _vinven->point, _vinven->req_level, _vinven->req_pwr, _vinven->req_dex, _vinven->req_intel, _vinven->hpOption, _vinven->mpOption, _vinven->pwrOption, _vinven->dexOption, _vinven->intelOption, _vinven->price);
-	}*/
 	dg.dungeonMain();
 }
 
 void MainMenu::store(void)
 {
-	/*for (_vinven = _inventory.begin(); _vinven != _inventory.end(); ++_vinven)
-	{
-		il.itemInfoSave(_vinven->division, _vinven->kind, _vinven->role, _vinven->itemName, _vinven->point, _vinven->req_level, _vinven->req_pwr, _vinven->req_dex, _vinven->req_intel, _vinven->hpOption, _vinven->mpOption, _vinven->pwrOption, _vinven->dexOption, _vinven->intelOption, _vinven->price);
-	}*/
 	while (true)
 	{
 		int storeMenuSelect;
 		cout << "========== STORE ==========" << endl;
-		cout << "1.무기\t 2.방어구\t 3.악세사리\t 4.아이템판매\t 5.되돌아가기" << endl;
+		cout << "1.무기\t 2.방어구\t 3.악세사리\t 4.되돌아가기" << endl;
 		cin >> storeMenuSelect;
 
 		switch (storeMenuSelect)
@@ -264,9 +255,6 @@ void MainMenu::store(void)
 				il.storeItemList(storeMenuSelect);
 			break;
 			case 4:
-				//
-			break;
-			case 5:
 				startMenu();
 			break;
 			default:
