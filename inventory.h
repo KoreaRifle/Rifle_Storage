@@ -2,6 +2,7 @@
 #include <iostream>
 #include <time.h>
 #include <Windows.h>
+#include <vector>
 #include "itemList.h"
 
 using namespace std;

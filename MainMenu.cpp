@@ -143,6 +143,30 @@ void MainMenu::itemInfoSave(int selectView, ITEMDIVISION div, ITEMKIND kind, ITE
 		us.itemInfoSave(div, kind, role, itemName, point, req_level, req_pwr, req_dex, req_intel, hpOption, mpOption, pwrOption, dexOption, intelOption, price);
 		inven.itemInfoSave(0, div, kind, role, itemName, point, req_level, req_pwr, req_dex, req_intel, hpOption, mpOption, pwrOption, dexOption, intelOption, price);
 	}
+	else if (selectView == 99)
+	{
+		INVENTORY userInven;
+		userInven.division = div;
+		userInven.kind = kind;
+		userInven.role = role;
+		strncpy_s(userInven.itemName, itemName, 32);
+		userInven.point = point;
+		userInven.req_level = req_level;
+		userInven.req_pwr = req_pwr;
+		userInven.req_dex = req_dex;
+		userInven.req_intel = req_intel;
+		userInven.hpOption = hpOption;
+		userInven.mpOption = mpOption;
+		userInven.pwrOption = pwrOption;
+		userInven.dexOption = dexOption;
+		userInven.intelOption = intelOption;
+		userInven.price = price;
+		_inventory.push_back(userInven);
+		dg.itemInfoSave(div, kind, role, itemName, point, req_level, req_pwr, req_dex, req_intel, hpOption, mpOption, pwrOption, dexOption, intelOption, price);
+		inn.itemInfoSave(div, kind, role, itemName, point, req_level, req_pwr, req_dex, req_intel, hpOption, mpOption, pwrOption, dexOption, intelOption, price);
+		us.itemInfoSave(div, kind, role, itemName, point, req_level, req_pwr, req_dex, req_intel, hpOption, mpOption, pwrOption, dexOption, intelOption, price);
+		
+	}
 }
 
 void MainMenu::setUp(int charactorSelect, char charName[32])

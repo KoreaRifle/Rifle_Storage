@@ -1,10 +1,9 @@
 #include "inventory.h"
 #include "MainMenu.h"
 
-MainMenu inven_mm;
-
 inventory::inventory()
 {
+	_inventory.resize(10);
 }
 
 
@@ -62,22 +61,20 @@ void inventory::itemInfoSave(int viewPoint, ITEMDIVISION div, ITEMKIND kind, ITE
 		_inventory.push_back(userInven);
 		_itemNum++;
 	}
-	else if (viewPoint == 1)
-	{
-		inven_mm.itemInfoSave(0, div, kind, role, itemName, point, req_level, req_pwr, req_dex, req_intel, hpOption, mpOption, pwrOption, dexOption, intelOption, price);
-	}
 }
 
 void inventory::inventoryView(void)
 {
+	bool exit = 0;
 	int inventorySelectNum;
 	cout << "========== 인벤토리 창 ==========" << endl;
 	for (_vinven = _inventory.begin(); _vinven != _inventory.end(); ++_vinven)
 	{
+		if (_vinven->itemNum == 0) continue;
 		cout << "[" << _vinven->itemNum << "] ";
 		cout << _vinven->itemName << endl;
 	}
-	while (true)
+	while (exit != 1)
 	{
 		cout << "========== 인벤토리 UI ==========" << endl;
 		cout << "1.상세보기\t 2.아이템판매\t 3.되돌아가기" << endl;
@@ -90,15 +87,7 @@ void inventory::inventoryView(void)
 			case 2:
 			break;
 			case 3:
-				inven_mm.charactorStatus(1, _roleNum, _name, _level, _max_hp, _add_max_hp, _hp, _max_mp, _add_max_mp, _mp, _pwr, _add_pwr, _mindmg, _dex, _add_dex, _intel, _add_intel, _exp, _totalExp, _money);
-				for (_vinven = _inventory.begin(); _vinven != _inventory.end(); ++_vinven)
-				{
-					cout << "for문" << endl;
-					cout << "[" << _vinven->itemNum << "] ";
-					cout << _vinven->itemName << endl;
-					itemInfoSave(1, _vinven->division, _vinven->kind, _vinven->role, _vinven->itemName, _vinven->point, _vinven->req_level, _vinven->req_pwr, _vinven->req_dex, _vinven->req_intel, _vinven->hpOption, _vinven->mpOption, _vinven->pwrOption, _vinven->dexOption, _vinven->intelOption, _vinven->price);
-				}
-				inven_mm.startMenu();
+				exit = 1;
 			break;
 			default:
 				cout << "잘못된 번호를 입력하셨습니다. 다시 입력해주세요." << endl;
@@ -113,6 +102,7 @@ void inventory::inventoryDetailView(void)
 	for (_vinven = _inventory.begin(); _vinven != _inventory.end(); ++_vinven)
 	{
 		itemInit();
+		if (_vinven->itemNum == 0) continue;
 		cout << "[" << _vinven->itemNum << "] ";
 		cout << _vinven->itemName << endl;
 		if (_vinven->role == ITEMROLE::WARRIOR) cout << "[전사전용] ";
