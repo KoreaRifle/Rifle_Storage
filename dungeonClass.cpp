@@ -17,9 +17,10 @@ dungeonClass::~dungeonClass()
 
 void dungeonClass::dungeonMain(void)
 {
+	bool exit = 0;
 	system("cls");
 	setMonster();
-	while (true)
+	while (exit != 1)
 	{
 		userInterface();
 		cout << endl;
@@ -60,12 +61,7 @@ void dungeonClass::dungeonMain(void)
 				else cout << "입장 레벨 제한 : 최소 레벨 4 이상" << endl;
 			break;
 			case 5:
-				dungeon_mm.charactorStatus(1, _roleNum, _name, _level, _max_hp, _add_max_hp, _hp, _max_mp, _add_max_mp, _mp, _pwr, _add_pwr, _mindmg, _dex, _add_dex, _intel, _add_intel, _exp, _totalExp, _money);
-				/*for (_vinven = _inventory.begin(); _vinven != _inventory.end(); ++_vinven)
-				{
-					dungeon_mm.itemInfoSave(_vinven->division, _vinven->kind, _vinven->role, _vinven->itemName, _vinven->point, _vinven->req_level, _vinven->req_pwr, _vinven->req_dex, _vinven->req_intel, _vinven->hpOption, _vinven->mpOption, _vinven->pwrOption, _vinven->dexOption, _vinven->intelOption, _vinven->price);
-				}*/
-				dungeon_mm.startMenu();
+				exit = 1;
 			break;
 			default:
 				cout << "잘못된 번호를 입력하셨습니다. 다시 입력해주세요." << endl;
@@ -78,6 +74,7 @@ void dungeonClass::dungeonMain(void)
 
 void dungeonClass::enterDungeon(int dungeonNum, char dungeonName[32])
 {
+	bool exit = 0;
 	system("cls");
 	cout << dungeonName << " 던전에 입장하셨습니다." << endl;
 	int callMonsterNum = rand() % 3 + 1; // 1 ~ 3
@@ -113,7 +110,6 @@ void dungeonClass::enterDungeon(int dungeonNum, char dungeonName[32])
 				runNum = rand() % 2;
 				randomNum = rand() % 2;
 			}
-			// system("cls");
 			userInterface();
 			cout << "========== MONSTER INFO ==========" << endl;
 			cout << "몬스터이름 : " << _vMonster->name << endl;
@@ -137,7 +133,6 @@ void dungeonClass::enterDungeon(int dungeonNum, char dungeonName[32])
 					if (runNum != randomNum)
 					{
 						cout << "도망가지 못했습니다." << endl;
-						break;
 					}
 					else
 					{
@@ -145,6 +140,7 @@ void dungeonClass::enterDungeon(int dungeonNum, char dungeonName[32])
 						_vMonster->hp = _vMonster->max_hp;
 						dungeonMain();
 					}
+				break;
 				case 4:
 					if (_vMonster->hp == _vMonster->max_hp) dungeonMain();
 					else
@@ -168,7 +164,6 @@ void dungeonClass::enterDungeon(int dungeonNum, char dungeonName[32])
 			
 			Sleep(300);
 			system("cls");
-			continue;
 		}
 		if (_vMonster->hp <= 0)
 		{
@@ -190,12 +185,12 @@ void dungeonClass::enterDungeon(int dungeonNum, char dungeonName[32])
 				}
 				else if (bootySelect == 2) // 아이템만 먹었을 때
 				{
-					cout << "[TEST] 아이템만 획득" << endl;
+					cout << "아이템 획득" << endl;
 					dungeon_il.dropItemList(_vMonster->dl, _vMonster->callNum);
 				}
 				else // 돈, 아이템 모두 먹었을 때
 				{
-					cout << "[TEST] 골드/아이템 획득" << endl;
+					cout << "골드/아이템 획득" << endl;
 					int randomMoneyNum = rand() % _vMonster->money;
 					moneyTemp = _vMonster->money - randomMoneyNum;
 					_money = _money + moneyTemp;

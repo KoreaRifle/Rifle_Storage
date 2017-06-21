@@ -3,7 +3,7 @@
 
 inventory::inventory()
 {
-	_inventory.resize(10);
+	//_inventory.resize(10);
 }
 
 
@@ -37,9 +37,9 @@ void inventory::charactorStatus(int roleNum, char name[32], int level, int max_h
 	_money = money;
 }
 
-void inventory::itemInfoSave(int viewPoint, ITEMDIVISION div, ITEMKIND kind, ITEMROLE role, char itemName[32], int point, int req_level, int req_pwr, int req_dex, int req_intel, int hpOption, int mpOption, int pwrOption, int dexOption, int intelOption, int price)
+void inventory::itemInfoSave(ITEMDIVISION div, ITEMKIND kind, ITEMROLE role, char itemName[32], int point, int req_level, int req_pwr, int req_dex, int req_intel, int hpOption, int mpOption, int pwrOption, int dexOption, int intelOption, int price)
 {
-	if (viewPoint == 0)
+	if (_inventory.size() != 10) // 인벤토리에 최대 10개까지의 아이템 저장 가능
 	{
 		INVENTORY userInven;
 		userInven.itemNum = _itemNum;
@@ -61,21 +61,29 @@ void inventory::itemInfoSave(int viewPoint, ITEMDIVISION div, ITEMKIND kind, ITE
 		_inventory.push_back(userInven);
 		_itemNum++;
 	}
+	else // 인벤토리에 10개 이상의 아이템 저장 시 공간 부족 발생
+	{
+		cout << "가방 공간이 부족합니다." << endl;
+		Sleep(1000);
+	}
 }
 
 void inventory::inventoryView(void)
 {
 	bool exit = 0;
 	int inventorySelectNum;
-	cout << "========== 인벤토리 창 ==========" << endl;
-	for (_vinven = _inventory.begin(); _vinven != _inventory.end(); ++_vinven)
-	{
-		if (_vinven->itemNum == 0) continue;
-		cout << "[" << _vinven->itemNum << "] ";
-		cout << _vinven->itemName << endl;
-	}
 	while (exit != 1)
 	{
+		system("cls");
+		cout << "========== 인벤토리 창 ==========" << endl;
+		for (_vinven = _inventory.begin(); _vinven != _inventory.end(); ++_vinven)
+		{
+			if (_vinven->itemNum == 0) continue;
+			cout << "[" << _vinven->itemNum << "] ";
+			cout << _vinven->itemName;
+			cout << endl;
+		}
+		cout << endl;
 		cout << "========== 인벤토리 UI ==========" << endl;
 		cout << "1.상세보기\t 2.아이템판매\t 3.되돌아가기" << endl;
 		cin >> inventorySelectNum;
@@ -85,6 +93,7 @@ void inventory::inventoryView(void)
 				inventoryDetailView();
 			break;
 			case 2:
+				inventoryItemSell();
 			break;
 			case 3:
 				exit = 1;
@@ -98,6 +107,7 @@ void inventory::inventoryView(void)
 
 void inventory::inventoryDetailView(void)
 {
+	bool exit = 0;
 	int detailSelectView;
 	for (_vinven = _inventory.begin(); _vinven != _inventory.end(); ++_vinven)
 	{
@@ -113,11 +123,10 @@ void inventory::inventoryDetailView(void)
 		else if (_vinven->kind == ITEMKIND::ARMOR) cout << "[방어구] 방어력 : " << _vinven->point << "\t";
 		else if (_vinven->kind == ITEMKIND::ACC) cout << "[악세사리] 방어력 : " << _vinven->point << "\t";
 		else if (_vinven->kind == ITEMKIND::POTION) cout << "[포션] 회복력 : " << _vinven->point << "\t";
-		
-		cout << endl;
 	}
-	while (true)
+	while (exit != 1)
 	{
+		cout << endl;
 		cout << "========== 아이템 상세보기 UI ==========" << endl;
 		cout << "1.아이템 장착\t 2.되돌아가기" << endl;
 		cin >> detailSelectView;
@@ -126,7 +135,72 @@ void inventory::inventoryDetailView(void)
 			case 1:
 			break;
 			case 2:
-				inventoryView();
+				exit = 1;
+			break;
+			default:
+				cout << "잘못된 번호를 입력하셨습니다. 다시 입력해주세요." << endl;
+			continue;
+		}
+	}
+}
+
+void inventory::inventoryItemSell(void)
+{
+	bool exit = 0;
+	int outputline = 1;
+	int itemSellMenuSelect;
+	int sellItemNum;
+	int tempNum = 0;
+	while (exit != 1)
+	{
+		for (_vinven = _inventory.begin(); _vinven != _inventory.end(); ++_vinven)
+		{
+			if (outputline < 4)
+			{
+				cout << "[" << _vinven->itemNum << "]" << _vinven->itemName << " ";
+				outputline++;
+			}
+			else
+			{
+				cout << endl;
+				cout << "[" << _vinven->itemNum << "]" << _vinven->itemName << " ";
+				outputline = 1;
+			}
+			cout << endl;
+		}
+		cout << "========== 아이템 판매 ==========" << endl;
+		cout << "1.아이템판매\t 2.되돌아가기" << endl;
+		cin >> itemSellMenuSelect;
+		switch (itemSellMenuSelect)
+		{
+			case 1:
+				cout << "판매할 아이템 번호를 입력하세요." << endl;
+				cin >> sellItemNum;
+				if (sellItemNum <= _inventory.size() + 1)
+				{
+					for (_vinven = _inventory.begin(); _vinven != _inventory.end(); ++_vinven)
+					{
+						if (_vinven->itemNum == _inventory.at(sellItemNum - 1).itemNum)
+						{
+							cout << _vinven->itemNum << "번이 선택되었습니다." << endl;
+							break;
+						}
+						tempNum++;
+					}
+					_inventory.erase(_inventory.begin() + tempNum);
+					// 삭제된 데이터를 기준으로 itemNum 값 -1씩 해줌
+					for (_vinven = _inventory.begin() + tempNum; _vinven != _inventory.end(); ++_vinven)
+					{
+						_vinven->itemNum = _vinven->itemNum - 1;
+					}
+				}
+				else
+				{
+					cout << "아이템 번호가 존재하지 않습니다." << endl;
+				}
+			break;
+			case 2:
+				exit = 1;
 			break;
 			default:
 				cout << "잘못된 번호를 입력하셨습니다. 다시 입력해주세요." << endl;

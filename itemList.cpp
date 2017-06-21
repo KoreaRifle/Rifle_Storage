@@ -146,7 +146,8 @@ void itemList::dropItemList(int dungeonNum, int callNum)
 
 void itemList::purchaseMenu(int kindNum)
 {
-	while (true)
+	bool exit = 0;
+	while (exit != 1)
 	{
 		int purchaseNum;
 		int purchaseMenuSelect;
@@ -192,6 +193,7 @@ void itemList::purchaseMenu(int kindNum)
 								switch (equipSelect)
 								{
 									case 1:
+										// 미구현
 										il_mm.store();
 									break;
 									case 2:
@@ -213,8 +215,9 @@ void itemList::purchaseMenu(int kindNum)
 				}
 			break;
 			case 2:
-				il_mm.charactorStatus(1, _roleNum, _name, _level, _max_hp, _add_max_hp, _hp, _max_mp, _add_max_mp, _mp, _pwr, _add_pwr, _mindmg, _dex, _add_dex, _intel, _add_intel, _exp, _totalExp, _money);
-				il_mm.store();
+				/*il_mm.charactorStatus(1, _roleNum, _name, _level, _max_hp, _add_max_hp, _hp, _max_mp, _add_max_mp, _mp, _pwr, _add_pwr, _mindmg, _dex, _add_dex, _intel, _add_intel, _exp, _totalExp, _money);
+				il_mm.store();*/
+				exit = 1;
 			break;
 			default:
 				cout << "잘못된 번호를 입력하셨습니다. 다시 입력해주세요." << endl;

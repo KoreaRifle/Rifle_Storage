@@ -141,7 +141,7 @@ void MainMenu::itemInfoSave(int selectView, ITEMDIVISION div, ITEMKIND kind, ITE
 		dg.itemInfoSave(div, kind, role, itemName, point, req_level, req_pwr, req_dex, req_intel, hpOption, mpOption, pwrOption, dexOption, intelOption, price);
 		inn.itemInfoSave(div, kind, role, itemName, point, req_level, req_pwr, req_dex, req_intel, hpOption, mpOption, pwrOption, dexOption, intelOption, price);
 		us.itemInfoSave(div, kind, role, itemName, point, req_level, req_pwr, req_dex, req_intel, hpOption, mpOption, pwrOption, dexOption, intelOption, price);
-		inven.itemInfoSave(0, div, kind, role, itemName, point, req_level, req_pwr, req_dex, req_intel, hpOption, mpOption, pwrOption, dexOption, intelOption, price);
+		inven.itemInfoSave(div, kind, role, itemName, point, req_level, req_pwr, req_dex, req_intel, hpOption, mpOption, pwrOption, dexOption, intelOption, price);
 	}
 	else if (selectView == 99)
 	{
