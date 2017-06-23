@@ -17,7 +17,7 @@ dungeonClass::~dungeonClass()
 
 void dungeonClass::dungeonMain(void)
 {
-	bool exit = 0;
+	exit = 0;
 	system("cls");
 	setMonster();
 	while (exit != 1)
@@ -28,7 +28,6 @@ void dungeonClass::dungeonMain(void)
 		cout << "어느 던전을 탐험하시겠습니까?" << endl;
 		cout << "1.야남 거리 \t 2.버려진 구공방 \t 3.구 시가지 \t 4.금단의 숲 \t 5.되돌아가기" << endl;
 		cin >> dungeonSelect;
-
 
 		switch (dungeonSelect)
 		{
@@ -82,12 +81,13 @@ void dungeonClass::enterDungeon(int dungeonNum, char dungeonName[32])
 
 	if (callMonsterNum == callBossMonsterNum) callMonsterNum = 99;
 
+	// 문제 발생
 	for (_vMonster = _monster.begin(); _vMonster != _monster.end(); ++_vMonster)
 	{
 		if (dungeonNum != _vMonster->dl) continue;
 		if (callMonsterNum != _vMonster->callNum) continue;
 
-		if(callMonsterNum != 99) cout << "몬스터가 등장하였습니다." << endl;
+		if (callMonsterNum != 99) cout << "몬스터가 등장하였습니다." << endl;
 		else cout << "☆★☆★☆★☆★☆★ 보스 몬스터가 출현하였습니다!!!! ☆★☆★☆★☆★☆★" << endl;
 		cout << endl;
 		Sleep(100);
@@ -126,6 +126,7 @@ void dungeonClass::enterDungeon(int dungeonNum, char dungeonName[32])
 			{
 				case 1:
 					attackPoint(_mindmg); // 유저 턴의 공격 데미지 확인
+					monsterAttack(_vMonster->monsterAttackPoint); // 몬스터 턴의 공격 데미지 확인
 				break;
 				case 2:
 				break;
@@ -133,16 +134,21 @@ void dungeonClass::enterDungeon(int dungeonNum, char dungeonName[32])
 					if (runNum != randomNum)
 					{
 						cout << "도망가지 못했습니다." << endl;
+						monsterAttack(_vMonster->monsterAttackPoint);
 					}
 					else
 					{
 						cout << "무사히 도망쳤습니다." << endl;
 						_vMonster->hp = _vMonster->max_hp;
-						dungeonMain();
+						exit = 1;
 					}
 				break;
 				case 4:
-					if (_vMonster->hp == _vMonster->max_hp) dungeonMain();
+					if (_vMonster->hp == _vMonster->max_hp)
+					{
+						exit = 1;
+						break;
+					}
 					else
 					{
 						cout << "현재 전투상태입니다. 되돌아갈 수 없습니다." << endl;
@@ -155,15 +161,21 @@ void dungeonClass::enterDungeon(int dungeonNum, char dungeonName[32])
 					system("cls");
 				continue;
 			}
-			monsterAttack(_vMonster->monsterAttackPoint); // 몬스터 턴의 공격 데미지 확인
+			// 유저 공격력이 1이상일때
 			if (_userAttackPoint != 0)
 			{
 				_vMonster->hp = _vMonster->hp - _userAttackPoint;
 				cout << "플레이어가 " << _userAttackPoint << "만큼 데미지를 주었습니다." << endl;
 			}
-			
+
 			Sleep(300);
 			system("cls");
+			// 3번 혹은 4번을 입력했을 때 루프 탈출구
+			if (interfaceSelect == 3 || interfaceSelect == 4)
+			{
+				// 3번 혹은 4번에서 exit의 값이 1일때 루프 탈출
+				if (exit == 1) break;
+			}
 		}
 		if (_vMonster->hp <= 0)
 		{
@@ -172,7 +184,7 @@ void dungeonClass::enterDungeon(int dungeonNum, char dungeonName[32])
 				int bootySelect = rand() % 4; // 전리품 획득 분기
 				int moneyTemp;
 				cout << "몬스터가 죽었습니다." << endl;
-				cout << "경험치 " << _vMonster->exp << " 획득!" << endl;
+				cout << "[SYSTEM] 경험치 " << _vMonster->exp << " 획득!" << endl;
 				_exp = _exp + _vMonster->exp;
 
 				if (bootySelect == 0) cout << "몬스터에게서 아무 전리품도 획득하지 못했습니다." << endl;
@@ -185,12 +197,12 @@ void dungeonClass::enterDungeon(int dungeonNum, char dungeonName[32])
 				}
 				else if (bootySelect == 2) // 아이템만 먹었을 때
 				{
-					cout << "아이템 획득" << endl;
+					cout << "[SYSTEM] 아이템 획득!" << endl;
 					dungeon_il.dropItemList(_vMonster->dl, _vMonster->callNum);
 				}
 				else // 돈, 아이템 모두 먹었을 때
 				{
-					cout << "골드/아이템 획득" << endl;
+					cout << "[SYSTEM] 골드/아이템 획득" << endl;
 					int randomMoneyNum = rand() % _vMonster->money;
 					moneyTemp = _vMonster->money - randomMoneyNum;
 					_money = _money + moneyTemp;
@@ -211,6 +223,7 @@ void dungeonClass::enterDungeon(int dungeonNum, char dungeonName[32])
 		{
 			playerDead();
 		}
+		break;
 	}
 }
 
@@ -345,7 +358,6 @@ void dungeonClass::monsterAttack(int monsterAttackPoint)
 	{
 		cout << "몬스터 턴입니다." << endl;
 		_hp = _hp - _vMonster->monsterAttackPoint;
-
 		cout << "몬스터가 " << _vMonster->monsterAttackPoint << "만큼 데미지를 주었습니다." << endl;
 	}
 

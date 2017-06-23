@@ -34,6 +34,7 @@ private:
 	vector<INVENTORY>::iterator _vinven;
 public:
 	void charactorStatus(int roleNum, char name[32], int level, int max_hp, int add_max_hp, int hp, int max_mp, int add_max_mp, int mp, int pwr, int add_pwr, int mindmg, int dex, int add_dex, int intel, int add_intel, int exp, int totalExp, int money);
+	void moneyInfo(int money);
 	void userInfo(void);
 	void userInfo_pageNum(int pageNum, int totalPageNum);
 	void levelUp(int exp);

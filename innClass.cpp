@@ -14,13 +14,14 @@ innClass::~innClass()
 void innClass::innMenu()
 {
 	system("cls");
+	bool exit = 0;
 	int innMenuSelect;
 	int innSelect;
-	cout << "========== 여관(INN) ==========" << endl;
-	cout << "1.숙박(100G)\t 2.되돌아가기" << endl;
-	cin >> innMenuSelect;
-	while (true)
+	while (exit != 1)
 	{
+		cout << "========== 여관(INN) ==========" << endl;
+		cout << "1.숙박(100G)\t 2.되돌아가기" << endl;
+		cin >> innMenuSelect;
 		switch (innMenuSelect)
 		{
 			case 1:
@@ -51,14 +52,13 @@ void innClass::innMenu()
 							cout << "잘못된 번호를 입력하셨습니다. 다시 입력해주세요." << endl;
 						continue;
 					}
-					innMenu();
 					break;
 				}
 			break;
 			case 2:
 				inn_mm.charactorStatus(1, _roleNum, _name, _level, _max_hp, _add_max_hp, _hp, _max_mp, _add_max_mp, _mp, _pwr, _add_pwr, _mindmg, _dex, _add_dex, _intel, _add_intel, _exp, _totalExp, _money);
-				inn_mm.startMenu();
-				break;
+				exit = 1;
+			break;
 			default:
 				cout << "잘못된 번호를 입력하셨습니다. 다시 입력해주세요." << endl;
 			continue;
@@ -90,9 +90,4 @@ void innClass::charactorStatus(int roleNum, char name[32], int level, int max_hp
 	_exp = exp;
 	_totalExp = totalExp;
 	_money = money;
-}
-
-void innClass::itemInfoSave(ITEMDIVISION div, ITEMKIND kind, ITEMROLE role, char itemName[32], int point, int req_level, int req_pwr, int req_dex, int req_intel, int hpOption, int mpOption, int pwrOption, int dexOption, int intelOption, int price)
-{
-	inn_mm.itemInfoSave(1, div, kind, role, itemName, point, req_level, req_pwr, req_dex, req_intel, hpOption, mpOption, pwrOption, dexOption, intelOption, price);
 }

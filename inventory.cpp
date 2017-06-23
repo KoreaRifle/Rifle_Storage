@@ -1,5 +1,11 @@
 #include "inventory.h"
 #include "MainMenu.h"
+#include "userStats.h"
+
+MainMenu *inven_mm;
+userStats *inven_us;
+
+
 
 inventory::inventory()
 {
@@ -9,10 +15,12 @@ inventory::inventory()
 
 inventory::~inventory()
 {
+	delete inven_mm;
 }
 
 void inventory::charactorStatus(int roleNum, char name[32], int level, int max_hp, int add_max_hp, int hp, int max_mp, int add_max_mp, int mp, int pwr, int add_pwr, int mindmg, int dex, int add_dex, int intel, int add_intel, int exp, int totalExp, int money)
 {
+	//MainMenu *inven_mm;
 	_roleNum = roleNum;
 	if (_roleNum == 1) strncpy_s(_roleName, "전사", 32);
 	else if (_roleNum == 2) strncpy_s(_roleName, "마법사", 32);
@@ -35,6 +43,12 @@ void inventory::charactorStatus(int roleNum, char name[32], int level, int max_h
 	_exp = exp;
 	_totalExp = totalExp;
 	_money = money;
+	//inven_mm->charactorStatus(0, roleNum, name, level, max_hp, add_max_hp, hp, max_mp, add_max_mp, mp, pwr, add_pwr, mindmg, dex, add_dex, intel, add_intel, exp, totalExp, money);
+}
+
+void inventory::moneyInfo(int money)
+{
+	_money = money;
 }
 
 void inventory::itemInfoSave(ITEMDIVISION div, ITEMKIND kind, ITEMROLE role, char itemName[32], int point, int req_level, int req_pwr, int req_dex, int req_intel, int hpOption, int mpOption, int pwrOption, int dexOption, int intelOption, int price)
@@ -42,7 +56,17 @@ void inventory::itemInfoSave(ITEMDIVISION div, ITEMKIND kind, ITEMROLE role, cha
 	if (_inventory.size() != 10) // 인벤토리에 최대 10개까지의 아이템 저장 가능
 	{
 		INVENTORY userInven;
-		userInven.itemNum = _itemNum;
+		
+		if (_inventory.size() == 0)
+		{
+			userInven.itemNum = _itemNum;
+			_itemNum++;
+		}
+		else
+		{
+			_itemNum = _inventory.size() + 1;
+			userInven.itemNum = _itemNum;
+		}
 		userInven.division = div;
 		userInven.kind = kind;
 		userInven.role = role;
@@ -59,7 +83,6 @@ void inventory::itemInfoSave(ITEMDIVISION div, ITEMKIND kind, ITEMROLE role, cha
 		userInven.intelOption = intelOption;
 		userInven.price = price;
 		_inventory.push_back(userInven);
-		_itemNum++;
 	}
 	else // 인벤토리에 10개 이상의 아이템 저장 시 공간 부족 발생
 	{
@@ -74,6 +97,13 @@ void inventory::inventoryView(void)
 	int inventorySelectNum;
 	while (exit != 1)
 	{
+		if (_inventory.size() == 0)
+		{
+			system("cls");
+			cout << "인벤토리 내에 아이템이 존재하지 않습니다." << endl;
+			Sleep(1000);
+			break;
+		}
 		system("cls");
 		cout << "========== 인벤토리 창 ==========" << endl;
 		for (_vinven = _inventory.begin(); _vinven != _inventory.end(); ++_vinven)
@@ -146,6 +176,7 @@ void inventory::inventoryDetailView(void)
 
 void inventory::inventoryItemSell(void)
 {
+	inven_mm = new MainMenu;
 	bool exit = 0;
 	int outputline = 1;
 	int itemSellMenuSelect;
@@ -182,17 +213,25 @@ void inventory::inventoryItemSell(void)
 					{
 						if (_vinven->itemNum == _inventory.at(sellItemNum - 1).itemNum)
 						{
-							cout << _vinven->itemNum << "번이 선택되었습니다." << endl;
-							break;
+							cout << _vinven->itemNum << "번 " << _vinven->itemName << "이 선택되었습니다." << endl;
+							// 아이템 판 가격(본래가격의 2분의 1 가격)만큼 최종소지금에서 증가
+							inven_mm->charactorStatus(1, _roleNum, _name, _level, _max_hp, _add_max_hp, _hp, _max_mp, _add_max_mp, _mp, _pwr, _add_pwr, _mindmg, _dex, _add_dex, _intel, _add_intel, _exp, _totalExp, _money);
+							_money = _money + (_vinven->price) / 2;
+							inven_mm->moneyInfo(_money);
 						}
-						tempNum++;
+						break;
 					}
-					_inventory.erase(_inventory.begin() + tempNum);
+					_inventory.erase(_inventory.begin() + sellItemNum - 1);
 					// 삭제된 데이터를 기준으로 itemNum 값 -1씩 해줌
-					for (_vinven = _inventory.begin() + tempNum; _vinven != _inventory.end(); ++_vinven)
+					if (_inventory.size() == 0) _itemNum = 1; // 데이터 삭제 후 인벤토리 사이즈가 0일 경우
+					if (_inventory.size() != sellItemNum - 1)
 					{
-						_vinven->itemNum = _vinven->itemNum - 1;
+						for (_vinven = _inventory.begin() + sellItemNum - 1; _vinven != _inventory.end(); ++_vinven)
+						{
+							_vinven->itemNum = _vinven->itemNum - 1;
+						}
 					}
+					tempNum = 0;
 				}
 				else
 				{

@@ -1,8 +1,8 @@
 #include "userStats.h"
 #include "MainMenu.h"
 
-MainMenu us_mm;
-dungeonClass dg;
+MainMenu *us_mm;
+dungeonClass *dg;
 
 userStats::userStats()
 {
@@ -39,6 +39,13 @@ void userStats::charactorStatus(int roleNum, char name[32], int level, int max_h
 	_money = money;
 }
 
+void userStats::moneyInfo(int money)
+{
+	cout << "[전] money : " << _money << endl;
+	_money = money;
+	cout << "[후] money : " << _money << endl;
+}
+
 void userStats::userInfo(void)
 {
 	int pageNum = 1;
@@ -62,10 +69,6 @@ void userStats::userInfo(void)
 					pageNum++;
 				break;
 				case 2:
-					/*for (_vinven = _inventory.begin(); _vinven != _inventory.end(); ++_vinven)
-					{
-						us_mm.itemInfoSave(_vinven->division, _vinven->kind, _vinven->role, _vinven->itemName, _vinven->point, _vinven->req_level, _vinven->req_pwr, _vinven->req_dex, _vinven->req_intel, _vinven->hpOption, _vinven->mpOption, _vinven->pwrOption, _vinven->dexOption, _vinven->intelOption, _vinven->price);
-					}*/
 					cout << "이전 화면으로 되돌아갑니다." << endl;
 					backNum = 0;
 					Sleep(500);
@@ -92,10 +95,6 @@ void userStats::userInfo(void)
 					pageNum--;
 				break;
 				case 3:
-					/*for (_vinven = _inventory.begin(); _vinven != _inventory.end(); ++_vinven)
-					{
-						us_mm.itemInfoSave(_vinven->division, _vinven->kind, _vinven->role, _vinven->itemName, _vinven->point, _vinven->req_level, _vinven->req_pwr, _vinven->req_dex, _vinven->req_intel, _vinven->hpOption, _vinven->mpOption, _vinven->pwrOption, _vinven->dexOption, _vinven->intelOption, _vinven->price);
-					}*/
 					cout << "이전 화면으로 되돌아갑니다." << endl;
 					backNum = 0;
 					Sleep(500);
@@ -118,10 +117,6 @@ void userStats::userInfo(void)
 					pageNum--;
 				break;
 				case 2:
-					/*for (_vinven = _inventory.begin(); _vinven != _inventory.end(); ++_vinven)
-					{
-						us_mm.itemInfoSave(_vinven->division, _vinven->kind, _vinven->role, _vinven->itemName, _vinven->point, _vinven->req_level, _vinven->req_pwr, _vinven->req_dex, _vinven->req_intel, _vinven->hpOption, _vinven->mpOption, _vinven->pwrOption, _vinven->dexOption, _vinven->intelOption, _vinven->price);
-					}*/
 					cout << "이전 화면으로 되돌아갑니다." << endl;
 					backNum = 0;
 					Sleep(500);
@@ -178,23 +173,5 @@ void userStats::levelUp(int exp)
 
 void userStats::itemInfoSave(ITEMDIVISION div, ITEMKIND kind, ITEMROLE role, char itemName[32], int point, int req_level, int req_pwr, int req_dex, int req_intel, int hpOption, int mpOption, int pwrOption, int dexOption, int intelOption, int price)
 {
-	/*INVENTORY userInven;
-	userInven.division = div;
-	userInven.kind = kind;
-	userInven.role = role;
-	strncpy_s(userInven.itemName, itemName, 32);
-	userInven.point = point;
-	userInven.req_level = req_level;
-	userInven.req_pwr = req_pwr;
-	userInven.req_dex = req_dex;
-	userInven.req_intel = req_intel;
-	userInven.hpOption = hpOption;
-	userInven.mpOption = mpOption;
-	userInven.pwrOption = pwrOption;
-	userInven.dexOption = dexOption;
-	userInven.intelOption = intelOption;
-	userInven.price = price;
-	_inventory.push_back(userInven);*/
-	//cout << "[userStats] itemInfoSave 저장 끝" << endl;
-	us_mm.itemInfoSave(1, div, kind, role, itemName, point, req_level, req_pwr, req_dex, req_intel, hpOption, mpOption, pwrOption, dexOption, intelOption, price);
+	//us_mm->itemInfoSave(1, div, kind, role, itemName, point, req_level, req_pwr, req_dex, req_intel, hpOption, mpOption, pwrOption, dexOption, intelOption, price);
 }

@@ -82,28 +82,20 @@ void itemList::dropItemList(int dungeonNum, int callNum)
 			if (MONSTERNUM(callNum) != MONSTERNUM::BOSS) // 획득범위가 보스 제외 모든 몬스터일때
 			{
 				// 드랍템 저장수만큼 난수 생성
-				cout << "_d1DropItem.size() : " << _d1DropItem.size() - _d1BossDropItem.size() << endl;
-				cout << "_vdropItem->itemNum : " << _vdropItem->itemNum << endl;
-				cout << "_d1DropItemChoice : " << _d1DropItemChoice << endl;
-				cout << "================================" << endl;
-				Sleep(1000);
 				if (_vdropItem->itemNum == _d1DropItemChoice)
 				{
-					cout << "[TEST] 드랍 아이템 INVENTORY로 저장 중..." << endl;
+					//cout << "[TEST] 드랍 아이템 INVENTORY로 저장 중..." << endl;
 					itemInfoSave(_vdropItem->division, _vdropItem->kind, _vdropItem->role, _vdropItem->itemName, _vdropItem->req_level, _vdropItem->req_pwr, _vdropItem->req_dex, _vdropItem->req_intel, _vdropItem->hpOption, _vdropItem->mpOption, _vdropItem->point, _vdropItem->pwrOption, _vdropItem->dexOption, _vdropItem->intelOption, _vdropItem->price);
+					break;
 				}
 			}
 			else if (MONSTERNUM(callNum) == MONSTERNUM::BOSS)
 			{
-				cout << "_d1BossDropItem.size() : " << _d1BossDropItem.size() << endl;
-				cout << "_vdropItem->itemNum : " << _vdropItem->itemNum << endl;
-				cout << "_d1BossDropItemChoice : " << _d1BossDropItemChoice << endl;
-				cout << "================================" << endl;
-				Sleep(1000);
 				if (_vdropItem->itemNum == _d1BossDropItemChoice)
 				{
-					cout << "[TEST] BOSS 드랍 아이템 INVENTORY로 저장 중..." << endl;
+					//cout << "[TEST] BOSS 드랍 아이템 INVENTORY로 저장 중..." << endl;
 					itemInfoSave(_vdropItem->division, _vdropItem->kind, _vdropItem->role, _vdropItem->itemName, _vdropItem->req_level, _vdropItem->req_pwr, _vdropItem->req_dex, _vdropItem->req_intel, _vdropItem->hpOption, _vdropItem->mpOption, _vdropItem->point, _vdropItem->pwrOption, _vdropItem->dexOption, _vdropItem->intelOption, _vdropItem->price);
+					break;
 				}
 			}
 		}
@@ -118,26 +110,20 @@ void itemList::dropItemList(int dungeonNum, int callNum)
 			if (_vdropItem->monsterNum != MONSTERNUM::BOSS) // 획득범위가 보스 제외 모든 몬스터일때
 			{
 				// 드랍템 저장수만큼 난수 생성
-				cout << "_dropItem.size() : " << _d2DropItem.size() - _d2BossDropItem.size() << endl;
-				cout << "_d2DropItemChoice : " << _d2DropItemChoice << endl;
-				cout << "================================" << endl;
-				Sleep(1000);
 				if (_vdropItem->itemNum == _d2DropItemChoice)
 				{
-					cout << "[TEST] 드랍 아이템 INVENTORY로 저장 중..." << endl;
+					//cout << "[TEST] 드랍 아이템 INVENTORY로 저장 중..." << endl;
 					itemInfoSave(_vdropItem->division, _vdropItem->kind, _vdropItem->role, _vdropItem->itemName, _vdropItem->req_level, _vdropItem->req_pwr, _vdropItem->req_dex, _vdropItem->req_intel, _vdropItem->hpOption, _vdropItem->mpOption, _vdropItem->point, _vdropItem->pwrOption, _vdropItem->dexOption, _vdropItem->intelOption, _vdropItem->price);
+					break;
 				}
 			}
 			else
 			{
-				cout << "_dropItem.size() : " << _d2BossDropItem.size() << endl;
-				cout << "_d2BossDropItemChoice : " << _d2BossDropItemChoice << endl;
-				cout << "================================" << endl;
-				Sleep(1000);
 				if (_vdropItem->itemNum == _d2BossDropItemChoice)
 				{
-					cout << "[TEST] BOSS 드랍 아이템 INVENTORY로 저장 중..." << endl;
+					//cout << "[TEST] BOSS 드랍 아이템 INVENTORY로 저장 중..." << endl;
 					itemInfoSave(_vdropItem->division, _vdropItem->kind, _vdropItem->role, _vdropItem->itemName, _vdropItem->req_level, _vdropItem->req_pwr, _vdropItem->req_dex, _vdropItem->req_intel, _vdropItem->hpOption, _vdropItem->mpOption, _vdropItem->point, _vdropItem->pwrOption, _vdropItem->dexOption, _vdropItem->intelOption, _vdropItem->price);
+					break;
 				}
 			}
 		}
@@ -215,8 +201,6 @@ void itemList::purchaseMenu(int kindNum)
 				}
 			break;
 			case 2:
-				/*il_mm.charactorStatus(1, _roleNum, _name, _level, _max_hp, _add_max_hp, _hp, _max_mp, _add_max_mp, _mp, _pwr, _add_pwr, _mindmg, _dex, _add_dex, _intel, _add_intel, _exp, _totalExp, _money);
-				il_mm.store();*/
 				exit = 1;
 			break;
 			default:

@@ -60,9 +60,11 @@ private:
 	int _exp;
 	int _totalExp;
 	int _money;
-	int _userAttackPoint;
+	int _userAttackPoint = 0;
 	int _playerDodgePoint;
 	int _monsterDodgePoint;
+private:
+	bool exit = 0;
 public:
 	void dungeonMain(void);
 	void enterDungeon(int dungeonNum, char dungeonName[32]);
