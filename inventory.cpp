@@ -2,9 +2,6 @@
 #include "MainMenu.h"
 #include "userStats.h"
 
-MainMenu *inven_mm;
-userStats *inven_us;
-
 
 
 inventory::inventory()
@@ -15,7 +12,6 @@ inventory::inventory()
 
 inventory::~inventory()
 {
-	delete inven_mm;
 }
 
 void inventory::charactorStatus(int roleNum, char name[32], int level, int max_hp, int add_max_hp, int hp, int max_mp, int add_max_mp, int mp, int pwr, int add_pwr, int mindmg, int dex, int add_dex, int intel, int add_intel, int exp, int totalExp, int money)
@@ -176,7 +172,7 @@ void inventory::inventoryDetailView(void)
 
 void inventory::inventoryItemSell(void)
 {
-	inven_mm = new MainMenu;
+	//inven_mm = new MainMenu;
 	bool exit = 0;
 	int outputline = 1;
 	int itemSellMenuSelect;
@@ -215,9 +211,8 @@ void inventory::inventoryItemSell(void)
 						{
 							cout << _vinven->itemNum << "번 " << _vinven->itemName << "이 선택되었습니다." << endl;
 							// 아이템 판 가격(본래가격의 2분의 1 가격)만큼 최종소지금에서 증가
-							inven_mm->charactorStatus(1, _roleNum, _name, _level, _max_hp, _add_max_hp, _hp, _max_mp, _add_max_mp, _mp, _pwr, _add_pwr, _mindmg, _dex, _add_dex, _intel, _add_intel, _exp, _totalExp, _money);
 							_money = _money + (_vinven->price) / 2;
-							inven_mm->moneyInfo(_money);
+
 						}
 						break;
 					}
