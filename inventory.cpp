@@ -2,11 +2,8 @@
 #include "MainMenu.h"
 #include "userStats.h"
 
-
-
 inventory::inventory()
 {
-	//_inventory.resize(10);
 }
 
 
@@ -87,10 +84,11 @@ void inventory::itemInfoSave(ITEMDIVISION div, ITEMKIND kind, ITEMROLE role, cha
 	}
 }
 
-void inventory::inventoryView(void)
+int inventory::inventoryView(void)
 {
 	bool exit = 0;
 	int inventorySelectNum;
+	int sellPrice = _money;
 	while (exit != 1)
 	{
 		if (_inventory.size() == 0)
@@ -119,7 +117,7 @@ void inventory::inventoryView(void)
 				inventoryDetailView();
 			break;
 			case 2:
-				inventoryItemSell();
+				sellPrice = inventoryItemSell();
 			break;
 			case 3:
 				exit = 1;
@@ -129,6 +127,7 @@ void inventory::inventoryView(void)
 			break;
 		}
 	}
+	return sellPrice;
 }
 
 void inventory::inventoryDetailView(void)
@@ -170,9 +169,8 @@ void inventory::inventoryDetailView(void)
 	}
 }
 
-void inventory::inventoryItemSell(void)
+int inventory::inventoryItemSell(void)
 {
-	//inven_mm = new MainMenu;
 	bool exit = 0;
 	int outputline = 1;
 	int itemSellMenuSelect;
@@ -212,7 +210,6 @@ void inventory::inventoryItemSell(void)
 							cout << _vinven->itemNum << "번 " << _vinven->itemName << "이 선택되었습니다." << endl;
 							// 아이템 판 가격(본래가격의 2분의 1 가격)만큼 최종소지금에서 증가
 							_money = _money + (_vinven->price) / 2;
-
 						}
 						break;
 					}
@@ -241,6 +238,7 @@ void inventory::inventoryItemSell(void)
 			continue;
 		}
 	}
+	return _money;
 }
 
 void inventory::itemInit(void)

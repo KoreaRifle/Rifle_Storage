@@ -4,6 +4,9 @@ MainMenu mm;
 
 MainMenu::MainMenu()
 {
+	// 아이템 미획득 상태에서 던전에서 아이템 획득 시, 가방 진입해도 리스트 뜨지 않는 문제
+	// 아이템 장착 구현 필요
+	// 장착 시 관련 옵션 증가 필요
 }
 
 
@@ -130,17 +133,13 @@ void MainMenu::charactorStatus(int viewPoint, int roleNum, char name[32], int le
 	Sleep(500);
 }
 
-void MainMenu::moneyInfo(int money)
+void MainMenu::moneyInfo(int money) // [TEST] 지울 거
 {
-	cout << "[MainMenu] moneyInfo 진입" << endl;
+	/*cout << "[MainMenu] moneyInfo 진입" << endl;
 	for (_vriter = _role.begin(); _vriter != _role.end(); ++_vriter)
 	{
-		cout << "[전] money : " << _vriter->money << endl;
 		_vriter->money = money;
-		cout << "[후] money : " << _vriter->money << endl;
-		us.moneyInfo(_vriter->money);
-		break;
-	}
+	}*/
 }
 
 void MainMenu::itemInfoSave(int selectView, ITEMDIVISION div, ITEMKIND kind, ITEMROLE role, char itemName[32], int point, int req_level, int req_pwr, int req_dex, int req_intel, int hpOption, int mpOption, int pwrOption, int dexOption, int intelOption, int price)
@@ -228,7 +227,8 @@ void MainMenu::startMenu()
 				us.userInfo();
 			break;
 			case 5:
-				inven.inventoryView();
+				us.moneyInfo(inven.inventoryView());
+				Sleep(3000);
 			break;
 			default:
 				cout << "잘못된 번호를 입력하셨습니다. 다시 입력해주세요." << endl;
