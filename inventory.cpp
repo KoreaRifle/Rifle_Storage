@@ -36,7 +36,6 @@ void inventory::charactorStatus(int roleNum, char name[32], int level, int max_h
 	_exp = exp;
 	_totalExp = totalExp;
 	_money = money;
-	//inven_mm->charactorStatus(0, roleNum, name, level, max_hp, add_max_hp, hp, max_mp, add_max_mp, mp, pwr, add_pwr, mindmg, dex, add_dex, intel, add_intel, exp, totalExp, money);
 }
 
 void inventory::moneyInfo(int money)
@@ -44,44 +43,46 @@ void inventory::moneyInfo(int money)
 	_money = money;
 }
 
-void inventory::itemInfoSave(ITEMDIVISION div, ITEMKIND kind, ITEMROLE role, char itemName[32], int point, int req_level, int req_pwr, int req_dex, int req_intel, int hpOption, int mpOption, int pwrOption, int dexOption, int intelOption, int price)
+int inventory::itemInfoSave(vector<_tagITEM> _ITEM)
 {
-	if (_inventory.size() != 10) // 인벤토리에 최대 10개까지의 아이템 저장 가능
+	int num = 0;
+	if (_inventory.size() != _maxInventorySize) // 인벤토리에 최대 10개까지의 아이템 저장 가능
 	{
 		INVENTORY userInven;
-		
-		if (_inventory.size() == 0)
+
+		for (_vITEM = _ITEM.begin(); _vITEM != _ITEM.end(); ++_vITEM)
 		{
-			userInven.itemNum = _itemNum;
-			_itemNum++;
+			userInven.division = ITEMDIVISION(_vITEM->ti_division);
+			userInven.kind = ITEMKIND(_vITEM->ti_kind);
+			userInven.role = ITEMROLE(_vITEM->ti_itemRole);
+			strncpy_s(userInven.itemName, _vITEM->ti_itemName, 32);
+			userInven.point = _vITEM->ti_point;
+			userInven.req_level = _vITEM->ti_req_level;
+			userInven.req_pwr = _vITEM->ti_req_pwr;
+			userInven.req_dex = _vITEM->ti_req_dex;
+			userInven.req_intel = _vITEM->ti_req_intel;
+			userInven.hpOption = _vITEM->ti_hpOption;
+			userInven.mpOption = _vITEM->ti_mpOption;
+			userInven.pwrOption = _vITEM->ti_pwrOption;
+			userInven.dexOption = _vITEM->ti_dexOption;
+			userInven.intelOption = _vITEM->ti_intelOption;
+			userInven.price = _vITEM->ti_price;
+			userInven.itemNum = _inventory.size() + 1;
+			_inventory.push_back(userInven);
+			num++;
 		}
-		else
-		{
-			_itemNum = _inventory.size() + 1;
-			userInven.itemNum = _itemNum;
-		}
-		userInven.division = div;
-		userInven.kind = kind;
-		userInven.role = role;
-		strncpy_s(userInven.itemName, itemName, 32);
-		userInven.point = point;
-		userInven.req_level = req_level;
-		userInven.req_pwr = req_pwr;
-		userInven.req_dex = req_dex;
-		userInven.req_intel = req_intel;
-		userInven.hpOption = hpOption;
-		userInven.mpOption = mpOption;
-		userInven.pwrOption = pwrOption;
-		userInven.dexOption = dexOption;
-		userInven.intelOption = intelOption;
-		userInven.price = price;
-		_inventory.push_back(userInven);
 	}
 	else // 인벤토리에 10개 이상의 아이템 저장 시 공간 부족 발생
 	{
 		cout << "가방 공간이 부족합니다." << endl;
 		Sleep(1000);
 	}
+	return _inventory.size();
+}
+
+int inventory::maxInventorySizeReturn(void)
+{
+	return _maxInventorySize;
 }
 
 int inventory::inventoryView(void)

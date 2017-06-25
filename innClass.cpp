@@ -11,7 +11,7 @@ innClass::~innClass()
 {
 }
 
-void innClass::innMenu()
+int innClass::innMenu()
 {
 	system("cls");
 	bool exit = 0;
@@ -64,6 +64,7 @@ void innClass::innMenu()
 			continue;
 		}
 	}
+	return _money;
 }
 
 void innClass::charactorStatus(int roleNum, char name[32], int level, int max_hp, int add_max_hp, int hp, int max_mp, int add_max_mp, int mp, int pwr, int add_pwr, int mindmg, int dex, int add_dex, int intel, int add_intel, int exp, int totalExp, int money)
@@ -89,5 +90,10 @@ void innClass::charactorStatus(int roleNum, char name[32], int level, int max_hp
 	_add_intel = add_intel;
 	_exp = exp;
 	_totalExp = totalExp;
+	_money = money;
+}
+
+void innClass::moneyInfo(int money)
+{
 	_money = money;
 }

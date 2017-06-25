@@ -2,7 +2,7 @@
 #include <iostream>
 #include <time.h>
 #include <Windows.h>
-#include <vector>
+#include "stdafx.h"
 
 using namespace std;
 
@@ -93,16 +93,6 @@ class itemList
 private:
 	vector<ITEM> _storeItem;
 	vector<ITEM>::iterator _vstoreItem;
-	vector<ITEM> _dropItem;
-	vector<ITEM> _d1DropItem;
-	vector<ITEM> _d1BossDropItem;
-	vector<ITEM> _d2DropItem;
-	vector<ITEM> _d2BossDropItem;
-	vector<ITEM>::iterator _vdropItem;
-	vector<INVENTORY> _inventory;
-	vector<INVENTORY>::iterator _vinven;
-	int _d1BossItemArray[20];
-	int _d2BossItemArray[20];
 	int itemNum = 1;
 	int _level;
 	char _name[32];
@@ -124,14 +114,20 @@ private:
 	int _exp;
 	int _totalExp;
 	int _money;
+private:
+	vector<_tagITEM> _storeItemTemp;
+	vector<_tagITEM>::iterator _vstoreItemTemp;
+	int _inventorySize;
+	int _maxInventorySize;
 public:
-	void storeItemList(int kindNum);
-	void dropItemList(int dungeonNum, int callNum);
+	int storeItemList(int kindNum, int inventorySize, int maxInventorySize);
+	vector<_tagITEM> itemInfoReturn(void);
+	void eraseItemInfo(void);
 	void purchaseMenu(int kindNum);
-	void itemInit(int initNum);
+	void moneyInfo(int money);
+	void itemInit(void);
 	void charactorStatus(int roleNum, char name[32], int level, int max_hp, int add_max_hp, int hp, int max_mp, int add_max_mp, int mp, int pwr, int add_pwr, int mindmg, int dex, int add_dex, int intel, int add_intel, int exp, int totalExp, int money);
 	void storeItemSetting(void);
-	void dropItemSetting(void);
 	void itemInfoSave(ITEMDIVISION div, ITEMKIND kind, ITEMROLE role, char itemName[32], int point, int req_level, int req_pwr, int req_dex, int req_intel, int hpOption, int mpOption, int pwrOption, int dexOption, int intelOption, int price);
 	itemList();
 	~itemList();

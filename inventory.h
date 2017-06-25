@@ -4,10 +4,11 @@
 #include <Windows.h>
 #include <vector>
 #include "itemList.h"
+#include "stdafx.h"
 
 using namespace std;
 
-class inventory:public itemList
+class inventory :public itemList
 {
 private:
 	char _name[32];
@@ -49,10 +50,15 @@ private:
 	int _dexOption;
 	int _intelOption;
 	int _price;
+private:
+	vector<_tagITEM> _ITEM;
+	vector<_tagITEM>::iterator _vITEM;
+	int _maxInventorySize = 5;
 public:
 	void charactorStatus(int roleNum, char name[32], int level, int max_hp, int add_max_hp, int hp, int max_mp, int add_max_mp, int mp, int pwr, int add_pwr, int mindmg, int dex, int add_dex, int intel, int add_intel, int exp, int totalExp, int money);
 	void moneyInfo(int money);
-	void itemInfoSave(ITEMDIVISION div, ITEMKIND kind, ITEMROLE role, char itemName[32], int point, int req_level, int req_pwr, int req_dex, int req_intel, int hpOption, int mpOption, int pwrOption, int dexOption, int intelOption, int price);
+	int itemInfoSave(vector<_tagITEM> _ITEM);
+	int maxInventorySizeReturn(void);
 	int inventoryView(void);
 	void inventoryDetailView(void);
 	int inventoryItemSell(void);

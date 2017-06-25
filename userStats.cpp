@@ -41,9 +41,7 @@ void userStats::charactorStatus(int roleNum, char name[32], int level, int max_h
 
 void userStats::moneyInfo(int money)
 {
-	cout << "[Àü] money : " << _money << endl;
 	_money = money;
-	cout << "[ÈÄ] money : " << _money << endl;
 }
 
 void userStats::userInfo(void)

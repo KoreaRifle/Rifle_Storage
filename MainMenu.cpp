@@ -1,12 +1,10 @@
 #include "MainMenu.h"
 
-MainMenu mm;
-
 MainMenu::MainMenu()
 {
-	// 아이템 미획득 상태에서 던전에서 아이템 획득 시, 가방 진입해도 리스트 뜨지 않는 문제
 	// 아이템 장착 구현 필요
 	// 장착 시 관련 옵션 증가 필요
+	// 캐릭터 정보 넘길때 정보 유지 관련 수정 필요(캐릭정보 창에서 초기 스탯으로만 출력됨)
 }
 
 
@@ -58,6 +56,7 @@ void MainMenu::mainStart()
 // 최초 캐릭터 생성 시 기본 스탯 정의
 void MainMenu::output(int charNumber)
 {
+	maxInventorySize = inven.maxInventorySizeReturn();
 	for (_vriter = _role.begin(); _vriter != _role.end(); ++_vriter)
 	{
 		if (_vriter->roleCharactor != charNumber) continue;
@@ -119,6 +118,9 @@ void MainMenu::charactorStatus(int viewPoint, int roleNum, char name[32], int le
 			cout << "민첩 : " << _vriter->dex << endl;
 			cout << "지능 : " << _vriter->intel << endl;
 			us.charactorStatus(_vriter->roleCharactor, _vriter->name, _vriter->level, _vriter->max_hp, _vriter->add_max_hp, _vriter->hp, _vriter->max_mp, _vriter->add_max_mp, _vriter->mp, _vriter->pwr, _vriter->add_pwr, _vriter->mindmg, _vriter->dex, _vriter->add_dex, _vriter->intel, _vriter->add_intel, _vriter->exp, _vriter->totalExp, _vriter->money);
+			dg.charactorStatus(_vriter->roleCharactor, _vriter->name, _vriter->level, _vriter->max_hp, _vriter->add_max_hp, _vriter->hp, _vriter->max_mp, _vriter->add_max_mp, _vriter->mp, _vriter->pwr, _vriter->add_pwr, _vriter->mindmg, _vriter->dex, _vriter->add_dex, _vriter->intel, _vriter->add_intel, _vriter->exp, _vriter->totalExp, _vriter->money);
+			inn.charactorStatus(_vriter->roleCharactor, _vriter->name, _vriter->level, _vriter->max_hp, _vriter->add_max_hp, _vriter->hp, _vriter->max_mp, _vriter->add_max_mp, _vriter->mp, _vriter->pwr, _vriter->add_pwr, _vriter->mindmg, _vriter->dex, _vriter->add_dex, _vriter->intel, _vriter->add_intel, _vriter->exp, _vriter->totalExp, _vriter->money);
+			il.charactorStatus(_vriter->roleCharactor, _vriter->name, _vriter->level, _vriter->max_hp, _vriter->add_max_hp, _vriter->hp, _vriter->max_mp, _vriter->add_max_mp, _vriter->mp, _vriter->pwr, _vriter->add_pwr, _vriter->mindmg, _vriter->dex, _vriter->add_dex, _vriter->intel, _vriter->add_intel, _vriter->exp, _vriter->totalExp, _vriter->money);
 			inven.charactorStatus(_vriter->roleCharactor, _vriter->name, _vriter->level, _vriter->max_hp, _vriter->add_max_hp, _vriter->hp, _vriter->max_mp, _vriter->add_max_mp, _vriter->mp, _vriter->pwr, _vriter->add_pwr, _vriter->mindmg, _vriter->dex, _vriter->add_dex, _vriter->intel, _vriter->add_intel, _vriter->exp, _vriter->totalExp, _vriter->money);
 			inven.moneyInfo(_vriter->money);
 			Sleep(3000);
@@ -126,6 +128,9 @@ void MainMenu::charactorStatus(int viewPoint, int roleNum, char name[32], int le
 		else if (viewPoint == 1)
 		{
 			us.charactorStatus(_vriter->roleCharactor, _vriter->name, _vriter->level, _vriter->max_hp, _vriter->add_max_hp, _vriter->hp, _vriter->max_mp, _vriter->add_max_mp, _vriter->mp, _vriter->pwr, _vriter->add_pwr, _vriter->mindmg, _vriter->dex, _vriter->add_dex, _vriter->intel, _vriter->add_intel, _vriter->exp, _vriter->totalExp, _vriter->money);
+			dg.charactorStatus(_vriter->roleCharactor, _vriter->name, _vriter->level, _vriter->max_hp, _vriter->add_max_hp, _vriter->hp, _vriter->max_mp, _vriter->add_max_mp, _vriter->mp, _vriter->pwr, _vriter->add_pwr, _vriter->mindmg, _vriter->dex, _vriter->add_dex, _vriter->intel, _vriter->add_intel, _vriter->exp, _vriter->totalExp, _vriter->money);
+			inn.charactorStatus(_vriter->roleCharactor, _vriter->name, _vriter->level, _vriter->max_hp, _vriter->add_max_hp, _vriter->hp, _vriter->max_mp, _vriter->add_max_mp, _vriter->mp, _vriter->pwr, _vriter->add_pwr, _vriter->mindmg, _vriter->dex, _vriter->add_dex, _vriter->intel, _vriter->add_intel, _vriter->exp, _vriter->totalExp, _vriter->money);
+			il.charactorStatus(_vriter->roleCharactor, _vriter->name, _vriter->level, _vriter->max_hp, _vriter->add_max_hp, _vriter->hp, _vriter->max_mp, _vriter->add_max_mp, _vriter->mp, _vriter->pwr, _vriter->add_pwr, _vriter->mindmg, _vriter->dex, _vriter->add_dex, _vriter->intel, _vriter->add_intel, _vriter->exp, _vriter->totalExp, _vriter->money);
 			inven.charactorStatus(_vriter->roleCharactor, _vriter->name, _vriter->level, _vriter->max_hp, _vriter->add_max_hp, _vriter->hp, _vriter->max_mp, _vriter->add_max_mp, _vriter->mp, _vriter->pwr, _vriter->add_pwr, _vriter->mindmg, _vriter->dex, _vriter->add_dex, _vriter->intel, _vriter->add_intel, _vriter->exp, _vriter->totalExp, _vriter->money);
 			inven.moneyInfo(_vriter->money);
 		}
@@ -133,23 +138,22 @@ void MainMenu::charactorStatus(int viewPoint, int roleNum, char name[32], int le
 	Sleep(500);
 }
 
-void MainMenu::moneyInfo(int money) // [TEST] 지울 거
+void MainMenu::moneyInfo(int money)
 {
-	/*cout << "[MainMenu] moneyInfo 진입" << endl;
 	for (_vriter = _role.begin(); _vriter != _role.end(); ++_vriter)
 	{
 		_vriter->money = money;
-	}*/
+		us.moneyInfo(_vriter->money);
+		inn.moneyInfo(_vriter->money);
+		il.moneyInfo(_vriter->money);
+		inven.moneyInfo(_vriter->money);
+		break;
+	}
 }
 
-void MainMenu::itemInfoSave(int selectView, ITEMDIVISION div, ITEMKIND kind, ITEMROLE role, char itemName[32], int point, int req_level, int req_pwr, int req_dex, int req_intel, int hpOption, int mpOption, int pwrOption, int dexOption, int intelOption, int price)
+void MainMenu::itemInfoSave(vector<_tagITEM> _ITEM)
 {
-	if (selectView == 0)
-	{
-		dg.itemInfoSave(div, kind, role, itemName, point, req_level, req_pwr, req_dex, req_intel, hpOption, mpOption, pwrOption, dexOption, intelOption, price);
-		us.itemInfoSave(div, kind, role, itemName, point, req_level, req_pwr, req_dex, req_intel, hpOption, mpOption, pwrOption, dexOption, intelOption, price);
-		inven.itemInfoSave(div, kind, role, itemName, point, req_level, req_pwr, req_dex, req_intel, hpOption, mpOption, pwrOption, dexOption, intelOption, price);
-	}
+	if (_ITEM.size() > 0) inventorySize = inven.itemInfoSave(_ITEM);
 }
 
 void MainMenu::setUp(int charactorSelect, char charName[32])
@@ -221,14 +225,13 @@ void MainMenu::startMenu()
 				store();
 			break;
 			case 3:
-				inn.innMenu();
+				moneyInfo(inn.innMenu());
 			break;
 			case 4:
 				us.userInfo();
 			break;
 			case 5:
-				us.moneyInfo(inven.inventoryView());
-				Sleep(3000);
+				moneyInfo(inven.inventoryView());
 			break;
 			default:
 				cout << "잘못된 번호를 입력하셨습니다. 다시 입력해주세요." << endl;
@@ -239,12 +242,15 @@ void MainMenu::startMenu()
 
 void MainMenu::dungeonSelect(void)
 {
-	dg.dungeonMain();
+	moneyInfo(dg.dungeonMain(inventorySize, maxInventorySize));
+	itemInfoSave(dg.itemInfoReturn());
 }
 
 void MainMenu::store(void)
 {
-	while (true)
+	il.eraseItemInfo();
+	int exit = 0;
+	while (exit != 1)
 	{
 		int storeMenuSelect;
 		cout << "========== STORE ==========" << endl;
@@ -254,16 +260,17 @@ void MainMenu::store(void)
 		switch (storeMenuSelect)
 		{
 			case 1:
-				il.storeItemList(storeMenuSelect);
+				moneyInfo(il.storeItemList(storeMenuSelect, inventorySize, maxInventorySize));
 			break;
 			case 2:
-				il.storeItemList(storeMenuSelect);
+				moneyInfo(il.storeItemList(storeMenuSelect, inventorySize, maxInventorySize));
 			break;
 			case 3:
-				il.storeItemList(storeMenuSelect);
+				moneyInfo(il.storeItemList(storeMenuSelect, inventorySize, maxInventorySize));
 			break;
 			case 4:
-				startMenu();
+				exit = 1;
+				itemInfoSave(il.itemInfoReturn());
 			break;
 			default:
 				cout << "잘못된 번호를 입력하셨습니다. 다시 입력해주세요." << endl;

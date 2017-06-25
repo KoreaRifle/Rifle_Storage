@@ -3,6 +3,7 @@
 #include<time.h>
 #include<Windows.h>
 #include<vector>
+#include "stdafx.h"
 #include "userStats.h"
 #include "itemList.h"
 
@@ -32,7 +33,9 @@ struct tagMONSTERSTATS
 	int monsterAttackPoint;
 };
 
-class dungeonClass
+
+
+class dungeonClass :public itemList
 {
 private:
 	vector<tagMONSTERSTATS> _monster;
@@ -65,17 +68,35 @@ private:
 	int _monsterDodgePoint;
 private:
 	bool exit = 0;
+private:
+	vector<ITEM> _dropItem;
+	vector<ITEM> _d1DropItem;
+	vector<ITEM> _d1BossDropItem;
+	vector<ITEM> _d2DropItem;
+	vector<ITEM> _d2BossDropItem;
+	vector<ITEM>::iterator _vdropItem;
+	int _d1BossItemArray[20];
+	int _d2BossItemArray[20];
+private:
+	vector<_tagITEM> _ITEM;
+	vector<_tagITEM>::iterator _vITEM;
+	int _inventorySize;
+	int _maxInventorySize;
 public:
-	void dungeonMain(void);
+	int dungeonMain(int inventorySize, int maxInventorySize);
 	void enterDungeon(int dungeonNum, char dungeonName[32]);
-	void setMonster(void);
 	void charactorStatus(int roleNum, char name[32], int level, int max_hp, int add_max_hp, int hp, int max_mp, int add_max_mp, int mp, int pwr, int add_pwr, int mindmg, int dex, int add_dex, int intel, int add_intel, int exp, int totalExp, int money);
 	void itemInfoSave(ITEMDIVISION div, ITEMKIND kind, ITEMROLE role, char itemName[32], int point, int req_level, int req_pwr, int req_dex, int req_intel, int hpOption, int mpOption, int pwrOption, int dexOption, int intelOption, int price);
+	vector<_tagITEM> itemInfoReturn(void);
 	void levelUp(void);
 	void monsterAttack(int monsterAttackPoint);
 	void userInterface(void);
 	void attackPoint(int mindmg);
 	void playerDead(void);
+public:
+	void setMonster(void);
+	void dropItemSetting(void);
+	void dropItemList(int dungeonNum, int callNum);
 	dungeonClass();
 	~dungeonClass();
 };
