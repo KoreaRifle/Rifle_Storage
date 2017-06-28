@@ -71,8 +71,6 @@ int itemList::storeItemList(int kindNum, int inventorySize, int maxInventorySize
 
 vector<_tagITEM> itemList::itemInfoReturn(void)
 {
-	cout << "[itemList] _storeItemTemp °ª : " << _storeItemTemp.size() << endl;
-	Sleep(1000);
 	return _storeItemTemp;
 }
 

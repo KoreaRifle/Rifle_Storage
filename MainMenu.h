@@ -67,6 +67,7 @@ public:
 	void mainStart(void);
 	void setUp(int charactorSelect, char _charName[32]);
 	void output(int charNumber);
+	void charactorStatus(vector<tagCharactorStats> _vCS);
 	void charactorStatus(int viewPoint, int roleNum, char name[32], int level, int max_hp, int add_max_hp, int hp, int max_mp, int add_max_mp, int mp, int pwr, int add_pwr, int mindmg, int dex, int add_dex, int intel, int add_intel, int exp, int totalExp, int money);
 	void moneyInfo(int money);
 	void itemInfoSave(vector<_tagITEM> _ITEM);

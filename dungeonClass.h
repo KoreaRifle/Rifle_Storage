@@ -97,6 +97,7 @@ public:
 	void setMonster(void);
 	void dropItemSetting(void);
 	void dropItemList(int dungeonNum, int callNum);
+	void moneyInfo(int money);
 	dungeonClass();
 	~dungeonClass();
 };

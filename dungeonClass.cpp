@@ -754,3 +754,8 @@ void dungeonClass::dropItemList(int dungeonNum, int callNum)
 		}
 	}
 }
+
+void dungeonClass::moneyInfo(int money)
+{
+	_money = money;
+}

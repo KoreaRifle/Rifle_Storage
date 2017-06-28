@@ -2,9 +2,11 @@
 
 MainMenu::MainMenu()
 {
-	// 아이템 장착 구현 필요
+	// 아이템 장착 구현 필요(현재 좌측무기쪽만 구현)
 	// 장착 시 관련 옵션 증가 필요
 	// 캐릭터 정보 넘길때 정보 유지 관련 수정 필요(캐릭정보 창에서 초기 스탯으로만 출력됨)
+	// 아이템 강화 기능
+	// 도전과제 기능 추가
 }
 
 
@@ -79,6 +81,34 @@ void MainMenu::output(int charNumber)
 	}
 }
 
+void MainMenu::charactorStatus(vector<tagCharactorStats> _vCS)
+{
+	for (_vriter = _vCS.begin(); _vriter != _vCS.end(); ++_vriter)
+	{
+		tagCharactorStats testRole;
+		testRole.roleCharactor = ROLE(_vriter->roleCharactor);
+		strncpy_s(testRole.name, _vriter->name, 32);
+		testRole.level = _vriter->level;
+		testRole.max_hp = _vriter->max_hp;
+		testRole.add_max_hp = _vriter->add_max_hp;
+		testRole.hp = _vriter->hp;
+		testRole.max_mp = _vriter->max_mp;
+		testRole.add_max_mp = _vriter->add_max_mp;
+		testRole.mp = _vriter->mp;
+		testRole.pwr = _vriter->pwr;
+		testRole.add_pwr = _vriter->add_pwr;
+		testRole.mindmg = _vriter->mindmg;
+		testRole.dex = _vriter->dex;
+		testRole.add_dex = _vriter->add_dex;
+		testRole.intel = _vriter->intel;
+		testRole.add_intel = _vriter->add_intel;
+		testRole.exp = _vriter->exp;
+		testRole.totalExp = _vriter->totalExp;
+		testRole.money = _vriter->money;
+		us.charactorStatus(_vriter->roleCharactor, _vriter->name, _vriter->level, _vriter->max_hp, _vriter->add_max_hp, _vriter->hp, _vriter->max_mp, _vriter->add_max_mp, _vriter->mp, _vriter->pwr, _vriter->add_pwr, _vriter->mindmg, _vriter->dex, _vriter->add_dex, _vriter->intel, _vriter->add_intel, _vriter->exp, _vriter->totalExp, _vriter->money);
+	}
+}
+
 void MainMenu::charactorStatus(int viewPoint, int roleNum, char name[32], int level, int max_hp, int add_max_hp, int hp, int max_mp, int add_max_mp, int mp, int pwr, int add_pwr, int mindmg, int dex, int add_dex, int intel, int add_intel, int exp, int totalExp, int money)
 {
 	tagCharactorStats USER;
@@ -143,6 +173,7 @@ void MainMenu::moneyInfo(int money)
 	for (_vriter = _role.begin(); _vriter != _role.end(); ++_vriter)
 	{
 		_vriter->money = money;
+		dg.moneyInfo(_vriter->money);
 		us.moneyInfo(_vriter->money);
 		inn.moneyInfo(_vriter->money);
 		il.moneyInfo(_vriter->money);
@@ -168,6 +199,7 @@ void MainMenu::setUp(int charactorSelect, char charName[32])
 		WARRIOR1.hp = 200;
 		WARRIOR1.max_mp = 50;
 		WARRIOR1.mp = 50;
+		// 손쉬운 아이템 획득을 위해 pwr 값 조정
 		WARRIOR1.pwr = 1000;////////////////////////////////////////////////////
 		WARRIOR1.dex = 5;
 		WARRIOR1.intel = 2;

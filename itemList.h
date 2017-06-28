@@ -73,6 +73,7 @@ struct INVENTORY
 	ITEMDIVISION division;
 	ITEMKIND kind;
 	ITEMROLE role;
+	int equipPart = 0; // 장착 부위 번호
 	int itemNum;
 	char itemName[32];
 	int point;
